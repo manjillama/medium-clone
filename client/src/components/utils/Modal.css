@@ -1,0 +1,101 @@
+#loginModalBtn:hover{
+  cursor: pointer;
+}
+
+.modal {
+    overflow-x: auto;
+    overflow-y: auto;
+    bottom: 0;
+    left: 0;
+    outline: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.modal-backdrop {
+  background-color: #fff;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  opacity: .5;
+}
+
+.modal .modal-dialog {
+  background-color: #D7EFEE!important;
+  -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  margin: auto;
+  width: 100%;
+  max-width: 720px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  border-radius: 5px;
+}
+
+.modal .modal-dialog .modal-content {
+  border: none;
+  border-radius: 4px;
+  padding: 0 0 15px 0;
+}
+
+.modal-content .modal-body {
+  padding: 0;
+  position: relative;
+}
+
+.closeModal {
+  cursor: pointer;
+  position: absolute;
+  right: 5px;
+  top: -15px;
+}
+
+.login-holder {
+  text-align: center;
+}
+
+.login-holder h1{
+  font-size: 30px;
+}
+
+.login-holder h2{
+  color: rgba(0,0,0,.76)!important;
+  font-size: 15px;
+  font-weight: 400;
+  max-width: 360px!important;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.col-max-300{
+  margin: 0 auto;
+  max-width: 300px!important;
+}
+.modal .sm-caption input{
+  color: rgba(0,0,0,.68);
+  font-size: 20px!important;
+}
+
+.modal .sm-caption .input-group{
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 768px){
+  .login-holder .form {
+    flex: 0 0 100%;
+  }
+  .login-holder .modal-info-col {
+    display: none;
+  }
+  .modal .modal-dialog {
+    top: 0;
+    left: 0;
+    height: 100%;
+    transform: translate(0);
+  }
+}
