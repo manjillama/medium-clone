@@ -7,19 +7,12 @@ const Blogger = sequelize.define('bloggers', {
     autoIncrement: true,
     primaryKey: true
   },
-  email: {
-    type: Sequelize.STRING,
-  },
   bio: {
     type: Sequelize.TEXT,
   }
 }, {
   // creates table in database in snake_case
-  underscored: true,
-  defaultScope: {
-    // Excluding passwor from rest api
-    attributes: { exclude: ['password'] },
-  }
+  underscored: true
 });
 
 module.exports = Blogger;

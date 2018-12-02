@@ -15,8 +15,7 @@ class Header extends Component{
           <div className="tb-flex0">
             <ul className="list-inline">
               <li>Search</li>
-              <li id="loginModalBtn" onClick={this.triggerModal.bind(this)}>Sigin in</li>
-              <li>Get Started</li>
+              <li><button className="btn--p-hollow mjl-btn" onClick={this.triggerModal.bind(this)}>Get Started</button></li>
 
               <li>Notification</li>
               <li className="popover-p-wrap">

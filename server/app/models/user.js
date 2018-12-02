@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 const bcrypt = require("bcrypt");
 
 const User = sequelize.define('users', {
-  username: {
+  email: {
     type: Sequelize.STRING,
     unique: true,
     allowNull: false,

@@ -14,25 +14,24 @@ function tokenForUser(user){
   * sub stands for subject, as to whom does this token belongs to
   * iat stands for issued at time.
   */
-  return jwt.encode({ sub: user.username, iat: timestamp }, config.secret);
+  return jwt.encode({ sub: user.email, iat: timestamp }, config.secret);
 }
 
 exports.signIn = (req, res) => {
   res.send({ token: tokenForUser(req.user) });
 }
 
-exports.signUp = async (req, res) => {
+exports.signUp = (req, res) => {
   let user = {
-    username : req.body.username,
+    email : req.body.email,
     password: req.body.password,
     role: 'ROLE_BLOGGER',
     created_at: new Date().getTime()
   };
 
   let blogger = {
-    email : req.body.email,
     bio : req.body.bio,
-    user_username: req.body.username
+    user_email: req.body.email
   }
 
   // Persisting in database
