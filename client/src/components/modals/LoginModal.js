@@ -5,6 +5,8 @@ import './Modal.css';
 import { Provider } from 'react-redux';
 import { store } from '../../index';
 import SignInForm from '../forms/SignInForm';
+import SignUpForm from '../forms/SignUpForm';
+
 
 class LoginModal extends Component{
   constructor(props){
@@ -52,22 +54,7 @@ class LoginModal extends Component{
           <h2>Create an account to personalize your homepage, follow your favorite authors, publications and more.</h2>
           <div className="sm-caption">
             <div className="col-max-300">
-              <form>
-                <div className="input-group">
-                  <label>Your full name</label>
-                  <input type="text" className="mjl-input input--underlined"/>
-                </div>
-                <div className="input-group">
-                  <label>Your email</label>
-                  <input type="email" className="mjl-input input--underlined"/>
-                </div>
-                <div className="input-group">
-                  <label>Your password</label>
-                  <input type="password" className="mjl-input input--underlined"/>
-                </div>
-                <br/>
-                <button className="mjl-btn btn--dark">Sign Up</button>
-              </form>
+              <SignUpForm />
             </div>
             <br/>
             <p>Already have an account? <button className="btn-chromeless text--primary" onClick={this.toggleContent}>Sign In</button></p>
