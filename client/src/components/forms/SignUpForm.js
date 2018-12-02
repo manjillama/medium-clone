@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form'
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
 
 const email = value =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
@@ -27,41 +28,53 @@ class SignUpForm extends React.Component{
       </div>
     );
   }
+
+  componentDidMount(){
+    console.log(this.props.history);
+  }
+
   onSubmit = formProps => {
     this.props.signUp(formProps, () => {
-      console.log("Redirect...");
+      console.log('Redirect...');
     });
   }
 
+  reRoute(){
+    this.props.history.push('/');
+  }
   render(){
     const { handleSubmit, submitting, invalid } = this.props;
     return (
-        <form onSubmit={handleSubmit(this.onSubmit)}>
-          <Field
-          type="text"
-          field="input"
-          label="Your full name"
-          name="fullname"
-          component={this.renderField}/>
+        <div>
+          <button className="mjl-button" onClick={this.reRoute.bind(this)}>BIG ASS BUTTON</button>
 
-          <Field
-          type="input"
-          validate={email}
-          field="input"
-          label="Your email"
-          name="email"
-          component={this.renderField}/>
+          <form onSubmit={handleSubmit(this.onSubmit)}>
+            <Field
+            type="text"
+            field="input"
+            label="Your full name"
+            name="fullname"
+            component={this.renderField}/>
 
-          <Field
-          type="password"
-          field="input"
-          label="Your password"
-          name="password"
-          component={this.renderField}/>
+            <Field
+            type="input"
+            validate={email}
+            field="input"
+            label="Your email"
+            name="email"
+            component={this.renderField}/>
 
-          <br/>
-          <button type="submit" disabled={invalid || submitting} className="mjl-btn btn--dark">Sign Up</button>
-        </form>
+            <Field
+            type="password"
+            field="input"
+            label="Your password"
+            name="password"
+            component={this.renderField}/>
+
+            <br/>
+            <button type="submit" disabled={invalid || submitting} className="mjl-btn btn--dark">Sign Up</button>
+          </form>
+        </div>
     )
   }
 };
@@ -91,4 +104,5 @@ export default compose(
     validate,
     form: 'signUpForm'
   }),
+  withRouter
 )(SignUpForm);
