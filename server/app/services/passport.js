@@ -18,7 +18,7 @@ passport.use(new LocalStrategy(
   * Otherwise call done with argument false
   */
   function(username, password, done) {
-    User.findById(username).then(user => {
+    User.findByPk(username).then(user => {
       if(user){
         if(user.validPassword(password))
           return done(null, user);
@@ -47,7 +47,7 @@ const jwtOptions = {
 * Able to successfulyy authenticate the user
 */
 passport.use(new JwtStrategy(jwtOptions, function(payload, done){
-  User.findById(payload.sub).then(user => {
+  User.findByPk(payload.sub).then(user => {
     if(user)
       done(null, user);
     done(null, false)
