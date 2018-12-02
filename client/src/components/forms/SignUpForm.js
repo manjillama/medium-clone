@@ -3,7 +3,6 @@ import { Field, reduxForm } from 'redux-form'
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { withRouter } from 'react-router-dom';
 
 const email = value =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
@@ -39,14 +38,14 @@ class SignUpForm extends React.Component{
     });
   }
 
-  reRoute(){
-    this.props.history.push('/');
+  reRoute = () => {
+    window.location.href = "/";
   }
   render(){
     const { handleSubmit, submitting, invalid } = this.props;
     return (
         <div>
-          <button className="mjl-button" onClick={this.reRoute.bind(this)}>BIG ASS BUTTON</button>
+          <button className="mjl-button" onClick={this.reRoute}>BIG ASS BUTTON</button>
 
           <form onSubmit={handleSubmit(this.onSubmit)}>
             <Field
@@ -103,6 +102,5 @@ export default compose(
   reduxForm({
     validate,
     form: 'signUpForm'
-  }),
-  withRouter
+  })
 )(SignUpForm);

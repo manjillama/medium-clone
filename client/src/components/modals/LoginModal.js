@@ -7,7 +7,6 @@ import { store } from '../../index';
 import SignInForm from '../forms/SignInForm';
 import SignUpForm from '../forms/SignUpForm';
 
-import { BrowserRouter, Route } from 'react-router-dom';
 class LoginModal extends Component{
   constructor(props){
     super(props);
@@ -115,9 +114,7 @@ class LoginModal extends Component{
   _render(){
     ReactDOM.render(
       <Provider store={store}>
-        <BrowserRouter>
-          <Route path="/" component={this.createModal.bind(this)} />
-        </BrowserRouter>
+        {this.createModal()}
       </Provider>,
       this.modalTarget,
     );
