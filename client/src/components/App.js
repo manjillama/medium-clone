@@ -13,6 +13,7 @@ export default class App extends React.Component{
   closeModal(){
     this.setState({openLoginModal: false});
   }
+  
   render(){
     return (
       <div className="mjl-container">

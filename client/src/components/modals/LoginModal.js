@@ -11,9 +11,15 @@ import SignUpForm from '../forms/SignUpForm';
 class LoginModal extends Component{
   constructor(props){
     super(props);
-    this.state = {signInModal: true, modalState:this.props.modalState, hasModalOpened: 0};
+    /*
+     States
+      - signInModal: change modal content between signin form and signup form
+      - modalState: open and close modal
+    */
+    this.state = {signInModal: true, modalState:this.props.modalState};
     this.toggleContent = this.toggleContent.bind(this);
   }
+
   componentDidMount(){
     this.modalTarget = document.createElement('div');
     document.body.appendChild(this.modalTarget);
@@ -38,18 +44,15 @@ class LoginModal extends Component{
     this.setState({signInModal: !this.state.signInModal}, () => { this._render() });
   }
 
-  closeModal(){
-    this.props.closeModal();
-  }
-
   handleBlur = e => {
     let modalContent = document.getElementsByClassName('modal-dialog')[0];
     if(modalContent){
       if(!modalContent.contains(e.target)){
-        this.closeModal();
+        this.props.closeModal();
       }
     }
   }
+
   toggleModalContent(){
     if(this.state.signInModal){
       return (
@@ -83,15 +86,16 @@ class LoginModal extends Component{
   }
 
   createModal(){
+    const background = this.state.signInModal ? '#D7EFEE' : '#E8F3EC';
     if(this.state.modalState){
       return (
         <div id="loginModalWrapper">
           <div className="modal-backdrop"></div>
           <div className="modal">
-            <div className="modal-dialog">
+            <div className="modal-dialog" style={{backgroundColor: background}}>
               <div className="modal-content">
                 <div className="modal-body">
-                  <svg className="closeModal" width="29" height="29" onClick={this.closeModal.bind(this)}>
+                  <svg className="closeModal" width="29" height="29" onClick={this.props.closeModal}>
                     <path d="M20.13 8.11l-5.61 5.61-5.609-5.61-.801.801 5.61 5.61-5.61 5.61.801.8 5.61-5.609 5.61 5.61.8-.801-5.609-5.61 5.61-5.61" fillRule="evenodd"></path>
                   </svg>
                   <div className="login-holder">
