@@ -29,7 +29,7 @@ class SignUpForm extends React.Component{
   }
   onSubmit = formProps => {
     this.props.signUp(formProps, () => {
-      console.log("Redirect...");
+      window.location.href = "/";
     });
   }
 
