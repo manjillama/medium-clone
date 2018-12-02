@@ -11,27 +11,45 @@ import SignUpForm from '../forms/SignUpForm';
 class LoginModal extends Component{
   constructor(props){
     super(props);
-    this.state = {signInModal: true};
+    this.state = {signInModal: true, modalState:this.props.modalState, hasModalOpened: 0};
     this.toggleContent = this.toggleContent.bind(this);
   }
-
   componentDidMount(){
     this.modalTarget = document.createElement('div');
     document.body.appendChild(this.modalTarget);
+
+    document.addEventListener('click', this.handleBlur, true);
     this._render();
   }
 
   componentWillUnmount(){
     ReactDOM.unmountComponentAtNode(this.modalTarget);
     document.body.removeChild(this.modalTarget);
+    document.removeEventListener('click', this.handleBlur, true);
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({modalState: nextProps.modalState},()=>{
+      this._render();
+    })
   }
 
   toggleContent(){
-    this.setState({
-      signInModal: !this.state.signInModal
-    }, () => { this._render() });
+    this.setState({signInModal: !this.state.signInModal}, () => { this._render() });
   }
 
+  closeModal(){
+    this.props.closeModal();
+  }
+
+  handleBlur = e => {
+    let modalContent = document.getElementsByClassName('modal-dialog')[0];
+    if(modalContent){
+      if(!modalContent.contains(e.target)){
+        this.closeModal();
+      }
+    }
+  }
   toggleModalContent(){
     if(this.state.signInModal){
       return (
@@ -65,25 +83,29 @@ class LoginModal extends Component{
   }
 
   createModal(){
-    return (
-      <div id="loginModalWrapper" style={{display:'none'}}>
-        <div className="modal-backdrop"></div>
-        <div className="modal">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-body">
-                <svg className="closeModal" width="29" height="29">
-                  <path d="M20.13 8.11l-5.61 5.61-5.609-5.61-.801.801 5.61 5.61-5.61 5.61.801.8 5.61-5.609 5.61 5.61.8-.801-5.609-5.61 5.61-5.61" fillRule="evenodd"></path>
-                </svg>
-                <div className="login-holder">
-                  {this.toggleModalContent()}
+    if(this.state.modalState){
+      return (
+        <div id="loginModalWrapper">
+          <div className="modal-backdrop"></div>
+          <div className="modal">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-body">
+                  <svg className="closeModal" width="29" height="29" onClick={this.closeModal.bind(this)}>
+                    <path d="M20.13 8.11l-5.61 5.61-5.609-5.61-.801.801 5.61 5.61-5.61 5.61.801.8 5.61-5.609 5.61 5.61.8-.801-5.609-5.61 5.61-5.61" fillRule="evenodd"></path>
+                  </svg>
+                  <div className="login-holder">
+                    {this.toggleModalContent()}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }else{
+      return <noscript/>;
+    }
   }
 
   _render(){
@@ -91,7 +113,7 @@ class LoginModal extends Component{
       <Provider store={store}>
         {this.createModal()}
       </Provider>,
-      this.modalTarget
+      this.modalTarget,
     );
   }
 

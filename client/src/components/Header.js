@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import './Header.css';
 
 class Header extends Component{
+  triggerModal(){
+    this.props.triggerModal();
+  }
   render(){
     return (
       <div>
@@ -12,7 +15,7 @@ class Header extends Component{
           <div className="tb-flex0">
             <ul className="list-inline">
               <li>Search</li>
-              <li id="loginModalBtn">Sigin in</li>
+              <li id="loginModalBtn" onClick={this.triggerModal.bind(this)}>Sigin in</li>
               <li>Get Started</li>
 
               <li>Notification</li>
