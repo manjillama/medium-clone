@@ -8,6 +8,7 @@ const router = require('./app/router');
 const bodyParser = require('body-parser');
 const createDDL = require('./app/config/createDDL');
 const createRelationships = require('./app/config/createRelationships');
+var cors = require('cors');
 
 sequelize
   .authenticate()
@@ -23,6 +24,7 @@ sequelize
 
 // App
 const app = express();
+app.use(cors());
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies

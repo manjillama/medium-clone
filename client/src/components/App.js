@@ -1,8 +1,9 @@
 import React from 'react';
 import Header from './Header';
 import LoginModal from './modals/LoginModal';
+import { connect } from 'react-redux';
 
-export default class App extends React.Component{
+class App extends React.Component{
   constructor(props){
     super(props);
     this.state = { openLoginModal: false}
@@ -13,7 +14,9 @@ export default class App extends React.Component{
   closeModal(){
     this.setState({openLoginModal: false});
   }
-  
+  componentDidUpdate(){
+    console.log('Called', this.props.auth);
+  }
   render(){
     return (
       <div className="mjl-container">
@@ -24,3 +27,8 @@ export default class App extends React.Component{
     )
   }
 };
+
+function mapStateToProps(state){
+  return {auth: state.auth};
+}
+export default connect(mapStateToProps)(App);

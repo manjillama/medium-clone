@@ -7,7 +7,6 @@ import { store } from '../../index';
 import SignInForm from '../forms/SignInForm';
 import SignUpForm from '../forms/SignUpForm';
 
-
 class LoginModal extends Component{
   constructor(props){
     super(props);
@@ -61,7 +60,7 @@ class LoginModal extends Component{
           <h2>Sign in to access your personalized homepage, follow authors and topics you love.</h2>
           <div className="sm-caption">
             <div className="col-max-300">
-              <SignInForm />
+              <SignInForm/>
             </div>
             <br/>
             <p>No account? <button className="btn-chromeless text--primary" onClick={this.toggleContent}>Create One</button></p>
@@ -75,7 +74,7 @@ class LoginModal extends Component{
           <h2>Create an account to personalize your homepage, follow your favorite authors, publications and more.</h2>
           <div className="sm-caption">
             <div className="col-max-300">
-              <SignUpForm />
+              <SignUpForm/>
             </div>
             <br/>
             <p>Already have an account? <button className="btn-chromeless text--primary" onClick={this.toggleContent}>Sign In</button></p>

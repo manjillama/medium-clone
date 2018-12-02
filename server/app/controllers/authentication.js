@@ -39,7 +39,10 @@ exports.signUp = (req, res) => {
   .then(() => {
     Blogger.create(blogger)
     .then(() => {
-      res.send("Success!");
+      // Deleting user password from user object
+      delete user.password;
+      // Respond to request indicating the user was created
+      res.json({ token: tokenForUser(user) , user: user});
     })
   })
   .catch(error => {

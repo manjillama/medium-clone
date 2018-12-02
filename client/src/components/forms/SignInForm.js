@@ -1,5 +1,8 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form'
+import * as actions from '../../actions';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 const email = value =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
@@ -29,7 +32,6 @@ class SignInForm extends React.Component{
     const swear =  await new Promise(resolve => setTimeout(resolve, 1000)).then(() => {
       return formProps;
     });
-    // console.log(swear);
     return swear;
   }
 
@@ -74,8 +76,11 @@ function validate(values){
   return errors;
 }
 
-export default reduxForm({
-  validate,
-  // a unique name for the form
-  form: 'signInForm'
-})(SignInForm);
+export default compose(
+  // First args in state, second tim actions object
+  connect(null, actions),
+  reduxForm({
+    validate,
+    form: 'signInForm'
+  })
+)(SignInForm);
