@@ -1,19 +1,16 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-
-class Home extends Component {
-  componentDidMount(){
-    console.log('Called', this.props.auth);
-  }
+class Home extends React.Component{
   componentDidUpdate(){
-    console.log('Called', this.props.auth);
+    console.log(this.props.auth);
   }
   render(){
-    return <h1>Hi this is home</h1>;
+    return <h1>Hi this is home</h1>
   }
 }
 
 function mapStateToProps(state){
-  return {auth: state.auth};
+  return { auth: state.auth };
 }
+
 export default connect(mapStateToProps)(Home);

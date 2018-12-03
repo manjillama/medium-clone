@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form'
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
 
 const email = value =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
@@ -29,7 +30,8 @@ class SignUpForm extends React.Component{
   }
   onSubmit = formProps => {
     this.props.signUp(formProps, () => {
-      window.location.href = "/";
+      this.props.closeModal();
+      this.props.history.push('/');
     });
   }
 
@@ -91,4 +93,5 @@ export default compose(
     validate,
     form: 'signUpForm'
   }),
+  withRouter // Passing history to this.props
 )(SignUpForm);
