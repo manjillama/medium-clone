@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+
 import './Modal.css';
 
 import { Provider } from 'react-redux';
@@ -114,7 +115,9 @@ class LoginModal extends Component{
   _render(){
     ReactDOM.render(
       <Provider store={store}>
-        {this.createModal()}
+        <div>
+          {this.createModal.bind(this)}
+        </div>
       </Provider>,
       this.modalTarget,
     );

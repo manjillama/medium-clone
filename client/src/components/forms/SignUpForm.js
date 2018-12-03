@@ -28,10 +28,6 @@ class SignUpForm extends React.Component{
     );
   }
 
-  componentDidMount(){
-    console.log(this.props.history);
-  }
-
   onSubmit = formProps => {
     this.props.signUp(formProps, () => {
       console.log('Redirect...');
@@ -39,7 +35,7 @@ class SignUpForm extends React.Component{
   }
 
   reRoute = () => {
-    window.location.href = "/";
+    console.log("History",this.props.history);
   }
   render(){
     const { handleSubmit, submitting, invalid } = this.props;
