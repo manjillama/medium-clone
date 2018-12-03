@@ -8,6 +8,9 @@ import { store } from '../../index';
 import SignInForm from '../forms/SignInForm';
 import SignUpForm from '../forms/SignUpForm';
 
+import { Router } from 'react-router-dom';
+import { history } from '../../index';
+
 class LoginModal extends Component{
   constructor(props){
     super(props);
@@ -75,7 +78,7 @@ class LoginModal extends Component{
           <h2>Create an account to personalize your homepage, follow your favorite authors, publications and more.</h2>
           <div className="sm-caption">
             <div className="col-max-300">
-              <SignUpForm/>
+              <SignUpForm closeModal={this.props.closeModal}/>
             </div>
             <br/>
             <p>Already have an account? <button className="btn-chromeless text--primary" onClick={this.toggleContent}>Sign In</button></p>
@@ -112,12 +115,16 @@ class LoginModal extends Component{
     }
   }
 
+/*
+  * Passing shared history to Router.
+  * To sync with main Router when using multiple ReactDOM.render()
+*/
   _render(){
     ReactDOM.render(
       <Provider store={store}>
-        <div>
-          {this.createModal.bind(this)}
-        </div>
+        <Router history={history}>
+          {this.createModal()}
+        </Router>
       </Provider>,
       this.modalTarget,
     );
