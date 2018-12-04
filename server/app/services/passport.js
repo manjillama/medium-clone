@@ -12,7 +12,7 @@ const config = require('../config/config');
 * Authenticates users through username and password not jwt token
 */
 passport.use(new LocalStrategy({
-    usernameField : 'email',
+    usernameField : 'email',  //by default its username
   },
   /*
   * Verify this email and password, call done with argument user
@@ -20,7 +20,6 @@ passport.use(new LocalStrategy({
   * Otherwise call done with argument false
   */
   function(email, password, done) {
-    console.log("called");
     User.findByPk(email).then(user => {
       if(user){
         if(user.validPassword(password))
@@ -50,7 +49,6 @@ const jwtOptions = {
 * Able to successfulyy authenticate the user
 */
 passport.use(new JwtStrategy(jwtOptions, function(payload, done){
-  console.log(payload);
   User.findByPk(payload.sub).then(user => {
     if(user)
       done(null, user);

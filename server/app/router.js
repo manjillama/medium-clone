@@ -15,10 +15,10 @@ module.exports = app => {
   app.get('/users', TestController.findAllUsers);
 
   // Restricting end point with LocalStrategy
-  app.post('/test-signin', requireEmailAndPass, Authentication.signIn);
+  app.post('/signin', requireEmailAndPass, Authentication.signIn);
   // Restricting end point with JwtStrategy
-  app.get('/private', requireJwt, function(req, res){
-    res.send("This is secured data");
+  app.get('/api/get-user', requireJwt, function(req, res){
+    res.json({user:req.user});
   });
 
   app.get('/unauthenticated', function(req, res){ res.send("User Unauthenticated")});

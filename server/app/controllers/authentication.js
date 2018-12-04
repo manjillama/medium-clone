@@ -18,7 +18,8 @@ function tokenForUser(user){
 }
 
 exports.signIn = (req, res) => {
-  res.send({ token: tokenForUser(req.user) });
+  // user is passed through passport local strategy
+  res.json({ token: tokenForUser(req.user), user: req.user});
 }
 
 exports.signUp = (req, res) => {
