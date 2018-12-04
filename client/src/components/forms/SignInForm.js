@@ -28,8 +28,7 @@ class SignInForm extends React.Component{
       </div>
     );
   }
-
-  onSubmit = async formProps => {
+  onSubmit = formProps => {
     this.props.signIn(formProps, () => {
       this.props.closeModal();
       this.props.history.push('/');

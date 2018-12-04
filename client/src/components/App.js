@@ -1,11 +1,24 @@
 import React from 'react';
 import Header from './site/includes/Header';
 import LoginModal from './modals/LoginModal';
+import { getUser } from '../actions';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 class App extends React.Component{
   constructor(props){
     super(props);
-    this.state = { openLoginModal: false}
+    this.state = {openLoginModal: false, renderApp: true}
+  }
+  componentWillMount(){
+    const userToken = localStorage.getItem('token');
+    if(userToken){
+      this.setState({renderApp: false}, () => {
+        this.props.getUser(userToken, () => {
+          this.setState({renderApp: true});
+        });
+      });
+    }
   }
   triggerModal(){
     this.setState({openLoginModal: true});
@@ -19,14 +32,18 @@ class App extends React.Component{
     }
   }
   render(){
-    return (
-      <div className="mjl-container">
-        <Header triggerModal={this.triggerModal.bind(this)}/>
-        {this.props.children}
-        {this._renderModal()}
-      </div>
-    )
+    if(this.state.renderApp){
+      return (
+        <div className="mjl-container">
+          <Header triggerModal={this.triggerModal.bind(this)}/>
+          {this.props.children}
+          {this._renderModal()}
+        </div>
+      )
+    }else{
+      return <h1>Loading...</h1>
+    }
   }
 };
 
-export default App;
+export default withRouter(connect(null, {getUser})(App));

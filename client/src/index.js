@@ -4,11 +4,9 @@ import { Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
-import axios from 'axios';
 import App from './components/App';
 import Home from './components/site/Home';
 import Contact from './components/site/Contact';
-import { getUser } from './actions';
 import reducers from './reducers';
 
 import createBrowserHistory from "history/createBrowserHistory";
@@ -20,11 +18,6 @@ export const store = createStore(
   {},
   applyMiddleware(reduxThunk)
 );
-
-const userToken = localStorage.getItem('token');
-if(userToken){
-  getUser(userToken);
-}
 
 ReactDOM.render(
   <Provider store={store}>

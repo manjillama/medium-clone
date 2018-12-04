@@ -54,8 +54,6 @@ class Header extends Component{
     }
   }
 
-
-
   renderLinks(){
     if(this.props.auth){
       return (
@@ -92,6 +90,7 @@ class Header extends Component{
           <div className="tb-flex0">
             <ul className="list-inline">
               <li>Search</li>
+              <li><Link to="/contact">Contact</Link></li>
               {this.renderLinks()}
 
             </ul>

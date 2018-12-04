@@ -29,6 +29,16 @@ export const signIn = (formProps, callback) => async dispatch => {
   }
 };
 
-export const getUser = (token) => {
-  console.log(token);
-}
+export const getUser = (token, callback) => dispatch => {
+  const headers = {'authorization': token};
+  axios.get('http://localhost:5000/api/get-user', {headers})
+    .then(function (response) {
+      const payload = {token, user: response.data};
+      dispatch({type: AUTH_USER, payload});
+      callback();
+    })
+    .catch(function (error) {
+      //console.log(error);
+      dispatch({type: AUTH_ERROR, payload: 'Something went wrong'});
+    });
+};
