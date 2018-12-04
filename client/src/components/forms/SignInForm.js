@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form'
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
 
 const email = value =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
@@ -29,10 +30,10 @@ class SignInForm extends React.Component{
   }
 
   onSubmit = async formProps => {
-    const swear =  await new Promise(resolve => setTimeout(resolve, 1000)).then(() => {
-      return formProps;
+    this.props.signIn(formProps, () => {
+      this.props.closeModal();
+      this.props.history.push('/');
     });
-    return swear;
   }
 
   render(){
@@ -82,5 +83,6 @@ export default compose(
   reduxForm({
     validate,
     form: 'signInForm'
-  })
+  }),
+  withRouter
 )(SignInForm);

@@ -17,7 +17,7 @@ html, body{
   font-family: 'Noto Sans TC', sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  font-size: 12px;
+  font-size: 13px;
   margin: 0;
 }
 a {
@@ -98,16 +98,19 @@ form button[type=submit][disabled] {
 /*
 * Lists
 */
+.inline-continue{
+  display: inline;
+}
 .list-inline {
   padding: 0;
   list-style-type: none;
 }
-.list-inline>li {
+.list-inline>li,.list-inline>.inline-continue>li {
   display: inline-block;
   margin-left: 24px;
 }
 
-.list-inline li:first-child {
+.list-inline>li:first-child {
   margin-left: 0;
 }
 

@@ -64,7 +64,7 @@ class LoginModal extends Component{
           <h2>Sign in to access your personalized homepage, follow authors and topics you love.</h2>
           <div className="sm-caption">
             <div className="col-max-300">
-              <SignInForm/>
+              <SignInForm closeModal={this.props.closeModal}/>
             </div>
             <br/>
             <p>No account? <button className="btn-chromeless text--primary" onClick={this.toggleContent}>Create One</button></p>

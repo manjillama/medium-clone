@@ -1,8 +1,18 @@
+.st0{fill:#FFFFFF;}
+.st1{font-family:'Haettenschweiler';}
+.st2{font-size:150px;}
+.st3{font-size:153px;}
+
 .nav-top-bar {
+  height: 65px!important;
   display: -webkit-box!important;
   display: -webkit-flex!important;
   display: -ms-flexbox!important;
   display: flex!important;
+  -webkit-box-align: center!important;
+  -webkit-align-items: center!important;
+  -ms-flex-align: center!important;
+  align-items: center!important;
 }
 
 .tb-flex1 {
@@ -22,7 +32,20 @@
 .popover-userIcon:hover{
   cursor: pointer;
 }
-
+.popover-userAction:before{
+  -webkit-transform: rotate(45deg) translate(6px,6px);
+  transform: rotate(45deg) translate(6px,6px);
+  box-shadow: -1px -1px 1px -1px rgba(0,0,0,.54);
+  content: '';
+  display: block;
+  width: 14px;
+  position: absolute;
+  top: -14px;
+  right: 1px;
+  z-index: 1000;
+  height: 14px;
+  background: #fff;
+}
 .popover-userAction{
   background: #fff;
   -webkit-border-radius: 3px;
@@ -51,4 +74,16 @@
 .popover-userAction ul{
   list-style-type: none;
   padding: 0;
+}
+
+@media screen and (max-width: 768px){
+  .popover-userAction:before{
+    right: 40px;
+  }
+  .popover-userAction{
+    width: 100%;
+    top: 60px;
+    position: fixed;
+    height: auto;
+  }
 }
