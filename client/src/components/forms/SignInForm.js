@@ -12,7 +12,7 @@ const email = value =>
 class SignInForm extends React.Component{
   constructor(props){
     super(props);
-    this.state = {error:false};
+    this.state = {error:false, addErrorClass: false};
   }
 
   renderField(field){
@@ -33,9 +33,14 @@ class SignInForm extends React.Component{
     );
   }
   onSubmit = formProps => {
-    this.props.signIn(formProps, (error) => {
+    // Return in order to disable submit button while fetching
+    return this.props.signIn(formProps, (error) => {
       if(error){
-        this.setState({error: true});
+        this.setState({error: true, addErrorClass:true}, ()=>{
+          setTimeout(() => {
+            this.setState({ addErrorClass:false });
+          }, 250)
+        });
       }else{
         this.props.closeModal();
         this.props.history.push('/');
@@ -44,7 +49,11 @@ class SignInForm extends React.Component{
   }
   __renderSigninError(){
     if(this.state.error){
-      return <div><span className="text--danger" style={{fontWeight:'bold'}}>Incorrect username or password</span><br/><br/></div>;
+      if(this.state.addErrorClass){
+        return <span className="text--danger block-strong jitter-err">Incorrent username or password</span>;
+      }else{
+        return <span className="text--danger block-strong">Incorrent username or password</span>;
+      }
     }
   }
   render(){
@@ -66,8 +75,8 @@ class SignInForm extends React.Component{
           name="password"
           component={this.renderField}/>
 
-          <br/>
-          {this.__renderSigninError()}
+          <div style={{display:'block',height:30+'px',marginTop:12+'px'}}>{this.__renderSigninError()}</div>
+
           <button type="submit" disabled={invalid || submitting} className="mjl-btn btn--dark">Log In</button>
         </form>
     )

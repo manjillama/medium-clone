@@ -33,6 +33,26 @@ a {
 .text--primary{
   color: #018f69;
 }
+.block-strong{
+  display: block;
+  font-weight: bold;
+}
+.jitter-err{
+  display: block;
+  -webkit-animation: jitter-jiggle 0.12s infinite; /* Safari 4+ */
+  -moz-animation:    jitter-jiggle 0.12s infinite; /* Fx 5+ */
+  -o-animation:      jitter-jiggle 0.12s infinite; /* Opera 12+ */
+  animation:         jitter-jiggle 0.12s infinite; /* IE 10+, Fx 29+ */
+}
+@-webkit-keyframes jitter-jiggle {
+    from {-webkit-transform: translateX(-7px);}
+    to {-webkit-transform: translateX(7px);}
+}
+
+@keyframes jitter-jiggle {
+    from {transform: translateX(-7px);}
+    to {transform: translateX(7px);}
+}
 /*
 * Buttons
 */

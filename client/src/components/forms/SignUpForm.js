@@ -12,7 +12,7 @@ const email = value =>
 class SignUpForm extends React.Component{
   constructor(props){
     super(props);
-    this.state = {error:false};
+    this.state = {error:false, addErrorClass: false};
   }
 
   renderField(field){
@@ -33,9 +33,13 @@ class SignUpForm extends React.Component{
     );
   }
   onSubmit = formProps => {
-    this.props.signUp(formProps, (error) => {
+    return this.props.signUp(formProps, (error) => {
       if(error){
-        this.setState({error: true});
+        this.setState({error: true, addErrorClass:true}, ()=>{
+          setTimeout(() => {
+            this.setState({ addErrorClass:false });
+          }, 250)
+        });
       }else{
         this.props.closeModal();
         this.props.history.push('/');
@@ -45,7 +49,11 @@ class SignUpForm extends React.Component{
 
   __renderSignUpError(){
     if(this.state.error){
-      return <div><span className="text--danger" style={{fontWeight:'bold'}}>Email is already taken</span><br/><br/></div>;
+      if(this.state.addErrorClass){
+        return <span className="text--danger block-strong jitter-err">Email is already taken</span>;
+      }else{
+        return <span className="text--danger block-strong">Email is already taken</span>;
+      }
     }
   }
 
@@ -75,8 +83,8 @@ class SignUpForm extends React.Component{
           name="password"
           component={this.renderField}/>
 
-          <br/>
-          {this.__renderSignUpError()}
+          <div style={{display:'block',height:30+'px',marginTop:12+'px'}}>{this.__renderSignUpError()}</div>
+
           <button type="submit" disabled={invalid || submitting} className="mjl-btn btn--dark">Sign Up</button>
         </form>
     )
