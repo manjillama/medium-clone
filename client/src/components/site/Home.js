@@ -5,7 +5,7 @@ class Home extends React.Component{
     console.log(this.props.auth);
   }
   render(){
-    return <h1>Hi this is home</h1>
+    return <h1>Hi there, this is home </h1>
   }
 }
 

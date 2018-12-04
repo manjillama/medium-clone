@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import { signOut } from '../../../actions';
 import './Header.css';
+import { withRouter } from 'react-router-dom';
 
 class Header extends Component{
   constructor(props){
@@ -38,6 +39,13 @@ class Header extends Component{
     }
   }
 
+  signOut = () => {
+    this.setState({showUserDropdown: false});
+    this.props.signOut(() => {
+      this.props.history.push('/');
+    });
+  }
+
   _renderUserDropdown(){
     if(this.state.showUserDropdown){
       return (
@@ -47,7 +55,7 @@ class Header extends Component{
             <li><a href="/">Stories</a></li>
             <li><a href="/">Profile</a></li>
             <li><a href="/">Settings</a></li>
-            <li><a href="/">Sign Out</a></li>
+            <li style={{cursor: 'pointer',padding: 7+'px '+ 0}} onClick={this.signOut}>Sign Out</li>
           </ul>
         </div>
       );
@@ -78,19 +86,17 @@ class Header extends Component{
         <div className="nav-top-bar">
           <div className="tb-flex1">
             <Link to="/">
-            <svg viewBox="0 0 497.3 156.9" style={{height: 30+'px'}}>
-              <rect x="124.4" width="278.7" height="156.9"/>
-              <text transform="matrix(1 0 0 1 146.8478 129.5559)" className="st0 st1 st2">READ</text>
-              <text transform="matrix(1 0 0 1 0 128.5559)" className="st1 st3">Th</text>
-              <text transform="matrix(1 0 0 1 414.9225 128.556)" className="st1 st3">ly</text>
-            </svg>
-
+              <svg viewBox="0 0 497.3 156.9" style={{height: 30+'px'}}>
+                <rect x="124.4" width="278.7" height="156.9"/>
+                <text transform="matrix(1 0 0 1 146.8478 129.5559)" className="st0 st1 st2">READ</text>
+                <text transform="matrix(1 0 0 1 0 128.5559)" className="st1 st3">Th</text>
+                <text transform="matrix(1 0 0 1 414.9225 128.556)" className="st1 st3">ly</text>
+              </svg>
             </Link>
           </div>
           <div className="tb-flex0">
             <ul className="list-inline">
               <li>Search</li>
-              <li><Link to="/contact">Contact</Link></li>
               {this.renderLinks()}
 
             </ul>
@@ -115,4 +121,4 @@ function mapStateToProps(state){
   return {auth: state.auth.authenticated};
 }
 
-export default connect(mapStateToProps)(Header);
+export default withRouter(connect(mapStateToProps, {signOut})(Header));

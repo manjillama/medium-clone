@@ -10,6 +10,10 @@ const email = value =>
   'Please enter a valid email' : undefined
 
 class SignInForm extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {error:false};
+  }
 
   renderField(field){
     const {meta} = field;
@@ -29,12 +33,20 @@ class SignInForm extends React.Component{
     );
   }
   onSubmit = formProps => {
-    this.props.signIn(formProps, () => {
-      this.props.closeModal();
-      this.props.history.push('/');
+    this.props.signIn(formProps, (error) => {
+      if(error){
+        this.setState({error: true});
+      }else{
+        this.props.closeModal();
+        this.props.history.push('/');
+      }
     });
   }
-
+  __renderSigninError(){
+    if(this.state.error){
+      return <div><span className="text--danger" style={{fontWeight:'bold'}}>Incorrect username or password</span><br/><br/></div>;
+    }
+  }
   render(){
     const { handleSubmit, submitting, invalid } = this.props;
     return (
@@ -55,6 +67,7 @@ class SignInForm extends React.Component{
           component={this.renderField}/>
 
           <br/>
+          {this.__renderSigninError()}
           <button type="submit" disabled={invalid || submitting} className="mjl-btn btn--dark">Log In</button>
         </form>
     )

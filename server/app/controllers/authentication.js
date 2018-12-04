@@ -47,6 +47,6 @@ exports.signUp = (req, res) => {
     })
   })
   .catch(error => {
-    res.send(error);
+    res.json({error: 'Email is already taken'});
   });
 }

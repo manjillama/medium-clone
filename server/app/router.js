@@ -21,6 +21,6 @@ module.exports = app => {
     res.json({user:req.user});
   });
 
-  app.get('/unauthenticated', function(req, res){ res.send("User Unauthenticated")});
+  app.get('/unauthenticated', function(req, res){res.json({error: "Authentication Failed"})});
 
 }

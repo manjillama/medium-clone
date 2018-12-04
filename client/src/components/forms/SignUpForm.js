@@ -10,6 +10,10 @@ const email = value =>
   'Please enter a valid email' : undefined
 
 class SignUpForm extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {error:false};
+  }
 
   renderField(field){
     const {meta} = field;
@@ -29,10 +33,20 @@ class SignUpForm extends React.Component{
     );
   }
   onSubmit = formProps => {
-    this.props.signUp(formProps, () => {
-      this.props.closeModal();
-      this.props.history.push('/');
+    this.props.signUp(formProps, (error) => {
+      if(error){
+        this.setState({error: true});
+      }else{
+        this.props.closeModal();
+        this.props.history.push('/');
+      }
     });
+  }
+
+  __renderSignUpError(){
+    if(this.state.error){
+      return <div><span className="text--danger" style={{fontWeight:'bold'}}>Email is already taken</span><br/><br/></div>;
+    }
   }
 
   render(){
@@ -62,6 +76,7 @@ class SignUpForm extends React.Component{
           component={this.renderField}/>
 
           <br/>
+          {this.__renderSignUpError()}
           <button type="submit" disabled={invalid || submitting} className="mjl-btn btn--dark">Sign Up</button>
         </form>
     )
