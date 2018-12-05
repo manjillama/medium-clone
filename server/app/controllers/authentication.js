@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const Blogger = require('../models/blogger');
 const config = require('../config/config');
+var randomstring = require("randomstring");
 
 const bcrypt = require('bcrypt');
 const jwt = require('jwt-simple');
@@ -14,12 +15,14 @@ function tokenForUser(user){
   * sub stands for subject, as to whom does this token belongs to
   * iat stands for issued at time.
   */
-  return jwt.encode({ sub: user.email, iat: timestamp }, config.secret);
+  return jwt.encode({ sub: user.email, iat: timestamp }, config.SECRET);
 }
 
 exports.signIn = (req, res) => {
   // user is passed through passport local strategy
-  res.json({ token: tokenForUser(req.user), user: req.user});
+  Blogger.findOne({ where: {user_email: req.user.email} }).then(blogger => {
+    return res.json({ token: tokenForUser(req.user), username: blogger.username});
+  });
 }
 
 exports.signUp = (req, res) => {
@@ -30,23 +33,35 @@ exports.signUp = (req, res) => {
     created_at: new Date().getTime()
   };
 
-  let blogger = {
-    bio : req.body.bio,
-    user_email: req.body.email
-  }
-
-  // Persisting in database
-  User.create(user)
-  .then(() => {
-    Blogger.create(blogger)
-    .then(() => {
-      // Deleting user password from user object
-      delete user.password;
-      // Respond to request indicating the user was created
-      res.json({ token: tokenForUser(user) , user: user});
+  function createUser(){
+    var username = randomstring.generate(9);
+    // Check if user already exist with that username
+    Blogger.findOne({ where: {username: username} }).then(blogger => {
+      if(blogger){
+         // If blogger with that username already exist
+        createUser();
+      }else{
+        let blogger = {
+          username,
+          fullname : req.body.fullname,
+          user_email: req.body.email
+        }
+        // Persisting in database
+        User.create(user)
+        .then(() => {
+          Blogger.create(blogger)
+          .then(() => {
+            // Deleting user password from user object
+            delete user.password;
+            // Respond to request indicating the user was created
+            return res.json({ token: tokenForUser(user) , username: blogger.username});
+          })
+        })
+        .catch(error => {
+          return res.json({error: 'Email is already taken'});
+        });
+      }
     })
-  })
-  .catch(error => {
-    res.json({error: 'Email is already taken'});
-  });
+  }
+  createUser();
 }

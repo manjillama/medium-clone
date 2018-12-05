@@ -1,12 +1,15 @@
 const passport = require('passport');
 
 const LocalStrategy = require('passport-local');
-
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const JwtStrategy = require('passport-jwt').Strategy;
 
 const User = require('../models/user');
+const Blogger = require('../models/blogger');
+
 const config = require('../config/config');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 /*
 * Authenticates users through username and password not jwt token
@@ -20,7 +23,14 @@ passport.use(new LocalStrategy({
   * Otherwise call done with argument false
   */
   function(email, password, done) {
-    User.findByPk(email).then(user => {
+    User.findOne({
+      include: [{
+        model: Blogger,
+        where: {
+          [Op.or]: [{username: email},{user_email: email}]
+        }
+      }]
+    }).then(user => {
       if(user){
         if(user.validPassword(password))
           return done(null, user);
@@ -38,7 +48,7 @@ const jwtOptions = {
   * So we have to specifically tell strategy where to look
   */
   jwtFromRequest: ExtractJwt.fromHeader('authorization'),  // look at header called authorization to find the token
-  secretOrKey: config.secret
+  secretOrKey: config.SECRET
 };
 
 /*
@@ -49,9 +59,9 @@ const jwtOptions = {
 * Able to successfulyy authenticate the user
 */
 passport.use(new JwtStrategy(jwtOptions, function(payload, done){
-  User.findByPk(payload.sub).then(user => {
-    if(user)
-      done(null, user);
-    done(null, false)
+  Blogger.findOne({ where: {user_email: payload.sub} }).then(blogger => {
+    if(blogger)
+      return done(null, blogger);
+    return done(null, false)
   });
 }));

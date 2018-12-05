@@ -4,7 +4,7 @@ import { AUTH_USER, AUTH_ERROR } from '../actions/types';
 {
   authenticated: {
     token: '',
-    user: {}
+    username: ''
   }
 }
 */

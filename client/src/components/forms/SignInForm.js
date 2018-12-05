@@ -5,9 +5,6 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 
-const email = value =>
-  value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
-  'Please enter a valid email' : undefined
 
 class SignInForm extends React.Component{
   constructor(props){
@@ -62,9 +59,8 @@ class SignInForm extends React.Component{
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <Field
           type="input"
-          validate={email}
           field="input"
-          label="Your email"
+          label="Your username or email"
           name="email"
           component={this.renderField}/>
 

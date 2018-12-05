@@ -95,6 +95,8 @@
     top: 0;
     right: 0;
     left: 0;
+    overflow: auto;
+    height: 100%;
     transform: translate(0);
   }
 }

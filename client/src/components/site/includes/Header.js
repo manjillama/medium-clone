@@ -53,8 +53,8 @@ class Header extends Component{
           <ul>
             <li><a href="/">New Story</a></li>
             <li><a href="/">Stories</a></li>
-            <li><a href="/">Profile</a></li>
-            <li><a href="/">Settings</a></li>
+            <li><Link to={`/@${this.props.auth.username}`}>Profile</Link></li>
+            <li><Link to="/me/settings">Settings</Link></li>
             <li style={{cursor: 'pointer',padding: 7+'px '+ 0}} onClick={this.signOut}>Sign Out</li>
           </ul>
         </div>

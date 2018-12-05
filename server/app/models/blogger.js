@@ -7,6 +7,15 @@ const Blogger = sequelize.define('bloggers', {
     autoIncrement: true,
     primaryKey: true
   },
+  fullname: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  username: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true
+  },
   bio: {
     type: Sequelize.TEXT,
   }

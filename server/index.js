@@ -10,6 +10,9 @@ const createDDL = require('./app/config/createDDL');
 const createRelationships = require('./app/config/createRelationships');
 var cors = require('cors');
 
+const config = require('./app/config/config');
+console.log(config.imageDir());
+
 sequelize
   .authenticate()
   .then(() => {
