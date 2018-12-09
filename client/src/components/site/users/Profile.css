@@ -1,0 +1,29 @@
+.p-edit-btn{
+  display: inline-block;
+  margin-left: 20px;
+  padding: 0px 8px;
+  line-height: 1.8;
+  margin-top: 16px;
+  font-size: 11px !important;
+}
+
+.input-u-n, .blogger-panel h1{
+  font-size: 32px;
+}
+
+input,textarea{
+  outline: 0;
+  width: 100%;
+  border: none;
+}
+
+.textarea-u-b{
+  font-size: 14px;
+}
+
+@media (max-width: 552px) {
+  .textarea-u-b{
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+}

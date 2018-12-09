@@ -13,7 +13,7 @@ export const signUp = (formProps, callback) => async dispatch => {
     callback(false);
   }catch(e){
     dispatch({type: AUTH_ERROR, payload: null});
-    callback(true);
+    callback(e.message);
   }
 };
 
@@ -22,7 +22,7 @@ export const signIn = (formProps, callback) => async dispatch => {
   try{
     const response = await axios.post('http://localhost:5000/signin', formProps);
     if(response.data.error)
-      throw new Error('Unauthorized');
+      throw new Error('Incorrent username or password');
 
     dispatch({type: AUTH_USER, payload: response.data});
 
@@ -31,7 +31,7 @@ export const signIn = (formProps, callback) => async dispatch => {
     callback(false);
   }catch(e){
     dispatch({type: AUTH_ERROR, payload: null});
-    callback(true); // True if error caught
+    callback(e.message);
   }
 };
 
@@ -42,7 +42,9 @@ export const getUser = (token, callback) => async dispatch => {
     const payload = {token, username: response.data.username};
     dispatch({type: AUTH_USER, payload});
   }catch(e){
-    localStorage.removeItem('token');
+    if(e.message !== "Network Error")
+      localStorage.removeItem('token');
+      
     dispatch({type: AUTH_ERROR, payload: null});
   }finally{
     callback();

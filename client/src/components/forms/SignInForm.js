@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 class SignInForm extends React.Component{
   constructor(props){
     super(props);
-    this.state = {error:false, addErrorClass: false};
+    this.state = {error:null, addErrorClass: false};
   }
 
   renderField(field){
@@ -29,11 +29,12 @@ class SignInForm extends React.Component{
       </div>
     );
   }
+
   onSubmit = formProps => {
     // Return in order to disable submit button while fetching
     return this.props.signIn(formProps, (error) => {
       if(error){
-        this.setState({error: true, addErrorClass:true}, ()=>{
+        this.setState({error: error, addErrorClass:true}, ()=>{
           setTimeout(() => {
             this.setState({ addErrorClass:false });
           }, 250)
@@ -47,9 +48,9 @@ class SignInForm extends React.Component{
   __renderSigninError(){
     if(this.state.error){
       if(this.state.addErrorClass){
-        return <span className="text--danger block-strong jitter-err">Incorrent username or password</span>;
+        return <span className="text--danger block-strong jitter-err">{this.state.error}</span>;
       }else{
-        return <span className="text--danger block-strong">Incorrent username or password</span>;
+        return <span className="text--danger block-strong">{this.state.error}</span>;
       }
     }
   }

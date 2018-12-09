@@ -12,7 +12,7 @@ const email = value =>
 class SignUpForm extends React.Component{
   constructor(props){
     super(props);
-    this.state = {error:false, addErrorClass: false};
+    this.state = {error:null, addErrorClass: false};
   }
 
   renderField(field){
@@ -35,7 +35,7 @@ class SignUpForm extends React.Component{
   onSubmit = formProps => {
     return this.props.signUp(formProps, (error) => {
       if(error){
-        this.setState({error: true, addErrorClass:true}, ()=>{
+        this.setState({error: error, addErrorClass:true}, ()=>{
           setTimeout(() => {
             this.setState({ addErrorClass:false });
           }, 250)
@@ -50,9 +50,9 @@ class SignUpForm extends React.Component{
   __renderSignUpError(){
     if(this.state.error){
       if(this.state.addErrorClass){
-        return <span className="text--danger block-strong jitter-err">Email is already taken</span>;
+        return <span className="text--danger block-strong jitter-err">{this.state.error}</span>;
       }else{
-        return <span className="text--danger block-strong">Email is already taken</span>;
+        return <span className="text--danger block-strong">{this.state.error}</span>;
       }
     }
   }
