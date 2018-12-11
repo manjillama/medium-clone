@@ -9,9 +9,9 @@ const bodyParser = require('body-parser');
 const createDDL = require('./app/config/createDDL');
 const createRelationships = require('./app/config/createRelationships');
 var cors = require('cors');
+const fileUpload = require('express-fileupload');
 
 const config = require('./app/config/config');
-console.log(config.imageDir());
 
 sequelize
   .authenticate()
@@ -27,6 +27,7 @@ sequelize
 
 // App
 const app = express();
+app.use(fileUpload());
 app.use(cors());
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 app.use(bodyParser.json()); // support json encoded bodies

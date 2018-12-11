@@ -6,12 +6,10 @@ import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form'
 import { Link } from 'react-router-dom';
 
-
-
 class ProfileEdit extends Component{
   constructor(props){
     super(props);
-    this.state = {error:false, loading: true, updatedProfileImage: null};
+    this.state = {error:false, loading: true, userImage: null, uploadedImage: null};
   }
 
   componentWillMount () {
@@ -23,48 +21,31 @@ class ProfileEdit extends Component{
     });
   }
 
-  componentWillUpdate(){
-    //console.log(this.props.initialValues);
-  }
-
   onSubmit = formProps => {
-    console.log(formProps);
-    updateBlogger(formProps);
+    let formData = new FormData();
+    Object.keys( formProps ).forEach( key => {
+      formData.append(key, formProps[key]);
+    });
+    formData.append("uploaded_image", this.state.uploadedImage);
+    updateBlogger(formData);
   }
 
   /*
-  * Redux form file upload issue:
-  * https://github.com/erikras/redux-form/issues/1989
+  * Redux-Form file upload issue
+  * Uncaught DOMException: Failed to set the 'value' property on 'HTMLInputElement': This input element accepts a filename, which may only be programmatically set to the empty string.
+  * https://stackoverflow.com/questions/43996895/react-redux-upload-file-errors
   */
-  adaptFileEventToValue = delegate => e => {
-    console.log(e.target.files[0]);
-    if(e.target.files[0]){
-      this.setState({
-        updatedProfileImage: URL.createObjectURL(e.target.files[0])
-      });
-    }
-    return delegate(e.target.files[0])
-  };
+  UploadFile = ({ input: {value: omitValue, ...inputProps }, meta: omitMeta, ...props }) => (
+    <input type='file' {...inputProps} {...props} style={{display:'none'}} onChange={this.handleImageChange} id="updateUserImg"/>
+  );
 
-  FileInput = ({
-    input: { value: omitValue, onChange, onBlur, ...inputProps },
-    meta: omitMeta,
-    ...props
-  }) => {
-    return (
-      <input
-        onChange={this.adaptFileEventToValue(onChange)}
-        onBlur={this.adaptFileEventToValue(onBlur)}
-        type="file"
-        {...props.input}
-        {...props}
-      />
-    );
-  };
+  handleImageChange = (e) => {
+    this.setState({userImage: URL.createObjectURL(e.target.files[0]), uploadedImage: e.target.files[0]});
+  }
 
   renderProfileImage(){
-    if(this.state.updatedProfileImage){
-      return <img className="user--pp" src={this.state.updatedProfileImage} alt={this.props.initialValues.fullname}/>;
+    if(this.state.userImage){
+      return <img className="user--pp" src={this.state.userImage} alt={this.props.initialValues.fullname}/>;
     }else{
       if(this.props.initialValues.profile_image){
         return <img className="user--pp" src={this.props.initialValues.profile_image} alt={this.props.initialValues.fullname}/>;
@@ -113,11 +94,9 @@ class ProfileEdit extends Component{
                   <label htmlFor="updateUserImg" className="input-p-label">
                     <img style={{height: 100+'%',padding: 35+'px'}} src="/static/images/photo-camera.svg" alt="Profile input"/>
                     <Field
-                      id="updateUserImg"
-                      component={this.FileInput}
-                      name="profile_image"
+                      name="image_file"
                       type="file"
-                      style={{display:'none'}}
+                      component={this.UploadFile}
                     />
                   </label>
                 </div>
