@@ -21,7 +21,38 @@ input,textarea{
   font-size: 14px;
 }
 
+.input-p-label{
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  background: rgba(0,0,0,0.5);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.p-img-wrapper{
+  position: relative;
+  max-width: 150px;
+}
+
+img.user--pp{
+  width: 120px;
+  height: 120px;
+  border-radius:50%;
+}
+
 @media (max-width: 552px) {
+  .p-img-wrapper{
+    max-width: 100px;
+  }
+  img.user--pp {
+    width: 100px;
+    height: 100px;
+  }
+  .input-p-label>img{
+    padding: 30 !important;
+  }
   .textarea-u-b{
     font-size: 12px;
     margin-bottom: 10px;

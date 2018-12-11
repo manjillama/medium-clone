@@ -29,3 +29,8 @@ exports.findByUsernameOrEmail = (req, res) => {
     res.send(users);
   });
 }
+
+exports.updateBloggerInfo = (req, res) => {
+  console.log(req.files);
+  res.send("OK");
+}

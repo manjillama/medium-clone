@@ -11,6 +11,9 @@ const Blogger = sequelize.define('bloggers', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  profile_image: {
+    type: Sequelize.STRING,
+  },
   username: {
     type: Sequelize.STRING,
     allowNull: false,

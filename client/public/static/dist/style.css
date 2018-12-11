@@ -180,11 +180,6 @@ form button[type=submit][disabled] {
   display: flex;
 }
 
-img.user--pp{
-  max-height:120px;
-  border-radius: 50%;
-}
-
 @media (max-width: 552px) {
   .flex-col-rev-sm{
     flex-direction: column-reverse;

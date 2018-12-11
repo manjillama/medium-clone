@@ -12,9 +12,10 @@ const requireJwt = passport.authenticate('jwt', { session: false });
 module.exports = app => {
   app.get('/', HomeController);
   app.post('/signup', Authentication.signUp);
-  
+
   app.get('/users', TestController.findAllUsers);
   app.get('/test-user', TestController.findByUsernameOrEmail);
+  app.post('/update-user', TestController.updateBloggerInfo);
 
 
   // Restricting end point with LocalStrategy

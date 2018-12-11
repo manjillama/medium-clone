@@ -14,3 +14,8 @@ export const fetchBlogger = (username, callback) => async dispatch => {
     callback(true);
   }
 }
+
+
+export const updateBlogger = (formProps) => {
+  axios.post('http://localhost:5000/update-user', formProps);
+};

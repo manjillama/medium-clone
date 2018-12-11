@@ -51,7 +51,7 @@ class Profile extends Component{
                     </p>
                   </div>
                 </div>
-                <div>
+                <div className="p-img-wrapper">
                   <img className="user--pp" src="https://miro.medium.com/fit/c/240/240/0*32f1wB-hJ2cG3Va5" alt={this.props.blogger.fullname}/>
                 </div>
               </div>
