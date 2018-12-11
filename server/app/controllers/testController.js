@@ -31,6 +31,7 @@ exports.findByUsernameOrEmail = (req, res) => {
 }
 
 exports.updateBloggerInfo = (req, res) => {
+  console.log(req.body);
   console.log(req.files);
   res.send("OK");
 }
