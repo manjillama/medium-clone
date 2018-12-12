@@ -5,11 +5,12 @@ import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form'
 import { Link } from 'react-router-dom';
+import ImageCropper from '../utils/ImageCropper';
 
 class ProfileEdit extends Component{
   constructor(props){
     super(props);
-    this.state = {error:false, loading: true, userImage: null, uploadedImage: null};
+    this.state = {error:false, loading: true, userImageSrc: null, uploadedImage: null, triggerCropModal:false};
   }
 
   componentWillMount () {
@@ -40,12 +41,31 @@ class ProfileEdit extends Component{
   );
 
   handleImageChange = (e) => {
-    this.setState({userImage: URL.createObjectURL(e.target.files[0]), uploadedImage: e.target.files[0]});
+    this.setState({uploadedImage: e.target.files[0]}, () => {
+      this.setState({triggerCropModal:true});
+    });
+  }
+
+  renderCropModal(){
+    if(this.state.triggerCropModal){
+      return <ImageCropper closeModal={this.closeModal} uploadedImage={this.state.uploadedImage} setUploadedImage={this.setUploadedImage}/>
+    }
+  }
+
+  setUploadedImage = image => {
+    this.setState({uploadedImage:image, userImageSrc: URL.createObjectURL(image), triggerCropModal:false});
+  }
+
+  closeModal = () => {
+    document.getElementById('updateUserImg').value = '';
+    this.setState({userImageSrc: null, uploadedImage: null}, () => {
+      this.setState({triggerCropModal:false});
+    });
   }
 
   renderProfileImage(){
-    if(this.state.userImage){
-      return <img className="user--pp" src={this.state.userImage} alt={this.props.initialValues.fullname}/>;
+    if(this.state.userImageSrc){
+      return <img className="user--pp" src={this.state.userImageSrc} alt={this.props.initialValues.fullname}/>;
     }else{
       if(this.props.initialValues.profile_image){
         return <img className="user--pp" src={this.props.initialValues.profile_image} alt={this.props.initialValues.fullname}/>;
@@ -104,6 +124,7 @@ class ProfileEdit extends Component{
               <button type="submit" className="mjl-btn btn--p-hollow">Save</button>
               <Link style={{display: 'inline-block',marginLeft: 8+'px'}} className="mjl-btn btn--d-hollow" to={`/@${this.props.authUsername}`}>Cancel</Link>
             </form>
+            {this.renderCropModal()}
           </section>
         );
       }

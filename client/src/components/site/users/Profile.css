@@ -42,6 +42,16 @@ img.user--pp{
   border-radius:50%;
 }
 
+/*
+* React ImageCropper
+*/
+.ReactCrop {
+  max-height: 500px;
+}
+
+.ReactCrop__image {
+  max-height: 500px;
+}
 @media (max-width: 552px) {
   .p-img-wrapper{
     max-width: 100px;
