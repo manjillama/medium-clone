@@ -19,7 +19,7 @@ class ProfileEdit extends Component{
       }};
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.props.fetchBlogger(this.props.authUsername, (error)=>{
       if(error){
         this.setState({error:true});

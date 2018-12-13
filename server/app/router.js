@@ -1,6 +1,7 @@
 const TestController = require('./controllers/testController');
 const HomeController = require('./controllers/homeController');
 const Authentication  = require('./controllers/authentication');
+const BloggerController  = require('./controllers/BloggerController');
 const Blogger = require('./models/blogger');
 const passportService = require('./services/passport'); // configuring passport to use LocalStrategy and JwtStrategy
 const passport = require('passport');
@@ -12,29 +13,22 @@ const requireJwt = passport.authenticate('jwt', { session: false });
 module.exports = app => {
   app.get('/', HomeController);
   app.post('/signup', Authentication.signUp);
-
-  app.get('/users', TestController.findAllUsers);
-  app.get('/test-user', TestController.findByUsernameOrEmail);
-  app.post('/update-user', TestController.updateBloggerInfo);
-
-
   // Restricting end point with LocalStrategy
   app.post('/signin', requireEmailAndPass, Authentication.signIn);
-  // Restricting end point with JwtStrategy
-  app.get('/api/get-user', requireJwt, function(req, res){
-    // user is passed through passport local strategy
-    return res.json({
-      user: {username: req.user.username, profile_image: req.user.profile_image, fullname: req.user.fullname}
-    });
-  });
-  app.get('/api/get-user/:username', function(req, res){
-    Blogger.findOne({ where: {username: req.params.username} }).then(blogger => {
-      if(blogger)
-        return res.json(blogger);
-      return res.json({error: 'No user found'});
-    });
-  });
 
+  /*
+  * Blogger profile routes
+  */
+  app.get('/api/user/get-user', requireJwt, BloggerController.getBlogger);  // Restricting end point with JwtStrategy
+  app.post('/api/user/edit', BloggerController.updateBloggerInfo);
+  app.get('/api/user/get-user/:username', BloggerController.getBloggerByUsername);
+
+  /*
+  * Testing
+  */
+  app.get('/users', TestController.findAllUsers);
+  app.get('/test-user', TestController.findByUsernameOrEmail);
+  
   app.get('/unauthenticated', function(req, res){res.json({error: "Authentication Failed"})});
 
 }

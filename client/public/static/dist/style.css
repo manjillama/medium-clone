@@ -124,7 +124,7 @@ section{
   left: 50%;
   padding: 15px;
   transform: translate(-50%, -190%);
-  transition: all 1s;
+  transition: all 0.5s;
 }
 .fixed--alert-active{
   transform: translate(-50%, -50%);

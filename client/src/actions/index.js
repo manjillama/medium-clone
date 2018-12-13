@@ -39,7 +39,7 @@ export const signIn = (formProps, callback) => async dispatch => {
 export const getUser = (token, callback) => async dispatch => {
   try{
     const headers = {'authorization': token};
-    const response = await axios.get('http://localhost:5000/api/get-user', { headers })
+    const response = await axios.get('http://localhost:5000/api/user/get-user', { headers })
     const payload = {token, user: response.data.user};
     dispatch({type: AUTH_USER, payload});
   }catch(e){
