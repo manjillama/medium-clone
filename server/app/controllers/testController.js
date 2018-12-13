@@ -32,16 +32,16 @@ exports.findByUsernameOrEmail = (req, res) => {
 }
 
 exports.updateBloggerInfo = (req, res) => {
-  if(req.files && req.files.uploaded_image){
-    let sampleFile = req.files.uploaded_image;
-    sampleFile.mv(config.imageDir()+req.body.username+'.jpg', function(err) {
-       if (err)
-         return res.status(500).send(err);
 
-       res.send('File uploaded!');
-     });
-  }else{
-    console.log("No files");
-    res.send("OK");
+  if(req.files && req.files.uploaded_image){
+    let userImage = req.files.uploaded_image;
+    let mimeType = userImage.mimetype;
+
+    if(mimeType.split('/')[0] === 'image'){
+      userImage.mv(config.imageDir()+req.body.username+'.jpg', function(err) {
+         if (err)
+          console.log(err);
+       });
+    }
   }
 }

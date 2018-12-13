@@ -10,7 +10,12 @@ import ImageCropper from '../utils/ImageCropper';
 class ProfileEdit extends Component{
   constructor(props){
     super(props);
-    this.state = {error:false, loading: true, userImageSrc: null, uploadedImage: null, triggerCropModal:false};
+    this.state = {
+      error:false, loading: true, userImageSrc: null, uploadedImage: null, triggerCropModal:false,
+      inputErr: {
+        status: false,
+        message: ''
+      }};
   }
 
   componentWillMount () {
@@ -41,9 +46,22 @@ class ProfileEdit extends Component{
   );
 
   handleImageChange = (e) => {
-    this.setState({uploadedImage: e.target.files[0]}, () => {
-      this.setState({triggerCropModal:true});
-    });
+    let mimeType=e.target.files[0]['type'];
+    if(mimeType.split('/')[0] === 'image' && mimeType.split('/')[1] !== 'svg+xml'){
+      this.setState({uploadedImage: e.target.files[0]}, () => {
+        this.setState({triggerCropModal:true});
+      });
+    }else{
+      /*
+        Show Errror message
+      */
+      this.setState({inputErr: {message:'Please use image as your avatar.', status: true}}, () => {
+        setTimeout(()=>{
+          this.setState({inputErr: {status: false, message:'Please use image as your avatar.'}});
+        }, 3000);
+      });
+      document.getElementById('updateUserImg').value = '';
+    }
   }
 
   renderCropModal(){
@@ -83,8 +101,10 @@ class ProfileEdit extends Component{
         return <h1>Page not found :(</h1>
       }else{
         const { handleSubmit } = this.props;
+        const errorAlertClass = this.state.inputErr.status ? 'bg--danger fixed--alert fixed--alert-active':'bg--danger fixed--alert';
         return (
           <section className="container--sm">
+            <p className={errorAlertClass}>{this.state.inputErr.message}</p>
             <form onSubmit={handleSubmit(this.onSubmit)} encType="multipart/form-data">
               <div className="d--flex flex-col-rev-sm">
                 <div className="full-width">

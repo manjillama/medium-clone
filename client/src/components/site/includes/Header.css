@@ -58,6 +58,7 @@
   right: 0;
   top: 30px;
   height: 280px;
+  z-index: 1;
 }
 
 .popover-userAction ul li a{

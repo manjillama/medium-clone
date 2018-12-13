@@ -109,6 +109,27 @@ section{
   outline: 0;
   cursor: pointer;
 }
+
+/*
+* Generics
+*/
+.bg--danger{
+  background-color:#cc5454;
+  font-weight: bold;
+  color: #fff;
+}
+.fixed--alert{
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  padding: 15px;
+  transform: translate(-50%, -190%);
+  transition: all 1s;
+}
+.fixed--alert-active{
+  transform: translate(-50%, -50%);
+}
+
 /*
 * Forms
 */
