@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form'
 import { Link } from 'react-router-dom';
 import ImageCropper from '../utils/ImageCropper';
+import Env from '../../../services/envs';
 
 class ProfileEdit extends Component{
   constructor(props){
@@ -32,8 +33,22 @@ class ProfileEdit extends Component{
     Object.keys( formProps ).forEach( key => {
       formData.append(key, formProps[key]);
     });
+
+    if (formData.get('fullname') === '') {
+      this.setState({inputErr: {message:'Please enter your name.', status: true}}, () => {
+        setTimeout(()=>{
+          this.setState({inputErr: {status: false, message:'Please enter your name.'}});
+        }, 3000);
+      });
+      return false;
+    }
     formData.append("uploaded_image", this.state.uploadedImage);
-    updateBlogger(formData);
+
+    return this.props.updateBlogger(formData, () => {
+      const redirectTo = Env.BASE_URL+'/@'+formProps.username;
+      window.location.href = redirectTo;
+    });
+
   }
 
   /*
@@ -42,7 +57,7 @@ class ProfileEdit extends Component{
   * https://stackoverflow.com/questions/43996895/react-redux-upload-file-errors
   */
   UploadFile = ({ input: {value: omitValue, ...inputProps }, meta: omitMeta, ...props }) => (
-    <input type='file' {...inputProps} {...props} style={{display:'none'}} onChange={this.handleImageChange} id="updateUserImg"/>
+    <input type='file' {...inputProps} {...props} style={{display:'none'}} onChange={this.handleImageChange} id="updateUserImg" accept="image/x-png,image/gif,image/jpeg"/>
   );
 
   handleImageChange = (e) => {
@@ -100,7 +115,7 @@ class ProfileEdit extends Component{
       if(this.state.error){
         return <h1>Page not found :(</h1>
       }else{
-        const { handleSubmit } = this.props;
+        const { handleSubmit, submitting, invalid } = this.props;
         const errorAlertClass = this.state.inputErr.status ? 'bg--danger fixed--alert fixed--alert-active':'bg--danger fixed--alert';
         return (
           <section className="container--sm">
@@ -141,7 +156,7 @@ class ProfileEdit extends Component{
                   </label>
                 </div>
               </div>
-              <button type="submit" className="mjl-btn btn--p-hollow">Save</button>
+              <button type="submit" disabled={invalid || submitting}  className="mjl-btn btn--p-hollow">Save</button>
               <Link style={{display: 'inline-block',marginLeft: 8+'px'}} className="mjl-btn btn--d-hollow" to={`/@${this.props.authUsername}`}>Cancel</Link>
             </form>
             {this.renderCropModal()}
@@ -154,7 +169,7 @@ class ProfileEdit extends Component{
 
 function mapStateToProps(state){
   if(state.auth.authenticated){
-    return { initialValues: state.blogger.info, authUsername: state.auth.authenticated.username}
+    return { initialValues: state.blogger.info, authUsername: state.auth.authenticated.user.username}
   }else{
     return { initialValues: state.blogger.info, authUsername: null}
   }
@@ -168,7 +183,7 @@ function validate(values){
 
 
 export default compose(
-  connect(mapStateToProps, {fetchBlogger}),
+  connect(mapStateToProps, {fetchBlogger, updateBlogger}),
   reduxForm({
     validate,
     form: 'updateProfileForm'

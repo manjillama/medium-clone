@@ -1,23 +1,49 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchBlogger } from '../../../actions/blogger';
+import { fetchBlogger } from '../../../services/blogger-service';
+
 import { Link } from 'react-router-dom';
 import './Profile.css';
 
 class Profile extends Component{
   constructor(props){
     super(props);
-    this.state = {error:false, loading: true};
+    this.state = {error:false, loading: true, blogger: null};
   }
-  componentWillMount () {
-    const { username } = this.props.match.params;
-    this.props.fetchBlogger(username, (error)=>{
-      if(error){
-        this.setState({error:true});
-      }
-      this.setState({loading: false});
+  componentDidMount () {
+    // Listening to url change
+    this.unlisten = this.props.history.listen((location, action) => {
+      const param = location.pathname.split('@')[1];
+      /*
+      *To prevent
+        - Can't perform a React state update on an unmounted component.
+        - This is a no-op, but it indicates a memory leak in your application.
+        - To fix, cancel all subscriptions and asynchronous tasks in the componentWillUnmount method.
+        - asynchronous fetchBlogger function won't set state if routed to another url***
+      */
+      if(param)
+        this.fetchBlogger(param);
     });
+    this.fetchBlogger();
   }
+
+  componentWillUnmount() {
+    this.unlisten();
+  }
+
+  fetchBlogger(param){
+    const username  = param ? param : this.props.match.params.username;
+    fetchBlogger(username)
+      .then(response =>{
+        if(response.error){
+          this.setState({error:true, loading:false});
+        }else{
+          this.setState({blogger: response, loading: false, error:false});
+        }
+      });
+  }
+
+
 
   renderEditLink(){
     if(this.props.match.params.username === this.props.authUsername){
@@ -26,6 +52,14 @@ class Profile extends Component{
           <Link className="p-edit-btn mjl-btn btn--d-hollow" to="/profile/edit">Edit Profile</Link>
         </div>
       );
+    }
+  }
+
+  renderProfileImage(){
+    if(this.state.blogger.profile_image){
+      return <img className="user--pp" src={this.state.blogger.profile_image} alt={this.state.blogger.fullname}/>;
+    }else{
+      return <img className="user--pp" src="https://miro.medium.com/fit/c/240/240/0*32f1wB-hJ2cG3Va5" alt={this.state.blogger.fullname}/>;
     }
   }
 
@@ -42,17 +76,17 @@ class Profile extends Component{
               <div className="d--flex flex-col-rev-sm blogger-panel">
                 <div className="full-width">
                   <div className="d--flex">
-                    <h1>{this.props.blogger.fullname}</h1>
+                    <h1>{this.state.blogger.fullname}</h1>
                     {this.renderEditLink()}
                   </div>
                   <div>
                     <p className="text--muted textarea-u-b">
-                      {this.props.blogger.bio}
+                      {this.state.blogger.bio}
                     </p>
                   </div>
                 </div>
                 <div className="p-img-wrapper">
-                  <img className="user--pp" src="https://miro.medium.com/fit/c/240/240/0*32f1wB-hJ2cG3Va5" alt={this.props.blogger.fullname}/>
+                  {this.renderProfileImage()}
                 </div>
               </div>
             </div>
@@ -65,9 +99,9 @@ class Profile extends Component{
 
 function mapStateToProps(state){
   if(state.auth.authenticated){
-    return { blogger: state.blogger.info , authUsername: state.auth.authenticated.username}
+    return { authUsername: state.auth.authenticated.user.username}
   }else{
-    return { blogger: state.blogger.info , authUsername: null}
+    return { authUsername: null}
   }
 }
 export default connect(mapStateToProps, {fetchBlogger})(Profile);

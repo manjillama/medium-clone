@@ -1,4 +1,4 @@
-import { GET_BLOGGER, ERROR } from './types';
+import { GET_BLOGGER } from './types';
 
 import axios from 'axios';
 
@@ -10,12 +10,13 @@ export const fetchBlogger = (username, callback) => async dispatch => {
     dispatch({type: GET_BLOGGER, payload: response.data});
     callback(false);
   }catch(e){
-    dispatch({type: ERROR, payload: null});
+    dispatch({type: GET_BLOGGER, payload: null});
     callback(true);
   }
 }
 
-
-export const updateBlogger = (formProps) => {
-  axios.post('http://localhost:5000/update-user', formProps);
+export const updateBlogger = (formProps, callback) => async dispatch => {
+  await axios.post('http://localhost:5000/update-user', formProps);
+  dispatch({type: 'UPDATE', payload: null});
+  callback();
 };

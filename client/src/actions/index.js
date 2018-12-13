@@ -4,6 +4,7 @@ import axios from 'axios';
 export const signUp = (formProps, callback) => async dispatch => {
   try{
     const response = await axios.post('http://localhost:5000/signup', formProps);
+    console.log(response);
     if(response.data.error)
       throw new Error('Email already taken');
 
@@ -38,13 +39,13 @@ export const signIn = (formProps, callback) => async dispatch => {
 export const getUser = (token, callback) => async dispatch => {
   try{
     const headers = {'authorization': token};
-    const response = await axios.get('http://localhost:5000/api/get-username', { headers })
-    const payload = {token, username: response.data.username};
+    const response = await axios.get('http://localhost:5000/api/get-user', { headers })
+    const payload = {token, user: response.data.user};
     dispatch({type: AUTH_USER, payload});
   }catch(e){
     if(e.message !== "Network Error")
       localStorage.removeItem('token');
-      
+
     dispatch({type: AUTH_ERROR, payload: null});
   }finally{
     callback();

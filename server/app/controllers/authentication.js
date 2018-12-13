@@ -21,7 +21,10 @@ function tokenForUser(user){
 exports.signIn = (req, res) => {
   // user is passed through passport local strategy
   Blogger.findOne({ where: {user_email: req.user.email} }).then(blogger => {
-    return res.json({ token: tokenForUser(req.user), username: blogger.username});
+    return res.json({
+      token: tokenForUser(req.user),
+      user: {username: blogger.username, profile_image: blogger.profile_image, fullname: blogger.fullname}
+    });
   });
 }
 
@@ -44,7 +47,8 @@ exports.signUp = (req, res) => {
         let blogger = {
           username,
           fullname : req.body.fullname,
-          user_email: req.body.email
+          user_email: req.body.email,
+          profile_image: null
         }
         // Persisting in database
         User.create(user)
@@ -53,8 +57,12 @@ exports.signUp = (req, res) => {
           .then(() => {
             // Deleting user password from user object
             delete user.password;
+            console.log(blogger);
             // Respond to request indicating the user was created
-            return res.json({ token: tokenForUser(user) , username: blogger.username});
+            return res.json({
+              token: tokenForUser(user),
+              user: {username: blogger.username, profile_image: blogger.profile_image, fullname: blogger.fullname}
+            });
           })
         })
         .catch(error => {

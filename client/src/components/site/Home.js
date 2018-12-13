@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 class Home extends React.Component{
   componentDidUpdate(){
-    console.log(this.props.auth);
+    console.log(this.props.state);
   }
   render(){
     return <h1>Hi there, this is home </h1>
@@ -11,7 +11,7 @@ class Home extends React.Component{
 }
 
 function mapStateToProps(state){
-  return { auth: state.auth };
+  return { state };
 }
 
 export default connect(mapStateToProps)(Home);

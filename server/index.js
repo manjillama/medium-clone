@@ -27,6 +27,7 @@ sequelize
 
 // App
 const app = express();
+app.use(config.imageResourceUrl, express.static(config.imageDir()));
 app.use(fileUpload());
 app.use(cors());
 app.use(favicon(path.join(__dirname, 'favicon.ico')));

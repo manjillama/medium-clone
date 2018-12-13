@@ -31,9 +31,21 @@ class Header extends Component{
     if(this.state.showUserDropdown){
       let node = document.getElementById('pUserActionPanel');
       let userBtn = document.getElementById('popUserPanel');
+      let links = node.getElementsByTagName("ul");
       if(node){
+        // If user clicks outside the dropdown menu
         if(!node.contains(e.target) && !userBtn.contains(e.target)){
           this.setState({showUserDropdown:false});
+        }else{
+          /*
+          * If links are clicked
+          * setTimeout is so that dropdown gets unvisible only after link is clicked
+          */
+          if(links[0].contains(e.target)){
+            setTimeout(()=>{
+              this.setState({showUserDropdown:false});
+            }, 100);
+          }
         }
       }
     }
@@ -53,7 +65,7 @@ class Header extends Component{
           <ul>
             <li><a href="/">New Story</a></li>
             <li><a href="/">Stories</a></li>
-            <li><Link to={`/@${this.props.auth.username}`}>Profile</Link></li>
+            <li><Link to={`/@${this.props.auth.user.username}`}>Profile</Link></li>
             <li><Link to="/me/settings">Settings</Link></li>
             <li style={{cursor: 'pointer',padding: 7+'px '+ 0}} onClick={this.signOut}>Sign Out</li>
           </ul>

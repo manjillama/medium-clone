@@ -21,9 +21,11 @@ module.exports = app => {
   // Restricting end point with LocalStrategy
   app.post('/signin', requireEmailAndPass, Authentication.signIn);
   // Restricting end point with JwtStrategy
-  app.get('/api/get-username', requireJwt, function(req, res){
+  app.get('/api/get-user', requireJwt, function(req, res){
     // user is passed through passport local strategy
-    return res.json({username: req.user.username});
+    return res.json({
+      user: {username: req.user.username, profile_image: req.user.profile_image, fullname: req.user.fullname}
+    });
   });
   app.get('/api/get-user/:username', function(req, res){
     Blogger.findOne({ where: {username: req.params.username} }).then(blogger => {

@@ -46,11 +46,11 @@ img.user--pp{
 * React ImageCropper
 */
 .ReactCrop {
-  max-height: 500px;
+  max-height: 400px;
 }
 
 .ReactCrop__image {
-  max-height: 500px;
+  max-height: 400px !important;
 }
 @media (max-width: 552px) {
   .p-img-wrapper{

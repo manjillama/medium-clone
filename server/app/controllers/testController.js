@@ -5,6 +5,7 @@ const Blog = require('../models/blog');
 const bcrypt = require('bcrypt');
 const Op = Sequelize.Op;
 const config = require('../config/config');
+const sharp = require('sharp'); // https://github.com/lovell/sharp
 
 exports.findAllUsers = (req, res) => {
   User.findAll({
@@ -32,16 +33,28 @@ exports.findByUsernameOrEmail = (req, res) => {
 }
 
 exports.updateBloggerInfo = (req, res) => {
-
+  let profileImageUrl = req.body.profile_image;
+  // If user has uploaded profile image
   if(req.files && req.files.uploaded_image){
     let userImage = req.files.uploaded_image;
     let mimeType = userImage.mimetype;
-
     if(mimeType.split('/')[0] === 'image'){
-      userImage.mv(config.imageDir()+req.body.username+'.jpg', function(err) {
-         if (err)
-          console.log(err);
-       });
+      const outputDir = config.imageDir();
+      const imageName = req.body.id+'.jpg';
+      profileImageUrl = config.resourceHost+config.imageResourceUrl+imageName;
+      sharp(userImage.data).resize(160, 160)
+        .toFile(outputDir+imageName);
     }
   }
+
+  Blogger.findByPk(req.body.id).then(blogger => {
+    if(blogger){
+      blogger.updateAttributes({
+        fullname: req.body.fullname,
+        bio: req.body.bio,
+        profile_image: profileImageUrl
+      });
+    }
+  });
+  res.json({success: 'Ok'})
 }
