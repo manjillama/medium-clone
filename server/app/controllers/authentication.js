@@ -57,7 +57,6 @@ exports.signUp = (req, res) => {
           .then(() => {
             // Deleting user password from user object
             delete user.password;
-            console.log(blogger);
             // Respond to request indicating the user was created
             return res.json({
               token: tokenForUser(user),

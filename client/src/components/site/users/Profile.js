@@ -56,7 +56,8 @@ class Profile extends Component{
     if(this.props.blogger.profile_image){
       return <img className="user--pp" src={this.props.blogger.profile_image} alt={this.props.blogger.fullname}/>;
     }else{
-      return <img className="user--pp" src="https://miro.medium.com/fit/c/240/240/0*32f1wB-hJ2cG3Va5" alt={this.props.blogger.fullname}/>;
+      const initial = this.props.blogger.fullname.charAt(0);
+      return <div className="user--pp">{initial}</div>;
     }
   }
 

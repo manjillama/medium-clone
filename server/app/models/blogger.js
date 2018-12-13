@@ -20,7 +20,7 @@ const Blogger = sequelize.define('bloggers', {
     unique: true
   },
   bio: {
-    type: Sequelize.TEXT,
+    type: Sequelize.STRING(160),
   }
 }, {
   // creates table in database in snake_case

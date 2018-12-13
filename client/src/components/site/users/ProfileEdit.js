@@ -16,7 +16,9 @@ class ProfileEdit extends Component{
       inputErr: {
         status: false,
         message: ''
-      }};
+      },
+      charCount: 0
+    };
   }
 
   componentDidMount () {
@@ -103,7 +105,8 @@ class ProfileEdit extends Component{
       if(this.props.initialValues.profile_image){
         return <img className="user--pp" src={this.props.initialValues.profile_image} alt={this.props.initialValues.fullname}/>;
       }else{
-        return <img className="user--pp" src="https://miro.medium.com/fit/c/240/240/0*32f1wB-hJ2cG3Va5" alt={this.props.initialValues.fullname}/>;
+        const initial = this.props.initialValues.fullname.charAt(0);
+        return <div className="user--pp">{initial}</div>;
       }
     }
   }
@@ -141,6 +144,7 @@ class ProfileEdit extends Component{
                       rows="3"
                       className="textarea-u-b"
                       placeholder="Enter a short bio"
+                      maxLength="160"
                     />
                   </div>
                 </div>

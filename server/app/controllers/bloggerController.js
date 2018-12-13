@@ -20,10 +20,13 @@ exports.updateBloggerInfo = (req, res) => {
 
   Blogger.findByPk(req.body.id).then(blogger => {
     if(blogger){
-      blogger.updateAttributes({
+      blogger.update({
         fullname: req.body.fullname,
         bio: req.body.bio,
         profile_image: profileImageUrl
+      })
+      .catch( err =>{
+        res.status(500);
       });
     }
   });
