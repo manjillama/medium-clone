@@ -1,7 +1,18 @@
-.st0{fill:#FFFFFF;}
-.st1{font-family:'Haettenschweiler';}
-.st2{font-size:150px;}
-.st3{font-size:153px;}
+.th-nav-main{
+  color: rgba(0,0,0,.54);
+}
+
+.nav-cate-l li{
+  text-transform: uppercase;
+  color: rgba(0,0,0,.54);
+}
+
+.svgIcon {
+  position: relative;
+  top: 4px;
+  vertical-align: middle;
+  fill: rgba(0,0,0,.54);
+}
 
 .nav-top-bar {
   height: 65px!important;

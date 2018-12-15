@@ -16,6 +16,8 @@ import Contact from './components/site/Contact';
 import Settings from './components/site/users/Settings';
 import Profile from './components/site/users/Profile';
 import ProfileEdit from './components/site/users/ProfileEdit';
+import NewStory from './components/site/users/NewStory';
+
 import reducers from './reducers';
 
 import createBrowserHistory from "history/createBrowserHistory";
@@ -33,9 +35,11 @@ ReactDOM.render(
     <Router history={history}>
       <App>
         <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/me/settings" component={Settings} />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/contact" component={Contact} />
+          <Route exact path="/new-story" component={NewStory} />
+
+          <Route exact path="/me/settings" component={Settings} />
           <Route exact path="/@:username" component={Profile} />
           <Route exact path="/profile/edit" component={ProfileEdit} />
           <Route render={()=> <h1>Page Not Found :(</h1>}/>

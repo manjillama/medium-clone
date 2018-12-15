@@ -5,7 +5,10 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 
 class ProfileEditForm extends Component{
-
+  constructor(props){
+    super(props);
+    this.state = {bioCharCount: 0};
+  }
   renderProfileImage(){
     if(this.props.userImageSrc){
       return <img className="user--pp" src={this.props.userImageSrc} alt={this.props.initialValues.fullname}/>;
@@ -19,11 +22,16 @@ class ProfileEditForm extends Component{
     }
   }
 
+  componentDidMount(){
+    if(this.props.initialValues.bio)
+      this.setState({bioCharCount:this.props.initialValues.bio.length});
+  }
+
   render(){
     const { handleSubmit, submitting, invalid } = this.props;
     return (
       <form onSubmit={handleSubmit(this.props.onSubmit)} encType="multipart/form-data">
-        <div className="d--flex flex-col-rev-sm">
+        <div className="d--flex flex-ai-fs flex-col-rev-sm">
           <div className="full-width">
             <div className="d--flex">
               <Field
@@ -44,7 +52,13 @@ class ProfileEditForm extends Component{
                 className="textarea-u-b"
                 placeholder="Enter a short bio"
                 maxLength="160"
+                onChange = {
+                  e => {
+                    this.setState({bioCharCount: e.target.value.length});
+                  }
+                }
               />
+              <small style={{marginBottom: 30+'px',display: 'block'}} className="text--muted">{this.state.bioCharCount}/160</small>
             </div>
           </div>
           <div className="p-img-wrapper">
@@ -61,7 +75,11 @@ class ProfileEditForm extends Component{
           </div>
         </div>
         <button type="submit" disabled={invalid || submitting}  className="mjl-btn btn--p-hollow">Save</button>
-        <Link style={{display: 'inline-block',marginLeft: 8+'px'}} className="mjl-btn btn--d-hollow" to={`/@${this.props.initialValues.username}`}>Cancel</Link>
+        <Link
+          style={{display: 'inline-block',marginLeft: 8+'px'}}
+          className="mjl-btn btn--d-hollow"
+          to={`/@${this.props.initialValues.username}`}
+          >Cancel</Link>
       </form>
     );
   }

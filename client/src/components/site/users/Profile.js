@@ -70,8 +70,7 @@ class Profile extends Component{
       }else{
         return (
           <section className="container--sm">
-            <div className="">
-              <div className="d--flex flex-col-rev-sm blogger-panel">
+              <div className="d--flex flex-ai-fs flex-col-rev-sm blogger-panel">
                 <div className="full-width">
                   <div className="d--flex">
                     <h1>{this.props.blogger.fullname}</h1>
@@ -87,7 +86,6 @@ class Profile extends Component{
                   {this.renderProfileImage()}
                 </div>
               </div>
-            </div>
           </section>
         );
       }

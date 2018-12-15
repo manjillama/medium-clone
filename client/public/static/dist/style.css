@@ -35,6 +35,14 @@ section{
   width: 100%;
 }
 
+.show{
+  display: block;
+}
+
+.hide{
+  display: none;
+}
+
 /*
 * Typography
 */
@@ -180,19 +188,11 @@ form button[type=submit][disabled] {
   margin-left: 0;
 }
 
-.show{
-  display: block;
-}
-
-.hide{
-  display: none;
-}
-
 /*
 * GRID CSS
 */
 .container--sm{
-  max-width: 728px;
+  max-width: 740px;
   margin: 0 auto;
 }
 .mjl-container{
@@ -204,6 +204,11 @@ form button[type=submit][disabled] {
   display: -webkit-flex; /* Safari */
   display: flex;
 }
+
+.d--flex.flex-ai-fs{
+  align-items: flex-start;
+}
+
 
 @media (max-width: 552px) {
   .flex-col-rev-sm{

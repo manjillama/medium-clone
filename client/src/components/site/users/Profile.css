@@ -18,7 +18,8 @@ input,textarea{
 }
 
 .textarea-u-b{
-  font-size: 14px;
+  margin-top: 4px;
+  font-size: 16px;
 }
 
 .input-p-label{

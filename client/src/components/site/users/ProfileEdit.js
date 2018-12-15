@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { fetchBlogger, updateBlogger } from '../../../actions/blogger';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 
 import ProfileEditForm from './ProfileEditForm';
 import ImageCropper from '../utils/ImageCropper';

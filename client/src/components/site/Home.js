@@ -6,7 +6,7 @@ class Home extends React.Component{
     console.log(this.props.state);
   }
   render(){
-    return <h1>Hi there, this is home </h1>
+    return <section><h1>Hi there, this is home </h1></section>;
   }
 }
 
