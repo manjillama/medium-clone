@@ -106,26 +106,15 @@ class Header extends Component{
         <div className="nav-top-bar">
           <div className="tb-flex1">
             <Link to="/">
-              <img src="/static/images/threadly-logo.svg" height="30px" alt="Threadly Logo"/>
+              <img src="/static/images/threadly-logo.svg" height="25px" alt="Threadly Logo"/>
             </Link>
           </div>
           <div className="tb-flex0">
             <ul className="list-inline th-nav-main">
               <li>Search</li>
               {this.renderLinks()}
-
             </ul>
           </div>
-        </div>
-        <div>
-          <ul className="nav-cate-l list-inline">
-            <li>Home</li>
-            <li>Tech</li>
-            <li>Startups</li>
-            <li>Design</li>
-            <li>Health</li>
-            <li>Politics</li>
-          </ul>
         </div>
       </div>
     );

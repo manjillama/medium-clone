@@ -1,4 +1,5 @@
 import React from 'react';
+import CategoryNav from './includes/CategoryNav';
 import { connect } from 'react-redux';
 
 class Home extends React.Component{
@@ -6,7 +7,12 @@ class Home extends React.Component{
     console.log(this.props.state);
   }
   render(){
-    return <section><h1>Hi there, this is home </h1></section>;
+    return (
+      <div>
+        <CategoryNav/>
+        <section><h1>Hi there, this is home </h1></section>
+      </div>
+    );
   }
 }
 

@@ -10,15 +10,16 @@ const Blog = sequelize.define('blogs', {
   },
   title: {
     type: Sequelize.STRING,
-    allowNull: false,
   },
   description: {
     type: Sequelize.TEXT,
-    allowNull: false,
   },
   created_at: {
     type: Sequelize.DATE,
     allowNull: false
+  },
+  modified_at: {
+    type: Sequelize.DATE,
   }
 },{underscored: true});
 

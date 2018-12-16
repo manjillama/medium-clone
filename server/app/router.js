@@ -2,6 +2,8 @@ const TestController = require('./controllers/testController');
 const HomeController = require('./controllers/homeController');
 const Authentication  = require('./controllers/authentication');
 const BloggerController  = require('./controllers/BloggerController');
+const BlogController  = require('./controllers/BlogController');
+
 const Blogger = require('./models/blogger');
 const passportService = require('./services/passport'); // configuring passport to use LocalStrategy and JwtStrategy
 const passport = require('passport');
@@ -19,16 +21,22 @@ module.exports = app => {
   /*
   * Blogger profile routes
   */
-  app.get('/api/user/get-user', requireJwt, BloggerController.getBlogger);  // Restricting end point with JwtStrategy
+  app.get('/api/user/get-user',requireJwt, BloggerController.getBlogger);  // Restricting end point with JwtStrategy
   app.post('/api/user/edit', BloggerController.updateBloggerInfo);
   app.get('/api/user/get-user/:username', BloggerController.getBloggerByUsername);
+
+  /*
+  * Blog actions
+  */
+  app.post('/blog/create-blog',requireJwt, BlogController.createBlog);
+
 
   /*
   * Testing
   */
   app.get('/users', TestController.findAllUsers);
   app.get('/test-user', TestController.findByUsernameOrEmail);
-  
+
   app.get('/unauthenticated', function(req, res){res.json({error: "Authentication Failed"})});
 
 }
