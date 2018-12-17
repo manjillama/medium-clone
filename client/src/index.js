@@ -16,7 +16,7 @@ import Contact from './components/site/Contact';
 import Settings from './components/site/users/Settings';
 import Profile from './components/site/users/Profile';
 import ProfileEdit from './components/site/users/ProfileEdit';
-import NewStory from './components/site/users/NewStory';
+import WriteStory from './components/site/users/WriteStory';
 
 import reducers from './reducers';
 
@@ -37,7 +37,8 @@ ReactDOM.render(
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/contact" component={Contact} />
-          <Route exact path="/new-story" component={NewStory} />
+          <Route exact path="/new-story" component={WriteStory} />
+          <Route exact path="/p/:postId/edit" component={WriteStory} />
 
           <Route exact path="/me/settings" component={Settings} />
           <Route exact path="/@:username" component={Profile} />
