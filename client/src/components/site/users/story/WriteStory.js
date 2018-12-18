@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './WriteStory.css';
 import ContentEditable from 'react-contenteditable'; //https://github.com/lovasoa/react-contenteditable
 
-import { writePost, fetchPost } from '../../../services/createBlog';
+import { writePost, fetchPost } from '../../../../services/blogService';
 
 class WriteStory extends Component{
   constructor(props){
@@ -16,26 +16,6 @@ class WriteStory extends Component{
     }
   }
 
-  /*
-  * componentWillReceiveProps works well in this case as it receives a new props from history api
-  * Whenever the url changes
-  * Triggering another props receving action from here will create an infinite loop
-  */
-  componentWillReceiveProps(nextProps){
-    this.setState({renderError: false}, () => {
-      let { path }= nextProps.match;
-      if(path === '/new-story'){
-        // User navigated to new story Page
-        this.setState({postId: null,title: '',post: ''});
-      }else{
-        // User navigated to Edit Page
-        const postId = this.props.match.params.postId;
-        if(postId)
-          this.getPost(postId);
-      }
-    });
-  }
-
   componentDidMount(){
     // To delay blog data send
     this.timeout =  0;
@@ -46,6 +26,26 @@ class WriteStory extends Component{
     // If component is rendered through editing page
     if(postId)
       this.getPost(postId);
+  }
+
+  /*
+  * componentWillReceiveProps works well in this case as it receives a new props from history api
+  * Whenever the url changes
+  * Triggering another props receving action from here will create an infinite loop
+  */
+  componentWillReceiveProps(nextProps){
+    this.setState({renderError: false}, () => {
+      let { path } = nextProps.match;
+      if(path === '/new-story'){
+        // User navigated to new story Page
+        this.setState({postId: null,title: '',post: ''});
+      }else{
+        // User navigated to Edit Page
+        const postId = this.props.match.params.postId;
+        if(postId)
+          this.getPost(postId);
+      }
+    });
   }
 
   getPost(id){

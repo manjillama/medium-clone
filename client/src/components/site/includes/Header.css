@@ -24,6 +24,7 @@
   -webkit-align-items: center!important;
   -ms-flex-align: center!important;
   align-items: center!important;
+  font-size: 13px;
 }
 
 .tb-flex1 {

@@ -24,6 +24,7 @@ module.exports = app => {
   app.get('/api/user/get-user',requireJwt, BloggerController.getBlogger);  // Restricting end point with JwtStrategy
   app.post('/api/user/edit', BloggerController.updateBloggerInfo);
   app.get('/api/user/get-user/:username', BloggerController.getBloggerByUsername);
+  app.get('/api/user/blogs/:status',requireJwt, BlogController.getUserStories);
 
   /*
   * Blog actions

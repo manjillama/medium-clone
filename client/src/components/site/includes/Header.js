@@ -64,7 +64,7 @@ class Header extends Component{
         <div className="popover-userAction" id="pUserActionPanel">
           <ul>
             <li><Link to="/new-story">New Story</Link></li>
-            <li><a href="/">Stories</a></li>
+            <li><Link to="/me/stories/drafts">Stories</Link></li>
             <li><Link to={`/@${this.props.auth.user.username}`}>Profile</Link></li>
             <li><Link to="/me/settings">Settings</Link></li>
             <li style={{cursor: 'pointer',padding: 7+'px '+ 0}} onClick={this.signOut}>Sign Out</li>

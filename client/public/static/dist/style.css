@@ -17,8 +17,9 @@ html, body{
   font-family: 'Noto Sans TC', sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  font-size: 13px;
+  font-size: 14px;
   margin: 0;
+  color: rgba(0, 0, 0, 0.84);
 }
 h1, h2, h3, h4, h5, h6, dl, dd, ol, ul, menu, figure, blockquote, p, pre, form {
   margin: 0;
@@ -186,6 +187,11 @@ form button[type=submit][disabled] {
 
 .list-inline>li:first-child {
   margin-left: 0;
+}
+
+.list-n-block{
+  padding: 0;
+  list-style-type: none;
 }
 
 /*

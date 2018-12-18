@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchBlogger } from '../../../actions/blogger';
-import CategoryNav from '../includes/CategoryNav';
+import { fetchBlogger } from '../../../../actions/blogger';
+import CategoryNav from '../../includes/CategoryNav';
 
 import { Link } from 'react-router-dom';
 import './Profile.css';

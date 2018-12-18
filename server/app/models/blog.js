@@ -20,6 +20,11 @@ const Blog = sequelize.define('blogs', {
   },
   modified_at: {
     type: Sequelize.DATE,
+  },
+  status: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
   }
 },{underscored: true});
 

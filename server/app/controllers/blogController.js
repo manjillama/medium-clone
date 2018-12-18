@@ -26,9 +26,7 @@ exports.createBlog = (req, res) => {
     Blog.create(post)
     .then(blog => {res.json({postId: blog.id})});
   }
-
 }
-
 
 exports.getBlog = function(req, res){
   Blog.findOne({
@@ -38,5 +36,15 @@ exports.getBlog = function(req, res){
     }
   }).then(blog => {
     res.json({blog});
+  });
+}
+
+exports.getUserStories = (req, res) => {
+  const userId = req.user.id;
+  const status  = req.params.status;  // true for published and false for drafts
+  Blog.findAll({
+    where: {blogger_id: userId, status}
+  }).then(blog => {
+    res.json(blog);
   });
 }

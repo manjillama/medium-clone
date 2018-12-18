@@ -9,3 +9,8 @@ export function fetchPost(id, token){
   const headers = {'authorization': token};
   return axios.get('http://localhost:5000/blog/action/edit/'+id, { headers });
 }
+
+export function getUserPost(token, status){
+  const headers = {'authorization': token};
+  return axios.get('http://localhost:5000/api/user/blogs/'+status, { headers });
+}

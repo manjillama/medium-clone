@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { fetchBlogger, updateBlogger } from '../../../actions/blogger';
+import { fetchBlogger, updateBlogger } from '../../../../actions/blogger';
 import { connect } from 'react-redux';
-import CategoryNav from '../includes/CategoryNav';
+import CategoryNav from '../../includes/CategoryNav';
 
 import ProfileEditForm from './ProfileEditForm';
-import ImageCropper from '../utils/ImageCropper';
+import ImageCropper from '../../utils/ImageCropper';
 
-import Env from '../../../services/envs';
+import Env from '../../../../services/envs';
 
 
 class ProfileEdit extends Component{
@@ -72,7 +72,8 @@ class ProfileEdit extends Component{
   onSubmit = formProps => {
     let formData = new FormData();
     Object.keys( formProps ).forEach( key => {
-      formData.append(key, formProps[key]);
+      if(formProps[key]) // Don't send properties whose value is null
+        formData.append(key, formProps[key]);
     });
 
     if (formData.get('fullname') === '') {

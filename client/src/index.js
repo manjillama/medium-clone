@@ -14,9 +14,10 @@ import App from './components/App';
 import Home from './components/site/Home';
 import Contact from './components/site/Contact';
 import Settings from './components/site/users/Settings';
-import Profile from './components/site/users/Profile';
-import ProfileEdit from './components/site/users/ProfileEdit';
-import WriteStory from './components/site/users/WriteStory';
+import Profile from './components/site/users/profile/Profile';
+import ProfileEdit from './components/site/users/profile/ProfileEdit';
+import WriteStory from './components/site/users/story/WriteStory';
+import Stories from './components/site/users/story/Stories';
 
 import reducers from './reducers';
 
@@ -39,6 +40,7 @@ ReactDOM.render(
           <Route exact path="/contact" component={Contact} />
           <Route exact path="/new-story" component={WriteStory} />
           <Route exact path="/p/:postId/edit" component={WriteStory} />
+          <Route exact path="/me/stories/:id" component={Stories} />
 
           <Route exact path="/me/settings" component={Settings} />
           <Route exact path="/@:username" component={Profile} />
