@@ -47,7 +47,7 @@ class UserStories extends React.Component {
   renderToolTip = (e) => {
     let id = e.target.getAttribute('data-attr-id');
     if(id){
-      // create tooltip
+      // tooltip logic
     }
   }
 
@@ -64,10 +64,16 @@ class UserStories extends React.Component {
               </Link>
               <div className="d--flex">
                 <p className="s-l-taction">Last edited {timeStamp}</p>
-                <button className="btn-chromeless" onClick={this.renderToolTip} data-attr-id={blog.id}>
+                <button className="btn-chromeless" onClick={this.renderToolTip} data-attr-id={blog.id} style={{position: 'relative'}}>
                   <svg width="21" height="21" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" data-attr-id={blog.id}>
                     <path d="M4 7.33L10.03 14l.5.55.5-.55 5.96-6.6-.98-.9-5.98 6.6h1L4.98 6.45z" fillRule="evenodd"></path>
                   </svg>
+
+                  <ul className="s-l-tooltip list-n-block">
+                    <li><Link to={`/p/${blog.id}/edit`}>Edit Story</Link></li>
+                    <li>Delete Story</li>
+                  </ul>
+
                 </button>
               </div>
             </li>
@@ -77,7 +83,9 @@ class UserStories extends React.Component {
           <ul className="list-n-block">{listItems}</ul>
         );
       }else {
-        return <h3 className="user--msg">You haven't wrote any stories yet.</h3>
+        return (
+          <h3 className="user--msg">{this.state.showStories === 'drafts' ? 'You haven\'t wrote any stories yet.': 'You haven\'t published any public stories yet.'}</h3>
+        );
       }
 
     }else{

@@ -44,3 +44,34 @@ p.s-l-taction{
   margin-top: 10px;
   fill: rgba(0, 0, 0, 0.54);
 }
+
+.s-l-tooltip:after {
+  -webkit-transform: rotate(45deg) translate(-50%,-50%);
+  transform: rotate(45deg) translate(-50%,-50%);
+  box-shadow: -1px -1px 1px -1px rgba(0,0,0,.54);
+  content: '';
+  display: block;
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+}
+.s-l-tooltip{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  padding: 10px 0;
+  background: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px;
+  border-radius: 4px;
+  transform: translate(-54px, 40px);
+  z-index: 10;
+  width: 130px;
+}
+ul.s-l-tooltip>li{
+  text-align: left;
+  padding: 8px 15px;
+  color: rgba(0, 0, 0, 0.54);
+}
