@@ -1,14 +1,21 @@
 import React from 'react';
 import './Stories.css';
 import { Link } from 'react-router-dom';
-import DraftStories from './DraftStories';
-import PublishedStories from './PublishedStories';
+import UserStories from './UserStories';
 
 export default class Stories extends React.Component {
-  renderNav(){
-    const tab = this.props.match.params.id;
+  constructor(props){
+    super(props);
+    this.state = {
+      showStories:null
+    };
+  }
 
-    if(tab === 'drafts'){
+  componentDidMount(){
+    this.setState({showStories:this.props.match.params.id});
+  }
+  renderNav(){
+    if(this.state.showStories === 'drafts'){
       return (
         <ul className="list-inline">
           <li className="active"><Link to="/me/stories/drafts">Drafts</Link></li>
@@ -25,26 +32,26 @@ export default class Stories extends React.Component {
     }
   }
 
-  renderContent(){
-    const tab = this.props.match.params.id;
-    if(tab === 'drafts'){
-      return <DraftStories/>
-    }else{
-      return <PublishedStories/>
-    }
+  componentWillReceiveProps(nextProps){
+    this.setState({showStories:nextProps.match.params.id});
   }
 
   render(){
-    return (
-      <section>
-        <h1 className="title--lg" style={{marginBottom:30+'px'}}>Your Stories</h1>
-        <nav>
-          {this.renderNav()}
-        </nav>
-        <div>
-          {this.renderContent()}
-        </div>
-      </section>
-    );
+    if(this.state.showStories){
+      console.log(this.state.showStories);
+      return (
+        <section>
+          <h1 className="title--lg" style={{marginBottom:30+'px'}}>Your Stories</h1>
+          <nav>
+            {this.renderNav()}
+          </nav>
+          <div>
+            <UserStories showStories={this.state.showStories}/>
+          </div>
+        </section>
+      );
+    }else{
+      return <h3>Loading...</h3>
+    }
   }
 }

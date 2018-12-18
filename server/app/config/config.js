@@ -8,5 +8,9 @@ module.exports = {
     return this.HOME_DIR+'/Documents/threadly/images/';
   },
   imageResourceUrl: '/dist/images/',
-  resourceHost: 'http://localhost:5000'
+  resourceHost: 'http://localhost:5000',
+  getUtcTimestamp: function(){
+    const now = new Date();
+    return now.getTime() + now.getTimezoneOffset() * 60000;
+  }
 };

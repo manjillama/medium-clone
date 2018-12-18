@@ -1,23 +1,40 @@
 import React from 'react';
 import { getUserPost } from '../../../../services/blogService';
+import { utcToLocal } from '../../../../services/utils';
+
 import { Link } from 'react-router-dom';
 
 export default class DraftStories extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      blogs: null
+      blogs: null,
+      showStories: null
     }
   }
 
   componentDidMount(){
-    this.fetchPosts()
+    this.setState({showStories: this.props.showStories}, ()=>{
+      this.fetchPosts();
+    })
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({showStories: nextProps.showStories}, ()=>{
+      this.fetchPosts();
+    })
   }
 
   async fetchPosts(){
     const userToken = localStorage.getItem('token');
     let blogs = [];
-    await getUserPost(userToken, false)
+    let status;
+    if(this.state.showStories === 'drafts'){
+      status = false;
+    }else{
+      status = true;
+    }
+    await getUserPost(userToken, status)
       .then(res => {
         res.data.forEach(blog => {
           blogs.push(blog);
@@ -31,13 +48,17 @@ export default class DraftStories extends React.Component {
 
     if(blogs){
       if(blogs.length > 0){
-        const listItems = blogs.map((blog) =>
-          <li className="s-l-item" key={blog.id}>
-            <Link to={`/p/${blog.id}/edit`}>
-              <h3>{blog.title}</h3>
-            </Link>
-          </li>
-        );
+        const listItems = blogs.map((blog) =>{
+          const timeStamp = utcToLocal(blog.modified_at);
+          return (
+            <li className="s-l-item" key={blog.id}>
+              <Link to={`/p/${blog.id}/edit`}>
+                <h3>{blog.title.length > 0 ? blog.title : 'Untitled Story'}</h3>
+                <p className="s-l-taction">Last edited {timeStamp}</p>
+              </Link>
+            </li>
+          );
+        });
         return (
           <ul className="list-n-block">{listItems}</ul>
         );

@@ -30,3 +30,7 @@ nav ul {
 .s-l-item h3{
   font-size: 23px;
 }
+
+.s-l-taction{
+  color: rgba(0, 0, 0, 0.54);
+}

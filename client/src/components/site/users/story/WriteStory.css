@@ -1,5 +1,5 @@
 .input-story-t{
-  font-size: 40px;
+  font-size: 38px;
   height: 48px;
   font-weight: 600;
 }
@@ -7,7 +7,7 @@
 .input-story-p{
   margin-top: 10px;
   outline: 0;
-  font-size: 22px;
+  font-size: 18px;
   position: relative;
   z-index: 1;
 }

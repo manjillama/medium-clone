@@ -16,7 +16,7 @@ const Blog = sequelize.define('blogs', {
   },
   created_at: {
     type: Sequelize.DATE,
-    allowNull: false
+    allowNull: false,
   },
   modified_at: {
     type: Sequelize.DATE,
@@ -26,7 +26,7 @@ const Blog = sequelize.define('blogs', {
     allowNull: false,
     defaultValue: false
   }
-},{underscored: true});
+},{underscored: true, timestamps: false});
 
 
 module.exports = Blog;
