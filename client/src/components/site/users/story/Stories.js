@@ -10,7 +10,6 @@ export default class Stories extends React.Component {
       showStories:null
     };
   }
-
   componentDidMount(){
     this.setState({showStories:this.props.match.params.id});
   }
@@ -38,7 +37,6 @@ export default class Stories extends React.Component {
 
   render(){
     if(this.state.showStories){
-      console.log(this.state.showStories);
       return (
         <section>
           <h1 className="title--lg" style={{marginBottom:30+'px'}}>Your Stories</h1>

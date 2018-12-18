@@ -16,7 +16,9 @@ nav ul {
   margin-bottom: -1px;
   color: rgba(0, 0, 0, 0.54);
 }
-
+nav ul li{
+  padding: 10px 0;
+}
 .user--msg{
   text-align: center;
   margin-top: 4em;
@@ -28,9 +30,17 @@ nav ul {
 }
 
 .s-l-item h3{
-  font-size: 23px;
+  font-size: 22px;
 }
 
-.s-l-taction{
+p.s-l-taction{
+  font-size: 13px;
+  margin-top: 10px;
   color: rgba(0, 0, 0, 0.54);
+}
+
+.s-l-item svg{
+  margin-left: 8px;
+  margin-top: 10px;
+  fill: rgba(0, 0, 0, 0.54);
 }
