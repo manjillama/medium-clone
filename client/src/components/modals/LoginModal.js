@@ -4,12 +4,12 @@ import ReactDOM from 'react-dom';
 import './Modal.css';
 
 import { Provider } from 'react-redux';
-import { store } from '../../index';
-import SignInForm from '../forms/SignInForm';
-import SignUpForm from '../forms/SignUpForm';
+import { store } from 'index';
+import SignInForm from 'components/forms/SignInForm';
+import SignUpForm from 'components/forms/SignUpForm';
 
 import { Router } from 'react-router-dom';
-import { history } from '../../index';
+import { history } from 'index';
 
 class LoginModal extends Component{
   constructor(props){

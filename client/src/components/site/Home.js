@@ -1,5 +1,5 @@
 import React from 'react';
-import CategoryNav from './includes/CategoryNav';
+import CategoryNav from 'components/site/includes/CategoryNav';
 import { connect } from 'react-redux';
 
 class Home extends React.Component{

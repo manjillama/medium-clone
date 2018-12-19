@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
-import Modal from '../../modals/Modal';
+import Modal from 'components/modals/Modal';
 /*
 * Demo: https://www.npmjs.com/package/react-image-crop
 * https://codesandbox.io/s/lmr9m677m

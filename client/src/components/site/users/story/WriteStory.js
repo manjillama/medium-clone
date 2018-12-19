@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './WriteStory.css';
 import ContentEditable from 'react-contenteditable'; //https://github.com/lovasoa/react-contenteditable
 
-import { writePost, fetchPost } from '../../../../services/blogService';
+import { writePost, fetchPost } from 'services/blogService';
 
 class WriteStory extends Component{
   constructor(props){

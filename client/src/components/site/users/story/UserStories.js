@@ -1,6 +1,6 @@
 import React from 'react';
-import { getUserPost } from '../../../../services/blogService';
-import { utcToLocal } from '../../../../services/utils';
+import { getUserPost } from 'services/blogService';
+import { utcToLocal } from 'services/utils';
 import { withRouter } from "react-router";
 
 import { Link } from 'react-router-dom';

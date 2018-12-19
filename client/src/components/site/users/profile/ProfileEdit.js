@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { fetchBlogger, updateBlogger } from '../../../../actions/blogger';
+import { fetchBlogger, updateBlogger } from 'actions/blogger';
 import { connect } from 'react-redux';
-import CategoryNav from '../../includes/CategoryNav';
+import CategoryNav from 'components/site/includes/CategoryNav';
 
 import ProfileEditForm from './ProfileEditForm';
-import ImageCropper from '../../utils/ImageCropper';
+import ImageCropper from 'components/site/utils/ImageCropper';
 
-import Env from '../../../../services/envs';
+import Env from 'services/envs';
 
 
 class ProfileEdit extends Component{
