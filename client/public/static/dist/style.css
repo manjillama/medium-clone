@@ -34,7 +34,10 @@ a {
 section{
   padding: 30px 0 !important;
 }
-
+hr{
+  border: 0;
+  border-top: 1px solid #bbb;
+}
 .full-width{
   width: 100%;
 }
@@ -98,9 +101,13 @@ section{
   border: 1px solid transparent;
   font-size: 14px;
 }
+.mjl-btn-sm{
+  font-size: 12px !important;
+  padding: 0px 10px;
+  line-height: 30px;
+}
 .btn--p-hollow{
   border-color: #018f69;
-  font-size: inherit !important;
   color: #018f69;
 }
 .btn--d-hollow{
@@ -212,6 +219,10 @@ form button[type=submit][disabled] {
 .d--flex{
   display: -webkit-flex; /* Safari */
   display: flex;
+}
+
+.flex-sb{
+  justify-content: space-between;
 }
 
 .d--flex.flex-ai-fs{

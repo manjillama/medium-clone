@@ -107,7 +107,7 @@ class WriteStory extends Component{
 
   renderPostPlaceHolder(){
     if(this.state.post === '')
-      return <span style={{position:'absolute',top:0,left:0,fontSize: 22+'px'}} className="text--muted">Tell us your story...</span>
+      return <span style={{position:'absolute',top:-5+'px',left:0,fontSize: 22+'px'}} className="text--muted">Tell us your story...</span>
   }
 
   render(){
@@ -118,7 +118,16 @@ class WriteStory extends Component{
     }else{
       return (
         <section className="container--sm">
-          {this.renderSavingState()}
+          <div className="d--flex flex-sb" style={{alignItems: 'flex-end'}}>
+            <div className="text--muted">
+              {this.renderSavingState()}
+            </div>
+            <div>
+              <button className="mjl-btn-sm mjl-btn btn--p-hollow">Ready To Publish?</button>
+            </div>
+          </div>
+          <hr/>
+
           <form>
             <input className="input-story-t" type="text" placeholder="Title" value={this.state.title} onChange={this.handleTitleChange}/>
             <div style={{position:'relative'}}>

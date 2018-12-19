@@ -78,6 +78,7 @@ p.s-l-taction{
   border-radius: 4px;
   z-index: 10;
   width: 130px;
+  border: 1px solid #ccc;
 }
 ul.s-l-tooltip>li{
   text-align: left;
