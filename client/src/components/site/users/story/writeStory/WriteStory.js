@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './WriteStory.css';
-import ContentEditable from 'react-contenteditable'; //https://github.com/lovasoa/react-contenteditable
-
+import StoryForm from './StoryForm';
+import StoryPublish from './StoryPublish';
 import { writePost, fetchPost } from 'services/blogService';
 
 class WriteStory extends Component{
@@ -62,14 +62,14 @@ class WriteStory extends Component{
 
 
   handleTitleChange = (e) => {
-    this.setState({title: e.target.value}, this.doBlog());
+    this.setState({title: e.target.value}, this.saveBlog());
   }
 
   handlePostChange = (e) => {
-    this.setState({post: e.target.value}, this.doBlog());
+    this.setState({post: e.target.value}, this.saveBlog());
   }
 
-  doBlog = () => {
+  saveBlog = () => {
     if(this.timeout) clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
       let formData = new FormData();
@@ -97,18 +97,7 @@ class WriteStory extends Component{
     }, 800);
   }
 
-  renderSavingState(){
-    if(this.state.savingState === 'onprogress'){
-      return <span>Saving</span>;
-    }else if(this.state.savingState === 'saved'){
-      return <span>Saved</span>
-    }
-  }
 
-  renderPostPlaceHolder(){
-    if(this.state.post === '')
-      return <span style={{position:'absolute',top:-5+'px',left:0,fontSize: 22+'px'}} className="text--muted">Tell us your story...</span>
-  }
 
   render(){
     if(this.state.renderError){
@@ -118,28 +107,16 @@ class WriteStory extends Component{
     }else{
       return (
         <section className="container--sm">
-          <div className="d--flex flex-sb" style={{alignItems: 'flex-end'}}>
-            <div className="text--muted">
-              {this.renderSavingState()}
-            </div>
-            <div>
-              <button className="mjl-btn-sm mjl-btn btn--p-hollow">Ready To Publish?</button>
-            </div>
-          </div>
+          <StoryPublish savingState={this.state.savingState}/>
+          
           <hr/>
 
-          <form>
-            <input className="input-story-t" type="text" placeholder="Title" value={this.state.title} onChange={this.handleTitleChange}/>
-            <div style={{position:'relative'}}>
-              {this.renderPostPlaceHolder()}
-              <ContentEditable
-                className="input-story-p"
-                innerRef={this.contentEditable}
-                html={this.state.post}
-                disabled={false}
-                onChange={this.handlePostChange} />
-            </div>
-          </form>
+          <StoryForm
+            handlePostChange={this.handlePostChange}
+            handleTitleChange={this.handleTitleChange}
+            post={this.state.post}
+            title={this.state.title}/>
+
         </section>
       );
     }

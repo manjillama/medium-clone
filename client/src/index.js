@@ -16,7 +16,7 @@ import Contact from './components/site/Contact';
 import Settings from './components/site/users/Settings';
 import Profile from './components/site/users/profile/Profile';
 import ProfileEdit from './components/site/users/profile/ProfileEdit';
-import WriteStory from './components/site/users/story/WriteStory';
+import WriteStory from './components/site/users/story/writeStory/WriteStory';
 import Stories from './components/site/users/story/Stories';
 
 import reducers from './reducers';
