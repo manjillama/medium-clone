@@ -8,9 +8,11 @@ class WriteStory extends Component{
   constructor(props){
     super(props);
     this.state = {
-      postId: null,
-      title: '',
-      post: '',
+      blog: {
+        postId: null,
+        title: '',
+        post: '',
+      },
       savingState: 'onhold',
       renderError: false
     }
@@ -38,7 +40,11 @@ class WriteStory extends Component{
       let { path } = nextProps.match;
       if(path === '/new-story'){
         // User navigated to new story Page
-        this.setState({postId: null,title: '',post: ''});
+        this.setState({
+          blog: {
+            ...this.state.blog, postId: null,title: '',post: ''
+          }
+        });
       }else{
         // User navigated to Edit Page
         const postId = this.props.match.params.postId;
@@ -53,7 +59,9 @@ class WriteStory extends Component{
       .then(res => {
         let post = res.data.blog; // returns null if post doesn't exist or belongs to another user
         if(post){
-          this.setState({title: post.title, post: post.description, postId: id});
+          this.setState({
+            blog: {...this.state.blog, title: post.title, post: post.description, postId: id}
+          });
         }else{
           this.setState({renderError: true});
         }
@@ -62,20 +70,24 @@ class WriteStory extends Component{
 
 
   handleTitleChange = (e) => {
-    this.setState({title: e.target.value}, this.saveBlog());
+    this.setState({
+      blog: {...this.state.blog, title: e.target.value}
+    }, this.saveBlog());
   }
 
   handlePostChange = (e) => {
-    this.setState({post: e.target.value}, this.saveBlog());
+    this.setState({
+      blog: {...this.state.blog, post: e.target.value}
+    }, this.saveBlog());
   }
 
   saveBlog = () => {
     if(this.timeout) clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
       let formData = new FormData();
-      formData.append("title", this.state.title);
-      formData.append("post", this.state.post);
-      formData.append("postId", this.state.postId);
+      formData.append("title", this.state.blog.title);
+      formData.append("post", this.state.blog.post);
+      formData.append("postId", this.state.blog.postId);
 
       this.setState({savingState: 'onprogress'});
       writePost(formData, this.userToken)
@@ -84,7 +96,7 @@ class WriteStory extends Component{
             // If post is newly created, id is returned
             let id = response.data.postId;
             if(id){
-              this.setState({postId: id}, ()=>{
+              this.setState({ blog:{postId: id} }, ()=>{
                 this.props.history.push(`/p/${id}/edit`);
               });
             }
@@ -107,15 +119,14 @@ class WriteStory extends Component{
     }else{
       return (
         <section className="container--sm">
-          <StoryPublish savingState={this.state.savingState}/>
-          
+          <StoryPublish savingState={this.state.savingState} blog={this.state.blog}/>
+
           <hr/>
 
           <StoryForm
             handlePostChange={this.handlePostChange}
             handleTitleChange={this.handleTitleChange}
-            post={this.state.post}
-            title={this.state.title}/>
+            blog={this.state.blog}/>
 
         </section>
       );

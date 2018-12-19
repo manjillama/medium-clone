@@ -94,7 +94,7 @@ export default class ImageCropper extends Component{
     const { crop, src } = this.state;
 
     return (
-      <Modal closeModal={this.closeModal} modalOverlayColor="#000" modalBackgroundColor="rgb(232, 243, 236)" displayCloseBtn={false}>
+      <Modal closeModal={this.closeModal} modalOverlayColor="rgba(0,0,0,0.5)" modalBackgroundColor="rgb(232, 243, 236)" displayCloseBtn={false}>
         <p>Create Profile Picture</p><br/>
         {src && (
           <ReactCrop

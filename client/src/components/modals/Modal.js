@@ -1,12 +1,27 @@
 import React from 'react';
 import './Modal.css';
+import PropTypes from 'prop-types';
 
-export default (props) => {
+const Modal = (props) => {
+
+  const modalStyles = {
+    backgroundColor: props.modalBackgroundColor
+  }
+
+  if(props.modalMaxWidth)
+    modalStyles.maxWidth = props.modalMaxWidth;
+  if(props.modalHeight)
+    modalStyles.height = props.modalHeight;
+  if(props.modalWidth)
+    modalStyles.width = props.modalWidth;
+  if(props.modalNoShadow)
+    modalStyles.boxShadow = 'none';
+
   return (
     <div id="modalWrapper">
-      <div className="modal-backdrop" style={{backgroundColor: props.modalOverlayColor}}></div>
+      <div className="modal--overlay" style={{backgroundColor: props.modalOverlayColor}}></div>
       <div className="modal">
-        <div className="modal-dialog" style={{backgroundColor: props.modalBackgroundColor}}>
+        <div className="modal-dialog" style={modalStyles}>
           <div className="modal-content">
             <div className="modal-body">
               {
@@ -25,3 +40,14 @@ export default (props) => {
     </div>
   );
 }
+Modal.propTypes = {
+  modalBackgroundColor: PropTypes.string.isRequired,
+  modalMaxWidth: PropTypes.string,
+  modalWidth: PropTypes.string,
+  modalHidth: PropTypes.string,
+  modalNoShadow: PropTypes.bool,
+  modalOverlayColor: PropTypes.string.isRequired,
+  displayCloseBtn: PropTypes.bool,
+  children: PropTypes.node.isRequired
+}
+export default Modal;
