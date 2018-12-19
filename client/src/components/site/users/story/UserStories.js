@@ -10,7 +10,8 @@ class UserStories extends React.Component {
     super(props);
     this.state = {
       blogs: null,
-      showStories: null
+      showStories: null,
+      tooltip: null
     }
   }
 
@@ -44,12 +45,44 @@ class UserStories extends React.Component {
     this.setState({blogs});
   }
 
-  renderToolTip = (e) => {
-    let id = e.target.getAttribute('data-attr-id');
+  createToolTipProps = (e) => {
+    let postId = e.currentTarget.getAttribute('data-attr-id');
+    const id = e.currentTarget.id;
     if(id){
       // tooltip logic
+      const btn = document.getElementById(id);
+      const offsetLeft = btn.offsetLeft;
+      const offsetTop = btn.offsetTop;
+      this.setState({
+        tooltip: {
+          id: postId,
+          offsetLeft,
+          offsetTop
+        }
+      });
     }
   }
+
+  hideTooltip = (e) => {
+    this.setState({tooltip: null});
+  }
+
+  renderTooltip(){
+    const styles = {
+      transform: `translate(${this.state.tooltip.offsetLeft}px, ${this.state.tooltip.offsetTop}px)`
+    };
+    return (
+      <div>
+        <div id="s-tooltipOverlay" onClick={this.hideTooltip}></div>
+        <ul className="s-l-tooltip list-n-block" style={styles}>
+          <li><Link to={`/p/${this.state.tooltip.id}/edit`}>Edit Story</Link></li>
+          <li>Delete Story</li>
+        </ul>
+      </div>
+    );
+  }
+
+
 
   renderPosts(){
     const { blogs } = this.state;
@@ -64,15 +97,11 @@ class UserStories extends React.Component {
               </Link>
               <div className="d--flex">
                 <p className="s-l-taction">Last edited {timeStamp}</p>
-                <button className="btn-chromeless" onClick={this.renderToolTip} data-attr-id={blog.id} style={{position: 'relative'}}>
-                  <svg width="21" height="21" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" data-attr-id={blog.id}>
+                <button className="btn-chromeless" onClick={this.createToolTipProps} id={`sItemId${blog.id}`} data-attr-id={blog.id} style={{position: 'relative'}}>
+                  <svg width="21" height="21" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4 7.33L10.03 14l.5.55.5-.55 5.96-6.6-.98-.9-5.98 6.6h1L4.98 6.45z" fillRule="evenodd"></path>
                   </svg>
 
-                  <ul className="s-l-tooltip list-n-block">
-                    <li><Link to={`/p/${blog.id}/edit`}>Edit Story</Link></li>
-                    <li>Delete Story</li>
-                  </ul>
 
                 </button>
               </div>
@@ -96,6 +125,7 @@ class UserStories extends React.Component {
     return (
       <div>
         {this.renderPosts()}
+        {this.state.tooltip && this.renderTooltip()}
       </div>
     )
   }
