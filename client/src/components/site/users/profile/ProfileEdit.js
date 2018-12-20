@@ -47,9 +47,9 @@ class ProfileEdit extends Component{
             this.setState({inputErr: {status: false, message:'Please use image as your avatar.'}});
           }, 3000);
         });
-        document.getElementById('updateUserImg').value = '';
       }
     }
+    document.getElementById('updateUserImg').value = '';
   }
 
   renderCropModal(){

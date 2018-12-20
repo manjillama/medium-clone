@@ -56,6 +56,9 @@ hr{
 .text-center{
   text-align: center;
 }
+.text--left{
+  text-align: left;
+}
 .text--muted{
   color: rgba(0, 0, 0, 0.54);
 }
@@ -105,6 +108,11 @@ hr{
   font-size: 12px !important;
   padding: 0px 10px;
   line-height: 30px;
+}
+.btn--primary{
+  background: #03a87c;
+  border-color: #03a87c;
+  color: #fff;
 }
 .btn--p-hollow{
   border-color: #018f69;
@@ -229,6 +237,18 @@ form button[type=submit][disabled] {
   align-items: flex-start;
 }
 
+.flex--item-left{
+  align-self: flex-start;
+}
+
+@media (max-width: 992px){
+  .d--flex-row-md{
+    flex-direction: column;
+  }
+  .flex--item-left-md{
+    align-self: flex-start;
+  }
+}
 
 @media (max-width: 552px) {
   .flex-col-rev-sm{

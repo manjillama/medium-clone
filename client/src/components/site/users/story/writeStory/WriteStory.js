@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './WriteStory.css';
 import StoryForm from './StoryForm';
-import StoryPublish from './StoryPublish';
+import StoryPublish from './publishStory/StoryPublish';
 import { writePost, fetchPost } from 'services/blogService';
 
 class WriteStory extends Component{

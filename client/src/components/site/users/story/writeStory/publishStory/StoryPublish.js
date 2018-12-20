@@ -37,7 +37,7 @@ export default class StoryPublish extends React.Component{
     if(this.state.noStoryError){
       return (
         <div id="noStoryError">
-          <p>Publishing will become available after you start writing.</p>
+          <p>Publishing will become available once you add title and story.</p>
         </div>
       );
     }
