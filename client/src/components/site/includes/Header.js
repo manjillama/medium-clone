@@ -74,7 +74,17 @@ class Header extends Component{
     }
   }
 
+  _renderUserImage(){
+    if(this.props.auth.user.profile_image){
+      return <img src={this.props.auth.user.profile_image} className="user--img" alt={this.props.auth.user.fullname}/>
+    }else{
+      const initial = this.props.auth.user.fullname.charAt(0);
+      return <div className="user--img"><span>{initial}</span></div>;
+    }
+  }
+
   renderLinks(){
+    console.log(this.props.auth);
     if(this.props.auth){
       return (
         <div className="inline-continue">
@@ -88,7 +98,9 @@ class Header extends Component{
             </Link>
           </li>
           <li className="popover-p-wrap">
-            <div id="popUserPanel" className="popover-userIcon" onClick={this.toggleUserDropdown}>User Profile</div>
+            <div id="popUserPanel" className="popover-userIcon" onClick={this.toggleUserDropdown}>
+              {this._renderUserImage()}
+            </div>
             {this._renderUserDropdown()}
           </li>
         </div>

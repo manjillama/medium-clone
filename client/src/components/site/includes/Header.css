@@ -64,8 +64,8 @@
   width: 260px;
   padding: 15px;
   position: absolute;
-  right: 0;
-  top: 30px;
+  right: 8px;
+  top: 43px;
   height: 280px;
   z-index: 100;
 }
@@ -80,6 +80,19 @@
   position:relative;
 }
 
+.user--img{
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  background: rgb(1, 143, 105);
+  text-align: center;
+}
+
+.user--img span{
+  color: #fff;
+  font-weight: bold;
+  line-height: 33px;
+}
 
 .popover-userAction ul{
   list-style-type: none;
@@ -88,12 +101,13 @@
 
 @media screen and (max-width: 768px){
   .popover-userAction:before{
-    right: 40px;
+    right: 24px;
   }
   .popover-userAction{
     width: 100%;
     top: 60px;
     position: fixed;
     height: auto;
+    right: 0;
   }
 }
