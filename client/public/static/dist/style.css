@@ -143,7 +143,7 @@ hr{
 .bg--danger{
   background-color:#cc5454;
   font-weight: bold;
-  color: #fff;
+  color: #fff !important;
 }
 .fixed--alert{
   position: fixed;

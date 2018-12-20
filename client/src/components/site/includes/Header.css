@@ -1,3 +1,16 @@
+.main-category-nav{
+  margin-top:20px
+}
+.main-category-nav ul{
+  white-space: nowrap;
+  overflow: scroll;
+}
+
+.main-category-nav ul::-webkit-scrollbar { 
+  display: none;
+}
+
+
 .th-nav-main{
   color: rgba(0,0,0,.54);
 }

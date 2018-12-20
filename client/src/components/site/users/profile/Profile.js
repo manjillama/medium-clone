@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchBlogger } from 'actions/blogger';
-import CategoryNav from 'components/site/includes/CategoryNav';
 
 import { Link } from 'react-router-dom';
 import './Profile.css';
@@ -71,7 +70,6 @@ class Profile extends Component{
       }else{
         return (
           <div>
-            <CategoryNav/>
             <section className="container--sm">
                 <div className="d--flex flex-ai-fs flex-col-rev-sm blogger-panel">
                   <div className="full-width">

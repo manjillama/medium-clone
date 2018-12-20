@@ -44,6 +44,7 @@
   position: relative;
   margin: 20px 0;
   padding: 12px;
+  cursor: pointer;
 }
 .border-p-color{
   border: 1px solid #03a87c;
@@ -63,11 +64,14 @@
   -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.15);
   box-shadow: 0 2px 10px rgba(0,0,0,.15);
 }
+.thumb-del-btn>span{
+  line-height: 16px;
+}
 .thumbnail-img{
   max-width: 400px;
   height: 200px;
 }
-.p-modal-image-drop span{
+.drop-caption{
   position: absolute;
   left: 50%;
   top: 50%;

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { fetchBlogger, updateBlogger } from 'actions/blogger';
 import { connect } from 'react-redux';
-import CategoryNav from 'components/site/includes/CategoryNav';
 
 import ProfileEditForm from './ProfileEditForm';
 import ImageCropper from 'components/site/utils/ImageCropper';
@@ -102,7 +101,6 @@ class ProfileEdit extends Component{
         const errorAlertClass = this.state.inputErr.status ? 'bg--danger fixed--alert fixed--alert-active':'bg--danger fixed--alert';
         return (
           <div>
-            <CategoryNav/>
             <section className="container--sm">
               <p className={errorAlertClass}>{this.state.inputErr.message}</p>
               <ProfileEditForm
