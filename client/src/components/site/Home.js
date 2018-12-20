@@ -3,9 +3,6 @@ import CategoryNav from 'components/site/includes/CategoryNav';
 import { connect } from 'react-redux';
 
 class Home extends React.Component{
-  componentDidUpdate(){
-    console.log(this.props.state);
-  }
   render(){
     return (
       <div>

@@ -3,20 +3,20 @@
   letter-spacing: -1.25px;
 }
 
-nav{
+nav.s-nav{
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-nav ul li.active{
+nav.s-nav ul li.active{
   color: rgba(0, 0, 0, 0.84);
   border-bottom: 1px solid rgba(0, 0, 0, 0.54);
 }
 
-nav ul {
+nav.s-nav ul {
   margin-bottom: -1px;
   color: rgba(0, 0, 0, 0.54);
 }
-nav ul li{
+nav.s-nav ul li{
   padding: 10px 0;
 }
 .user--msg{

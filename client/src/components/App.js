@@ -34,10 +34,12 @@ class App extends React.Component{
   render(){
     if(this.state.renderApp){
       return (
-        <div className="mjl-container">
+        <div>
           <Header triggerModal={this.triggerModal.bind(this)}/>
-          {this.props.children}
-          {this._renderModal()}
+          <div className="mjl-container">
+            {this.props.children}
+            {this._renderModal()}
+          </div>
         </div>
       )
     }else{

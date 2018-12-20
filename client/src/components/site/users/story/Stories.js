@@ -40,7 +40,7 @@ export default class Stories extends React.Component {
       return (
         <section>
           <h1 className="title--lg" style={{marginBottom:30+'px'}}>Your Stories</h1>
-          <nav>
+          <nav className="s-nav">
             {this.renderNav()}
           </nav>
           <div>

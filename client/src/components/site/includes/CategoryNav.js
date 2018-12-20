@@ -4,7 +4,7 @@ import './Header.css';
 class CategoryNav extends Component{
   render(){
     return (
-      <div>
+      <div style={{marginTop:20+'px'}}>
         <ul className="nav-cate-l list-inline">
           <li>Home</li>
           <li>Tech</li>

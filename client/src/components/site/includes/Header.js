@@ -67,7 +67,7 @@ class Header extends Component{
             <li><Link to="/me/stories/drafts">Stories</Link></li>
             <li><Link to={`/@${this.props.auth.user.username}`}>Profile</Link></li>
             <li><Link to="/me/settings">Settings</Link></li>
-            <li style={{cursor: 'pointer',padding: 7+'px '+ 0}} onClick={this.signOut}>Sign Out</li>
+            <li style={{cursor: 'pointer'}} onClick={this.signOut}>Sign Out</li>
           </ul>
         </div>
       );
@@ -84,7 +84,6 @@ class Header extends Component{
   }
 
   renderLinks(){
-    console.log(this.props.auth);
     if(this.props.auth){
       return (
         <div className="inline-continue">
@@ -116,17 +115,19 @@ class Header extends Component{
     return (
       <div>
         <div className="nav-top-bar">
-          <div className="tb-flex1">
-            <Link to="/">
-              <img src="/static/images/threadly-logo.svg" height="25px" alt="Threadly Logo"/>
-            </Link>
-          </div>
-          <div className="tb-flex0">
-            <ul className="list-inline th-nav-main">
-              <li>Search</li>
-              {this.renderLinks()}
-            </ul>
-          </div>
+          <nav className="mjl-container">
+            <div className="tb-flex1">
+              <Link to="/">
+                <img src="/static/images/threadly-logo.svg" height="25px" alt="Threadly Logo"/>
+              </Link>
+            </div>
+            <div className="tb-flex0">
+              <ul className="list-inline th-nav-main">
+                <li>Search</li>
+                {this.renderLinks()}
+              </ul>
+            </div>
+          </nav>
         </div>
       </div>
     );
