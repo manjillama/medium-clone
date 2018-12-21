@@ -7,9 +7,18 @@ import { history } from 'index';
 import Modal from 'components/modals/Modal';
 import './StoryPublish.css';
 import HandleThumbnail from './HandleThumbnail';
+import HandleTags from './HandleTags';
+
+import { publishPost } from 'services/blogService';
+
 export default class PublishModal extends React.Component{
 
   componentDidMount(){
+    const token = localStorage.getItem('token');
+    let formData = new FormData();
+    formData.append("tags", ['Sleep', 'Sex', 'Eat']);
+    publishPost(formData, token, 2);
+
     this.modalTarget = document.createElement('div');
     document.body.appendChild(this.modalTarget);
     this._render();
@@ -40,11 +49,7 @@ export default class PublishModal extends React.Component{
             </div>
 
             <div className="text--left">
-              <h2>Prepare your story for readers</h2>
-              <p>Add or change tags (up to 5) so readers know what your story is about</p>
-              <p>Review Threadly’s <a target="_blank" href="/threadly/policy" style={{textDecoration:'underline'}}>rules</a> to ensure that your story meets our community standards.</p>
-              <br/>
-                <div contentEditable={true} className="p-add-tags"></div>
+              <HandleTags />
               <br/>
               <button className="mjl-btn btn--primary">Publish Now</button>
             </div>

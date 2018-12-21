@@ -1,7 +1,7 @@
 const Blog = require('../models/blog');
 const config = require('../config/config');
-exports.createBlog = (req, res) => {
 
+exports.createBlog = (req, res) => {
   // If post alreadt exit then edit post
   const postId = req.body.postId;
   let post = {
@@ -50,4 +50,9 @@ exports.getUserStories = (req, res) => {
   }).then(blog => {
     res.json(blog);
   });
+}
+
+exports.publishBlog = (req, res) => {
+  // console.log(req.body.tags.split(","));
+  res.send("Ok");
 }

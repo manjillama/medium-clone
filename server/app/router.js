@@ -31,6 +31,7 @@ module.exports = app => {
   */
   app.post('/blog/create-blog',requireJwt, BlogController.createBlog);
   app.get('/blog/action/edit/:id',requireJwt, BlogController.getBlog);
+  app.post('/blog/action/publish/:id',requireJwt, BlogController.publishBlog);
 
 
   /*

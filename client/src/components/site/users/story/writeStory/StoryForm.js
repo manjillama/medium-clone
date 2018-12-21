@@ -4,7 +4,7 @@ import ContentEditable from 'react-contenteditable'; //https://github.com/lovaso
 export default class StoryForm extends React.Component{
   renderPostPlaceHolder(){
     if(this.props.blog.post === '')
-      return <span style={{position:'absolute',top:-5+'px',left:0,fontSize: 22+'px'}} className="text--muted">Tell us your story...</span>
+      return <span style={{position:'absolute',top:-5+'px',left:0,fontSize: 22+'px',zIndex: -1}} className="text--muted">Tell us your story...</span>
   }
 
   render(){
