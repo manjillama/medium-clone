@@ -5,37 +5,34 @@ export default class HandleTags extends React.Component{
     super();
     this.state = {
       tags : [],
-      showPlaceholder: true
     }
   }
   componentDidMount(){
     this.editor = document.getElementById("tagEditor");
-    this.editor.addEventListener("input", this.handleChange, false);
   }
 
   handleChange = (e) => {
-    const val = e.target.innerText;
-
-    if(val === ''){
-      this.setState({showPlaceholder: true})
-    }else{
-      this.setState({showPlaceholder: false})
-    }
+    const val = e.target.value;
 
     // Checking for comma
     if (val.indexOf(',') !== -1) {
       const tag = val.split(',')[0];
-      this.editor.innerText = '';
+      this.editor.value = '';
       this.setState({
         tags: [...this.state.tags, tag],
-        showPlaceholder: true
       });
     }
   }
 
   renderTags(){
     return this.state.tags.map((tag, index) =>
-      <span key={index}>{tag}</span>
+      <div className="tag-elem" key={index}>{tag}
+        <button className="btn-chromeless"
+          onClick={()=>{
+            let tags = this.state.tags.filter((item, i) => i !== index);
+            this.setState({tags});
+          }}>x</button>
+      </div>
     )
   }
 
@@ -50,9 +47,8 @@ export default class HandleTags extends React.Component{
             <div className="tags-wrapper" style={{display: 'inline-block'}}>
               {this.renderTags()}
             </div>
-            <div className="c-input-wrap" style={{position: 'relative'}}>
-              { this.state.showPlaceholder && (<span className="text--muted c-placeholder">Add a tag...</span>)}
-              <div contentEditable={true} id="tagEditor"></div>
+            <div className="c-input-wrap">
+              {this.state.tags.length < 5 && (<input onChange={this.handleChange} placeholder="Add a tag..." id="tagEditor" />)}
             </div>
           </div>
       </div>

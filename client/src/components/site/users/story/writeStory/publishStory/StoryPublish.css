@@ -84,16 +84,21 @@
   background: #fafafa;
   border: 1px solid #ccc;
   outline:0;
-  padding: 13px;
-  height: 50px;
+  padding: 10px;
 }
 
-.p-add-tags .tags-wrapper span{
+.p-add-tags .tags-wrapper .tag-elem{
   background: #fff;
   padding: 4px 6px;
   font-size: 12px;
   border: 1px solid #f0f0f0;
   margin-right: 8px;
+  display: inline-block;
+  font-weight: bold;
+}
+.p-add-tags .tags-wrapper .tag-elem button{
+  margin-left: 10px;
+  color: rgba(0, 0, 0, 0.7);
 }
 .c-input-wrap{
   display: inline-block;
@@ -104,10 +109,8 @@
   position: absolute;
 }
 
-.handleTags #tagEditor{
-  outline: 0;
-  min-width: 100px;
-  white-space: nowrap;
-  position: relative;
-  z-index: 5;
+.handleTags input#tagEditor{
+  background: transparent;
+  font-size: 12px;
+  margin-top: -3px;
 }
