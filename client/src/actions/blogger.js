@@ -1,10 +1,10 @@
 import { GET_BLOGGER } from './types';
-
+import config from 'config';
 import axios from 'axios';
 
 export const fetchBlogger = (username, callback) => async dispatch => {
   try{
-    const response = await axios.get(`http://localhost:5000/api/user/get-user/${username}`);
+    const response = await axios.get(`${config.SERVER_URL}api/user/get-user/${username}`);
     if(response.data.error)
       throw new Error('User Not Found');
     dispatch({type: GET_BLOGGER, payload: response.data});
@@ -16,7 +16,7 @@ export const fetchBlogger = (username, callback) => async dispatch => {
 }
 
 export const updateBlogger = (formProps, callback) => async dispatch => {
-  await axios.post('http://localhost:5000/api/user/edit', formProps);
+  await axios.post(config.SERVER_URL+'api/user/edit', formProps);
   dispatch({type: 'UPDATE', payload: null});
   callback();
 };

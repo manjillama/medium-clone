@@ -121,8 +121,6 @@ class WriteStory extends Component{
         <section className="container--sm">
           <StoryPublish savingState={this.state.savingState} blog={this.state.blog}/>
 
-          <hr/>
-
           <StoryForm
             handlePostChange={this.handlePostChange}
             handleTitleChange={this.handleTitleChange}

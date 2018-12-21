@@ -85,14 +85,8 @@ class ProfileEditForm extends Component{
   }
 }
 
-function validate(values){
-  const errors = {};
-  return errors;
-}
-
 export default compose(
   reduxForm({
-    validate,
     form: 'updateProfileForm'
   }),
   withRouter

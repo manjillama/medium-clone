@@ -1,9 +1,10 @@
 import { AUTH_USER, AUTH_ERROR } from './types';
+import config from 'config';
 import axios from 'axios';
 
 export const signUp = (formProps, callback) => async dispatch => {
   try{
-    const response = await axios.post('http://localhost:5000/signup', formProps);
+    const response = await axios.post(config.SERVER_URL+'signup', formProps);
     console.log(response);
     if(response.data.error)
       throw new Error('Email already taken');
@@ -21,7 +22,7 @@ export const signUp = (formProps, callback) => async dispatch => {
 
 export const signIn = (formProps, callback) => async dispatch => {
   try{
-    const response = await axios.post('http://localhost:5000/signin', formProps);
+    const response = await axios.post(config.SERVER_URL+'signin', formProps);
     if(response.data.error)
       throw new Error('Incorrent username or password');
 
@@ -39,7 +40,7 @@ export const signIn = (formProps, callback) => async dispatch => {
 export const getUser = (token, callback) => async dispatch => {
   try{
     const headers = {'authorization': token};
-    const response = await axios.get('http://localhost:5000/api/user/get-user', { headers })
+    const response = await axios.get(config.SERVER_URL+'api/user/get-user', { headers })
     const payload = {token, user: response.data.user};
     dispatch({type: AUTH_USER, payload});
   }catch(e){

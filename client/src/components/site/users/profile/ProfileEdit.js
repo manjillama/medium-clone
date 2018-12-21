@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import ProfileEditForm from './ProfileEditForm';
 import ImageCropper from 'components/site/utils/ImageCropper';
 
-import Env from 'services/envs';
+import config from 'config';
 
 
 class ProfileEdit extends Component{
@@ -86,7 +86,7 @@ class ProfileEdit extends Component{
     formData.append("uploaded_image", this.state.uploadedImage);
 
     return this.props.updateBlogger(formData, () => {
-      const redirectTo = Env.BASE_URL+'/@'+formProps.username;
+      const redirectTo = config.BASE_URL+'/@'+formProps.username;
       window.location.href = redirectTo;
     });
   }
