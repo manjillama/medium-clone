@@ -8,17 +8,21 @@ import Modal from 'components/modals/Modal';
 import './StoryPublish.css';
 import HandleThumbnail from './HandleThumbnail';
 import HandleTags from './HandleTags';
+import PropTypes from 'prop-types';
 
 import { publishPost } from 'services/blogService';
 
-export default class PublishModal extends React.Component{
+class PublishModal extends React.Component{
+  constructor(){
+    super();
+    this.state = {
+      tags:[],
+      image: null,
+      formSubmitted: false
+    }
+  }
 
   componentDidMount(){
-    const token = localStorage.getItem('token');
-    let formData = new FormData();
-    formData.append("tags", ['Sleep', 'Sex', 'Eat']);
-    publishPost(formData, token, 2);
-
     this.modalTarget = document.createElement('div');
     document.body.appendChild(this.modalTarget);
     this._render();
@@ -27,6 +31,46 @@ export default class PublishModal extends React.Component{
   componentWillUnmount(){
     ReactDOM.unmountComponentAtNode(this.modalTarget);
     document.body.removeChild(this.modalTarget);
+  }
+
+  handleSubmit = () => {
+    if(!this.state.formSubmitted){
+
+      this.setState({formSubmitted: true}, ()=>{
+        this._render();
+      });
+
+      const token = localStorage.getItem('token');
+      let formData = new FormData();
+      if(this.state.image){
+        formData.append("storyImage", this.state.image);
+      }
+      formData.append("tags", this.state.tags);
+
+      publishPost(formData, token, 2).then((res)=>{
+        console.log("Submitted!");
+      });
+    }
+  }
+
+  handleImageChange = (image) => {
+    this.setState({image}, ()=>{
+      this._render();
+    });
+  }
+
+  handleTagsChange = (tag) => {
+    this.setState({
+      tags: [...this.state.tags, tag],
+    },()=>{
+      this._render() ;
+    });
+  }
+
+  handleTagRemove = (tags) => {
+    this.setState({tags},()=>{
+      this._render() ;
+    });
   }
 
   createModal(){
@@ -45,13 +89,19 @@ export default class PublishModal extends React.Component{
           <div className="d--flex d--flex-row-md flex-sb p--row" style={{marginTop: 35+'px'}}>
 
             <div className="text--left">
-              <HandleThumbnail/>
+              <HandleThumbnail handleImageChange={this.handleImageChange} storyImage={this.state.image}/>
             </div>
 
             <div className="text--left">
-              <HandleTags />
+              <HandleTags handleTagRemove={this.handleTagRemove} handleTagsChange={this.handleTagsChange} storyTags={this.state.tags}/>
               <br/>
-              <button className="mjl-btn btn--primary">Publish Now</button>
+
+              {
+                this.state.formSubmitted ?
+                (<div className="lds-ellipsis" style={{marginTop: -25+'px', marginLeft: -6+'px'}}><div></div><div></div><div></div><div></div></div>)
+                :
+                (<button onClick={this.handleSubmit} className="mjl-btn btn--primary">Publish Now</button>)
+              }
             </div>
           </div>
         </section>
@@ -73,3 +123,13 @@ export default class PublishModal extends React.Component{
     return <noscript/>
   }
 }
+
+PublishModal.propTypes = {
+  postId: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
+  closeModal: PropTypes.func.isRequired,
+}
+
+export default PublishModal;

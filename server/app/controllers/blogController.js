@@ -53,6 +53,8 @@ exports.getUserStories = (req, res) => {
 }
 
 exports.publishBlog = (req, res) => {
-  // console.log(req.body.tags.split(","));
+  console.log(req.body);
+  console.log(req.files);
+
   res.send("Ok");
 }

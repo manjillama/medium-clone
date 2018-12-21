@@ -1,16 +1,19 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
+import PropTypes from 'prop-types';
 
-export default class HandleThumbnail extends React.Component{
+class HandleThumbnail extends React.Component{
 
   constructor(){
     super();
     this.state = {
-      imageFile: null,
       dropHovered: false,
       imageFilePreview: null,
       disableDropzone: false,
-      showError: false
+      error: {
+        show: false,
+        message: ''
+      }
     }
     this.onDrop = this.onDrop.bind(this);
   }
@@ -22,24 +25,32 @@ export default class HandleThumbnail extends React.Component{
     * All files will be rejected if multiple files were dropped
     */
     if(rejectedFile.length > 0){
-      this.setState({showError: true}, () => {
+      this.setState({error: {show: true, message:'Please upload a single image file.'} }, () => {
         setTimeout(()=>{
-          this.setState({showError: false});
+          this.setState({error: {...this.state.error, show:false}});
         }, 3000)
       });
     }else{
-      this.setState({imageFile: acceptedFile[0]}, ()=>{
+      if(acceptedFile[0].size < 1000000){
+        this.props.handleImageChange(acceptedFile[0]);
         this.setState({
-          imageFilePreview: URL.createObjectURL(this.state.imageFile),
+          imageFilePreview: URL.createObjectURL(acceptedFile[0]),
           disableDropzone: true
         });
-      });
+
+      }else{
+        this.setState({error: {show: true, message:'Please use image less than 1 MB'} }, () => {
+          setTimeout(()=>{
+            this.setState({error: {...this.state.error, show:false}});
+          }, 3000)
+        });
+      }
     }
   }
 
   onCancel = () => {
+    this.props.handleImageChange(null);
     this.setState({
-      imageFile: null,
       imageFilePreview: null,
       disableDropzone: false,
     });
@@ -47,10 +58,10 @@ export default class HandleThumbnail extends React.Component{
 
   render(){
     const dropZoneClass = this.state.dropHovered ? 'border-p-color p-modal-image-drop' : 'p-modal-image-drop';
-    const errorAlertClass = this.state.showError ? 'bg--danger fixed--alert fixed--alert-active':'bg--danger fixed--alert';
+    const errorAlertClass = this.state.error.show ? 'bg--danger fixed--alert fixed--alert-active':'bg--danger fixed--alert';
     return (
       <div>
-        <p className={errorAlertClass}>Please upload a single image file.</p>
+        <p className={errorAlertClass}>{this.state.error.message}</p>
 
         <h2>Story Thumbnail</h2>
         <p>Setup a thumbnail picture that goes well with your story.</p>
@@ -58,7 +69,6 @@ export default class HandleThumbnail extends React.Component{
         <Dropzone
           accept="image/png,image/jpeg"
           onDrop={this.onDrop}
-          onFileDialogCancel={this.onCancel.bind(this)}
           multiple={false}
           disabled={this.state.disableDropzone}
           onDragEnter={()=>{
@@ -89,3 +99,10 @@ export default class HandleThumbnail extends React.Component{
     );
   }
 }
+
+HandleThumbnail.propTypes = {
+  storyImage: PropTypes.any,
+  handleImageChange: PropTypes.func.isRequired,
+}
+
+export default HandleThumbnail;

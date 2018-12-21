@@ -46,7 +46,7 @@ export default class StoryPublish extends React.Component{
   renderModal(){
     if(this.state.displayModal){
       return (
-        <PublishModal closeModal={this.closeModal}/>
+        <PublishModal postId={this.props.blog.postId} closeModal={this.closeModal}/>
       )
     }
   }

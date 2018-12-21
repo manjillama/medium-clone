@@ -1,36 +1,29 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class HandleTags extends React.Component{
-  constructor(){
-    super();
-    this.state = {
-      tags : [],
-    }
-  }
+class HandleTags extends React.Component{
+
   componentDidMount(){
     this.editor = document.getElementById("tagEditor");
   }
 
   handleChange = (e) => {
     const val = e.target.value;
-
     // Checking for comma
     if (val.indexOf(',') !== -1) {
       const tag = val.split(',')[0];
       this.editor.value = '';
-      this.setState({
-        tags: [...this.state.tags, tag],
-      });
+      this.props.handleTagsChange(tag)
     }
   }
 
   renderTags(){
-    return this.state.tags.map((tag, index) =>
+    return this.props.storyTags.map((tag, index) =>
       <div className="tag-elem" key={index}>{tag}
         <button className="btn-chromeless"
           onClick={()=>{
-            let tags = this.state.tags.filter((item, i) => i !== index);
-            this.setState({tags});
+            let tags = this.props.storyTags.filter((item, i) => i !== index);
+            this.props.handleTagRemove(tags);
           }}>x</button>
       </div>
     )
@@ -48,10 +41,18 @@ export default class HandleTags extends React.Component{
               {this.renderTags()}
             </div>
             <div className="c-input-wrap">
-              {this.state.tags.length < 5 && (<input onChange={this.handleChange} placeholder="Add a tag..." id="tagEditor" />)}
+              {this.props.storyTags.length < 5 && (<input onChange={this.handleChange} placeholder="Add a tag..." id="tagEditor" />)}
             </div>
           </div>
       </div>
     );
   }
 }
+
+HandleTags.propTypes = {
+  storyTags: PropTypes.array,
+  handleTagsChange: PropTypes.func.isRequired,
+  handleTagRemove: PropTypes.func.isRequired
+}
+
+export default HandleTags;
