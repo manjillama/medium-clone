@@ -58,6 +58,7 @@ class WriteStory extends Component{
     fetchPost(id, this.userToken)
       .then(res => {
         let post = res.data.blog; // returns null if post doesn't exist or belongs to another user
+        console.log(post);
         if(post){
           this.setState({
             blog: {...this.state.blog, title: post.title, post: post.description, postId: id}
@@ -90,6 +91,7 @@ class WriteStory extends Component{
       formData.append("postId", this.state.blog.postId);
 
       this.setState({savingState: 'onprogress'});
+      // If postId is null a new post is created else blog will get updated
       writePost(formData, this.userToken)
         .then((response) => {
           this.setState({savingState: 'saved'}, () => {

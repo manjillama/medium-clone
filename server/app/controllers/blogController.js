@@ -37,7 +37,10 @@ exports.getBlog = function(req, res){
     where: {
       id: req.params.id,
       blogger_id: req.user.id
-    }
+    },
+    include: [{
+      model: BlogTag
+    }]
   }).then(blog => {
     res.json({blog});
   });
