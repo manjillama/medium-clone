@@ -3,7 +3,7 @@ const sharp = require('sharp'); // https://github.com/lovell/sharp
 const config = require('../config/config');
 
 
-exports.updateBloggerInfo = (req, res) => {
+exports.updateBloggerInfo = async (req, res) => {
   let profileImageUrl = req.body.profile_image;
   // If user has uploaded profile image
   if(req.files && req.files.uploaded_image){
@@ -13,7 +13,7 @@ exports.updateBloggerInfo = (req, res) => {
       const outputDir = config.bloggerImageDir();
       const imageName = req.body.id+'.jpg';
       profileImageUrl = config.resourceHost+config.bloggerImageResourceUrl+imageName;
-      sharp(userImage.data).resize(160, 160)
+      await sharp(userImage.data).resize(160, 160)
         .toFile(outputDir+imageName);
     }
   }

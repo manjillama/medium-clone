@@ -33,6 +33,8 @@ module.exports = app => {
   app.post('/blog/create-blog',requireJwt, BlogController.createBlog);
   app.get('/blog/action/edit/:id',requireJwt, BlogController.getBlog);
   app.post('/blog/action/publish/:id',requireJwt, BlogController.publishBlog);
+  app.post('/blog/action/upload-thumbnail/:id',requireJwt, BlogController.uploadThumbnail);
+  app.post('/blog/action/remove-thumbnail/:id',requireJwt, BlogController.removeThumbnail);
 
   app.post('/blog/action/publish/add-tag/:postId',requireJwt, BlogTagController.addBlogTag);
   app.post('/blog/action/publish/remove-tag/:postId',requireJwt, BlogTagController.removeBlogTag);

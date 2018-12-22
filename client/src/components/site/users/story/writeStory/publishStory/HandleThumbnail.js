@@ -1,12 +1,14 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import PropTypes from 'prop-types';
+import { fetchPost, uploadStoryImage, removeStoryImage } from 'services/blogService';
 
 class HandleThumbnail extends React.Component{
 
   constructor(){
     super();
     this.state = {
+      image: null,
       dropHovered: false,
       imageFilePreview: null,
       disableDropzone: false,
@@ -19,9 +21,12 @@ class HandleThumbnail extends React.Component{
   }
 
   componentDidMount(){
-    if(this.props.imagePreview){
-      this.setState({imageFilePreview: this.props.imagePreview, disableDropzone:true});
-    }
+    this.token = localStorage.getItem('token');
+    fetchPost(this.props.blogId, this.token).then(res => {
+      const {story_thumbnail} = res.data.blog;
+        if(story_thumbnail)
+          this.setState({imageFilePreview: story_thumbnail, disableDropzone: true});
+    });
   }
 
   onDrop(acceptedFile, rejectedFile) {
@@ -38,11 +43,7 @@ class HandleThumbnail extends React.Component{
       });
     }else{
       if(acceptedFile[0].size < 1000000){
-        this.props.handleImageChange(acceptedFile[0]);
-        this.setState({
-          imageFilePreview: URL.createObjectURL(acceptedFile[0]),
-          disableDropzone: true
-        });
+        this.handleImageUpload(acceptedFile[0]);
 
       }else{
         this.setState({error: {show: true, message:'Please use image less than 1 MB'} }, () => {
@@ -55,7 +56,22 @@ class HandleThumbnail extends React.Component{
   }
 
   onCancel = () => {
-    this.props.handleImageChange(null);
+    this.handleImageDelete();
+  }
+
+  handleImageUpload(image){
+    let formData = new FormData();
+    formData.append("storyImage", image);
+    uploadStoryImage(formData, this.token, this.props.blogId).then(res=>{
+      this.setState({
+        imageFilePreview: res.data.story_thumbnail,
+        disableDropzone: true
+      });
+    });
+  }
+
+  handleImageDelete(){
+    removeStoryImage(this.token, this.props.blogId);
     this.setState({
       imageFilePreview: null,
       disableDropzone: false,
@@ -107,8 +123,7 @@ class HandleThumbnail extends React.Component{
 }
 
 HandleThumbnail.propTypes = {
-  storyImage: PropTypes.any,
-  handleImageChange: PropTypes.func.isRequired,
+  blogId: PropTypes.number.isRequired
 }
 
 export default HandleThumbnail;

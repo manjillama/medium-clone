@@ -3,6 +3,7 @@ const BlogTag = require('../models/blogTag');
 const sharp = require('sharp');
 const config = require('../config/config');
 var sizeOf = require('image-size');
+const fs = require('fs');
 
 exports.createBlog = (req, res) => {
   // If post alreadt exit then edit post
@@ -42,7 +43,7 @@ exports.getBlog = function(req, res){
       model: BlogTag
     }]
   }).then(blog => {
-    res.json({blog});
+    return res.json({blog});
   });
 }
 
@@ -54,18 +55,29 @@ exports.getUserStories = (req, res) => {
     order: [['modified_at', 'DESC']],
     attributes: ['id', 'title', 'description', 'created_at', 'modified_at']
   }).then(blog => {
-    res.json(blog);
+    return res.json(blog);
   });
 }
 
 exports.publishBlog = async (req, res) => {
   const file = req.files;
   const postId = req.params.id;
-  let storyThumbnail = null;
 
-  let post = {
-    status: true
-  }
+  await Blog.findByPk(postId).then(blog => {
+    if(blog){
+      blog.update({
+        status: true
+      });
+    }
+  });
+
+  return res.send("Ok");
+}
+
+exports.uploadThumbnail = async (req, res) => {
+
+  const file = req.files;
+  const postId = req.params.id;
 
   if(file){
     const {storyImage} = file;
@@ -74,7 +86,7 @@ exports.publishBlog = async (req, res) => {
     if(mimeType.split('/')[0] === 'image'){
       const outputDir = config.storyImageDir();
       const imageName = postId+'.jpg';
-      storyThumbnail = config.resourceHost+config.storyImageResourceUrl+imageName;
+      let storyThumbnail = config.resourceHost+config.storyImageResourceUrl+imageName;
       /*
       * Resizing image to 300 * ? dimensions
       */
@@ -91,22 +103,34 @@ exports.publishBlog = async (req, res) => {
         */
         const width1 = 300;
         const height1 = Math.ceil(height*width1/width);
-        sharp(storyImage.data).resize(width1, height1)
+        await sharp(storyImage.data).resize(width1, height1)
           .toFile(outputDir+imageName);
       }else{
-        sharp(storyImage.data).toFile(outputDir+imageName);
+        await sharp(storyImage.data).toFile(outputDir+imageName);
       }
+      Blog.findByPk(postId).then(blog => {
+        if(blog){
+          blog.update({
+            story_thumbnail: storyThumbnail
+          }).then(blog => res.json(blog));
+        }
+      });
     }
   }
+}
 
-  if(storyThumbnail)
-    post.story_thumbnail = storyThumbnail;
+exports.removeThumbnail = (req, res) => {
+  const postId = req.params.id;
+  Blog.findByPk(postId).then(blog => {
+    const imageName = blog.story_thumbnail.match(/[\w-]+\.jpg/g)[0];
+    // Extracting image name from url
+    blog.update({story_thumbnail: null});
 
-  await Blog.findByPk(postId).then(blog => {
-    if(blog){
-      blog.update(post);
+    try {
+      fs.unlinkSync(config.storyImageDir()+imageName);
+    } catch (err) {
+      // handle the error
     }
+    res.send("ok");
   });
-
-  res.send("Ok");
 }

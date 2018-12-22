@@ -17,7 +17,6 @@ class PublishModal extends React.Component{
   constructor(){
     super();
     this.state = {
-      image: null,
       formSubmitted: false
     }
   }
@@ -35,20 +34,15 @@ class PublishModal extends React.Component{
 
   handleSubmit = () => {
     if(!this.state.formSubmitted){
-      const {id}  = this.props.blog;
+      const {blogId}  = this.props;
 
       this.setState({formSubmitted: true}, ()=>{
         this._render();
       });
 
       const token = localStorage.getItem('token');
-      let formData = new FormData();
-      if(this.state.image)
-        formData.append("storyImage", this.state.image);
-
-
-      publishPost(formData, token, id).then((res)=>{
-        const redirectTo = config.BASE_URL+'/@'+this.props.username+'/'+id;
+      publishPost(token, blogId).then((res)=>{
+        const redirectTo = config.BASE_URL+'/@'+this.props.username+'/'+blogId;
         window.location.href = redirectTo;
       });
     }
@@ -76,11 +70,11 @@ class PublishModal extends React.Component{
           <div className="d--flex d--flex-row-md flex-sb p--row" style={{marginTop: 35+'px'}}>
 
             <div className="text--left">
-              <HandleThumbnail handleImageChange={this.handleImageChange} imagePreview={this.props.blog.story_thumbnail}/>
+              <HandleThumbnail blogId={this.props.blogId}/>
             </div>
 
             <div className="text--left">
-              <HandleTags blogId={this.props.blog.id}/>
+              <HandleTags blogId={this.props.blogId}/>
               <br/>
 
               {
@@ -112,7 +106,7 @@ class PublishModal extends React.Component{
 }
 
 PublishModal.propTypes = {
-  blog: PropTypes.object.isRequired,
+  blogId: PropTypes.number.isRequired,
   closeModal: PropTypes.func.isRequired,
 }
 
