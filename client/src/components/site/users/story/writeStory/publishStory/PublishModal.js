@@ -9,7 +9,8 @@ import './StoryPublish.css';
 import HandleThumbnail from './HandleThumbnail';
 import HandleTags from './HandleTags';
 import PropTypes from 'prop-types';
-
+import { connect } from 'react-redux';
+import config from 'config';
 import { publishPost } from 'services/blogService';
 
 class PublishModal extends React.Component{
@@ -37,9 +38,9 @@ class PublishModal extends React.Component{
     if(!this.state.formSubmitted){
       const { postId } = this.props;
 
-      // this.setState({formSubmitted: true}, ()=>{
-      //   this._render();
-      // });
+      this.setState({formSubmitted: true}, ()=>{
+        this._render();
+      });
 
       const token = localStorage.getItem('token');
       let formData = new FormData();
@@ -49,7 +50,8 @@ class PublishModal extends React.Component{
       formData.append("tags", this.state.tags);
 
       publishPost(formData, token, postId).then((res)=>{
-        console.log("Submitted!");
+        const redirectTo = config.BASE_URL+'/@'+this.props.username+'/'+postId;
+        window.location.href = redirectTo;
       });
     }
   }
@@ -98,11 +100,10 @@ class PublishModal extends React.Component{
               <br/>
 
               {
-                // this.state.formSubmitted ?
-                // (<div className="lds-ellipsis" style={{marginTop: -25+'px', marginLeft: -6+'px'}}><div></div><div></div><div></div><div></div></div>)
-                // :
-                // (<button onClick={this.handleSubmit} className="mjl-btn btn--primary">Publish Now</button>)
-                <button onClick={this.handleSubmit} className="mjl-btn btn--primary">Publish Now</button>
+                this.state.formSubmitted ?
+                (<div className="lds-ellipsis" style={{marginTop: -25+'px', marginLeft: -6+'px'}}><div></div><div></div><div></div><div></div></div>)
+                :
+                (<button onClick={this.handleSubmit} className="mjl-btn btn--primary">Publish Now</button>)
               }
             </div>
           </div>
@@ -134,4 +135,8 @@ PublishModal.propTypes = {
   closeModal: PropTypes.func.isRequired,
 }
 
-export default PublishModal;
+function mapStateToProps(state){
+  return {username: state.auth.authenticated.user.username};
+}
+
+export default connect(mapStateToProps, null)(PublishModal);
