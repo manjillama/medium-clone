@@ -4,10 +4,14 @@ var url = require('url');
 module.exports = {
   SECRET: 'ksykd784ndg3399jjnm-338djddkdmdsd91hds-4hdk',
   HOME_DIR: require('os').homedir(),
-  imageDir: function(){
-    return this.HOME_DIR+'/Documents/threadly/images/';
+  bloggerImageDir: function(){
+    return this.HOME_DIR+'/Documents/threadly/images/blogger/';
   },
-  imageResourceUrl: '/dist/images/',
+  storyImageDir: function(){
+    return this.HOME_DIR+'/Documents/threadly/images/story/';
+  },
+  bloggerImageResourceUrl: '/dist/images/blogger/',
+  storyImageResourceUrl: '/dist/images/story/',
   resourceHost: 'http://localhost:5000',
   getUtcTimestamp: function(){
     const now = new Date();

@@ -1,6 +1,6 @@
 const sequelize = require('../config/dbConnection.js');
 const Sequelize = require('sequelize');
-const Blogger = require('./blogger');
+// const Blogger = require('./blogger');
 
 const Blog = sequelize.define('blogs', {
   id: {
@@ -25,6 +25,9 @@ const Blog = sequelize.define('blogs', {
     type: Sequelize.BOOLEAN,
     allowNull: false,
     defaultValue: false
+  },
+  storyThumbnail: {
+    type: Sequelize.STRING
   }
 },{underscored: true, timestamps: false});
 

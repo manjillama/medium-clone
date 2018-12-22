@@ -10,9 +10,9 @@ exports.updateBloggerInfo = (req, res) => {
     let userImage = req.files.uploaded_image;
     let mimeType = userImage.mimetype;
     if(mimeType.split('/')[0] === 'image'){
-      const outputDir = config.imageDir();
+      const outputDir = config.bloggerImageDir();
       const imageName = req.body.id+'.jpg';
-      profileImageUrl = config.resourceHost+config.imageResourceUrl+imageName;
+      profileImageUrl = config.resourceHost+config.bloggerImageResourceUrl+imageName;
       sharp(userImage.data).resize(160, 160)
         .toFile(outputDir+imageName);
     }

@@ -1,5 +1,8 @@
 const Blog = require('../models/blog');
+const BlogTag = require('../models/blogTag');
+const sharp = require('sharp');
 const config = require('../config/config');
+var fs = require('fs');
 
 exports.createBlog = (req, res) => {
   // If post alreadt exit then edit post
@@ -52,9 +55,46 @@ exports.getUserStories = (req, res) => {
   });
 }
 
-exports.publishBlog = (req, res) => {
-  console.log(req.body);
-  console.log(req.files);
+exports.publishBlog = async (req, res) => {
+  const file = req.files;
+  const postId = req.params.id;
+  const tags = req.body.tags.split(',');
+  let storyThumbnail = null;
+  let post = {
+    status: true
+  }
+
+  if(file){
+    const {storyImage} = file;
+    
+
+    // let mimeType = storyImage.mimetype;
+    // if(mimeType.split('/')[0] === 'image'){
+    //   const outputDir = config.storyImageDir();
+    //   const imageName = postId+'.jpg';
+    //   storyThumbnail = config.resourceHost+config.storyImageResourceUrl+imageName;
+    //   sharp(storyImage.data).resize(160, 160)
+    //     .toFile(outputDir+imageName);
+    // }
+  }
+
+  //
+  // await Blog.findByPk(postId).then(blog => {
+  //   if(blog){
+  //     blog.update(post);
+  //   }
+  // });
+  //
+  // let postTags = [];
+  // tags.forEach(tag => {
+  //   const tagObj = {
+  //     tag,
+  //     blog_id: postId
+  //   }
+  //   postTags.push(tagObj);
+  // });
+  //
+  // await BlogTag.bulkCreate(postTags);
 
   res.send("Ok");
 }

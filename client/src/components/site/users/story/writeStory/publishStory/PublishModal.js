@@ -35,10 +35,11 @@ class PublishModal extends React.Component{
 
   handleSubmit = () => {
     if(!this.state.formSubmitted){
+      const { postId } = this.props;
 
-      this.setState({formSubmitted: true}, ()=>{
-        this._render();
-      });
+      // this.setState({formSubmitted: true}, ()=>{
+      //   this._render();
+      // });
 
       const token = localStorage.getItem('token');
       let formData = new FormData();
@@ -47,7 +48,7 @@ class PublishModal extends React.Component{
       }
       formData.append("tags", this.state.tags);
 
-      publishPost(formData, token, 2).then((res)=>{
+      publishPost(formData, token, postId).then((res)=>{
         console.log("Submitted!");
       });
     }
@@ -97,10 +98,11 @@ class PublishModal extends React.Component{
               <br/>
 
               {
-                this.state.formSubmitted ?
-                (<div className="lds-ellipsis" style={{marginTop: -25+'px', marginLeft: -6+'px'}}><div></div><div></div><div></div><div></div></div>)
-                :
-                (<button onClick={this.handleSubmit} className="mjl-btn btn--primary">Publish Now</button>)
+                // this.state.formSubmitted ?
+                // (<div className="lds-ellipsis" style={{marginTop: -25+'px', marginLeft: -6+'px'}}><div></div><div></div><div></div><div></div></div>)
+                // :
+                // (<button onClick={this.handleSubmit} className="mjl-btn btn--primary">Publish Now</button>)
+                <button onClick={this.handleSubmit} className="mjl-btn btn--primary">Publish Now</button>
               }
             </div>
           </div>
