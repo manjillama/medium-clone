@@ -2,7 +2,7 @@ const Blog = require('../models/blog');
 const BlogTag = require('../models/blogTag');
 const sharp = require('sharp');
 const config = require('../config/config');
-var fs = require('fs');
+var sizeOf = require('image-size');
 
 exports.createBlog = (req, res) => {
   // If post alreadt exit then edit post
@@ -60,41 +60,62 @@ exports.publishBlog = async (req, res) => {
   const postId = req.params.id;
   const tags = req.body.tags.split(',');
   let storyThumbnail = null;
+
   let post = {
     status: true
   }
 
   if(file){
     const {storyImage} = file;
-    
 
-    // let mimeType = storyImage.mimetype;
-    // if(mimeType.split('/')[0] === 'image'){
-    //   const outputDir = config.storyImageDir();
-    //   const imageName = postId+'.jpg';
-    //   storyThumbnail = config.resourceHost+config.storyImageResourceUrl+imageName;
-    //   sharp(storyImage.data).resize(160, 160)
-    //     .toFile(outputDir+imageName);
-    // }
+    let mimeType = storyImage.mimetype;
+    if(mimeType.split('/')[0] === 'image'){
+      const outputDir = config.storyImageDir();
+      const imageName = postId+'.jpg';
+      storyThumbnail = config.resourceHost+config.storyImageResourceUrl+imageName;
+      /*
+      * Resizing image to 300 * ? dimensions
+      */
+      const dimensions = sizeOf(storyImage.data);
+      const { width } = dimensions;
+      const { height } = dimensions;
+      if(width > 300){
+        /*
+        * w: 1200 h:1000
+        * =
+        * w1: 300  h1
+        * --------------
+        * wh1 = hw1 or, h1 = hw1/w
+        */
+        const width1 = 300;
+        const height1 = Math.ceil(height*width1/width);
+        sharp(storyImage.data).resize(width1, height1)
+          .toFile(outputDir+imageName);
+      }else{
+        sharp(storyImage.data).toFile(outputDir+imageName);
+      }
+    }
   }
 
+  if(storyThumbnail)
+    post.story_thumbnail = storyThumbnail;
+
+  await Blog.findByPk(postId).then(blog => {
+    if(blog){
+      blog.update(post);
+    }
+  });
+
+  let postTags = [];
+  tags.forEach(tag => {
+    const tagObj = {
+      tag,
+      blog_id: postId
+    }
+    postTags.push(tagObj);
+  });
   //
-  // await Blog.findByPk(postId).then(blog => {
-  //   if(blog){
-  //     blog.update(post);
-  //   }
-  // });
-  //
-  // let postTags = [];
-  // tags.forEach(tag => {
-  //   const tagObj = {
-  //     tag,
-  //     blog_id: postId
-  //   }
-  //   postTags.push(tagObj);
-  // });
-  //
-  // await BlogTag.bulkCreate(postTags);
+  await BlogTag.bulkCreate(postTags);
 
   res.send("Ok");
 }

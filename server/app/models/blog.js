@@ -26,7 +26,7 @@ const Blog = sequelize.define('blogs', {
     allowNull: false,
     defaultValue: false
   },
-  storyThumbnail: {
+  story_thumbnail: {
     type: Sequelize.STRING
   }
 },{underscored: true, timestamps: false});
