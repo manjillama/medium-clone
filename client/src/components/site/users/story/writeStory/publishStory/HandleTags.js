@@ -1,10 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { addBlogTag, removeBlogTag, getBlogTag } from 'services/blogTagService';
 
 class HandleTags extends React.Component{
-
+  constructor(){
+    super();
+    this.state = {
+      tags: []
+    }
+  }
   componentDidMount(){
-    this.editor = document.getElementById("tagEditor");
+    this.blogId = this.props.blogId;
+    this.token = localStorage.getItem('token');
+
+    getBlogTag(this.token, this.blogId).then(res => {
+      this.setState({tags: res.data});
+      this.editor = document.getElementById("tagEditor");
+    });
+  }
+
+  handleTagAdd = (tag) => {
+    let formData = new FormData();
+    formData.append('tag', tag);
+    addBlogTag(formData, this.token, this.blogId).then(res => {
+      this.setState({
+        tags: res.data
+      });
+    });
+  }
+
+  handleTagRemove = (tagId) => {
+    let formData = new FormData();
+    formData.append('id', tagId);
+    removeBlogTag(formData, this.token, this.blogId).then(res => {
+      this.setState({
+        tags: res.data
+      });
+    });
   }
 
   handleChange = (e) => {
@@ -13,17 +45,16 @@ class HandleTags extends React.Component{
     if (val.indexOf(',') !== -1) {
       const tag = val.split(',')[0];
       this.editor.value = '';
-      this.props.handleTagsChange(tag)
+      this.handleTagAdd(tag);
     }
   }
 
   renderTags(){
-    return this.props.storyTags.map((tag, index) =>
-      <div className="tag-elem" key={index}>{tag}
+    return this.state.tags.map((tagObj, index) =>
+      <div className="tag-elem" key={index}>{tagObj.tag}
         <button className="btn-chromeless"
           onClick={()=>{
-            let tags = this.props.storyTags.filter((item, i) => i !== index);
-            this.props.handleTagRemove(tags);
+            this.handleTagRemove(tagObj.id);
           }}>x</button>
       </div>
     )
@@ -41,7 +72,7 @@ class HandleTags extends React.Component{
               {this.renderTags()}
             </div>
             <div className="c-input-wrap">
-              {this.props.storyTags.length < 5 && (<input onChange={this.handleChange} placeholder="Add a tag..." id="tagEditor" />)}
+              {this.state.tags.length < 5 && (<input onChange={this.handleChange} placeholder="Add a tag..." id="tagEditor" />)}
             </div>
           </div>
       </div>
@@ -50,9 +81,7 @@ class HandleTags extends React.Component{
 }
 
 HandleTags.propTypes = {
-  storyTags: PropTypes.array,
-  handleTagsChange: PropTypes.func.isRequired,
-  handleTagRemove: PropTypes.func.isRequired
+  blogId: PropTypes.number.isRequired
 }
 
 export default HandleTags;

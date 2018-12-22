@@ -61,7 +61,6 @@ exports.getUserStories = (req, res) => {
 exports.publishBlog = async (req, res) => {
   const file = req.files;
   const postId = req.params.id;
-  const tags = req.body.tags.split(',');
   let storyThumbnail = null;
 
   let post = {
@@ -108,17 +107,6 @@ exports.publishBlog = async (req, res) => {
       blog.update(post);
     }
   });
-
-  let postTags = [];
-  tags.forEach(tag => {
-    const tagObj = {
-      tag,
-      blog_id: postId
-    }
-    postTags.push(tagObj);
-  });
-  //
-  await BlogTag.bulkCreate(postTags);
 
   res.send("Ok");
 }

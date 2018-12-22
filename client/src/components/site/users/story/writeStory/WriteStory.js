@@ -9,9 +9,9 @@ class WriteStory extends Component{
     super(props);
     this.state = {
       blog: {
-        postId: null,
+        id: null,
         title: '',
-        post: '',
+        description:''
       },
       savingState: 'onhold',
       renderError: false
@@ -41,9 +41,7 @@ class WriteStory extends Component{
       if(path === '/new-story'){
         // User navigated to new story Page
         this.setState({
-          blog: {
-            ...this.state.blog, postId: null,title: '',post: ''
-          }
+          blog: { id: null, title: '', description:''},
         });
       }else{
         // User navigated to Edit Page
@@ -58,10 +56,9 @@ class WriteStory extends Component{
     fetchPost(id, this.userToken)
       .then(res => {
         let post = res.data.blog; // returns null if post doesn't exist or belongs to another user
-        console.log(post);
         if(post){
           this.setState({
-            blog: {...this.state.blog, title: post.title, post: post.description, postId: id}
+            blog: post
           });
         }else{
           this.setState({renderError: true});
@@ -78,7 +75,7 @@ class WriteStory extends Component{
 
   handlePostChange = (e) => {
     this.setState({
-      blog: {...this.state.blog, post: e.target.value}
+      blog: {...this.state.blog, description: e.target.value}
     }, this.saveBlog());
   }
 
@@ -87,8 +84,8 @@ class WriteStory extends Component{
     this.timeout = setTimeout(() => {
       let formData = new FormData();
       formData.append("title", this.state.blog.title);
-      formData.append("post", this.state.blog.post);
-      formData.append("postId", this.state.blog.postId);
+      formData.append("post", this.state.blog.description);
+      formData.append("postId", this.state.blog.id);
 
       this.setState({savingState: 'onprogress'});
       // If postId is null a new post is created else blog will get updated
@@ -98,7 +95,7 @@ class WriteStory extends Component{
             // If post is newly created, id is returned
             let id = response.data.postId;
             if(id){
-              this.setState({ blog:{postId: id} }, ()=>{
+              this.setState({ blog: {...this.state.blog, id} }, ()=>{
                 this.props.history.push(`/p/${id}/edit`);
               });
             }

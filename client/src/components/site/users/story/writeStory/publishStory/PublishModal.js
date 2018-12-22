@@ -17,7 +17,6 @@ class PublishModal extends React.Component{
   constructor(){
     super();
     this.state = {
-      tags:[],
       image: null,
       formSubmitted: false
     }
@@ -36,7 +35,7 @@ class PublishModal extends React.Component{
 
   handleSubmit = () => {
     if(!this.state.formSubmitted){
-      const { postId } = this.props;
+      const {id}  = this.props.blog;
 
       this.setState({formSubmitted: true}, ()=>{
         this._render();
@@ -44,13 +43,12 @@ class PublishModal extends React.Component{
 
       const token = localStorage.getItem('token');
       let formData = new FormData();
-      if(this.state.image){
+      if(this.state.image)
         formData.append("storyImage", this.state.image);
-      }
-      formData.append("tags", this.state.tags);
 
-      publishPost(formData, token, postId).then((res)=>{
-        const redirectTo = config.BASE_URL+'/@'+this.props.username+'/'+postId;
+
+      publishPost(formData, token, id).then((res)=>{
+        const redirectTo = config.BASE_URL+'/@'+this.props.username+'/'+id;
         window.location.href = redirectTo;
       });
     }
@@ -59,20 +57,6 @@ class PublishModal extends React.Component{
   handleImageChange = (image) => {
     this.setState({image}, ()=>{
       this._render();
-    });
-  }
-
-  handleTagsChange = (tag) => {
-    this.setState({
-      tags: [...this.state.tags, tag],
-    },()=>{
-      this._render() ;
-    });
-  }
-
-  handleTagRemove = (tags) => {
-    this.setState({tags},()=>{
-      this._render() ;
     });
   }
 
@@ -92,11 +76,11 @@ class PublishModal extends React.Component{
           <div className="d--flex d--flex-row-md flex-sb p--row" style={{marginTop: 35+'px'}}>
 
             <div className="text--left">
-              <HandleThumbnail handleImageChange={this.handleImageChange} storyImage={this.state.image}/>
+              <HandleThumbnail handleImageChange={this.handleImageChange} imagePreview={this.props.blog.story_thumbnail}/>
             </div>
 
             <div className="text--left">
-              <HandleTags handleTagRemove={this.handleTagRemove} handleTagsChange={this.handleTagsChange} storyTags={this.state.tags}/>
+              <HandleTags blogId={this.props.blog.id}/>
               <br/>
 
               {
@@ -128,10 +112,7 @@ class PublishModal extends React.Component{
 }
 
 PublishModal.propTypes = {
-  postId: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
+  blog: PropTypes.object.isRequired,
   closeModal: PropTypes.func.isRequired,
 }
 

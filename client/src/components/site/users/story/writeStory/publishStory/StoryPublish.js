@@ -11,7 +11,7 @@ export default class StoryPublish extends React.Component{
     }
   }
   handlePublishClick = () => {
-    if(this.props.blog.title === '' || this.props.blog.post === ''){
+    if(this.props.blog.title === '' || this.props.blog.description === ''){
       this.setState({noStoryError: true}, () => {
         setTimeout(() => {
           this.setState({noStoryError: false});
@@ -46,7 +46,7 @@ export default class StoryPublish extends React.Component{
   renderModal(){
     if(this.state.displayModal){
       return (
-        <PublishModal postId={this.props.blog.postId} closeModal={this.closeModal}/>
+        <PublishModal blog={this.props.blog} closeModal={this.closeModal}/>
       )
     }
   }

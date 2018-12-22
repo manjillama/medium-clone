@@ -18,6 +18,12 @@ class HandleThumbnail extends React.Component{
     this.onDrop = this.onDrop.bind(this);
   }
 
+  componentDidMount(){
+    if(this.props.imagePreview){
+      this.setState({imageFilePreview: this.props.imagePreview, disableDropzone:true});
+    }
+  }
+
   onDrop(acceptedFile, rejectedFile) {
     this.setState({dropHovered: false});
     /*
