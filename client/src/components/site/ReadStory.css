@@ -1,0 +1,49 @@
+#readStory h1{
+  font-size: 32px;
+  font-weight: 600;
+}
+
+#readStory article{
+  font-size: 17px;
+}
+
+#readStory .profile-img-wrap img{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+#readStory .usr-w span{
+  display: block;
+  color: rgba(0,0,0,.54)!important;
+  font-size: 13px;
+}
+#readStory .usr-w{
+  margin-left: 15px!important;
+}
+
+#readStory .usr-w a{
+  line-height: 26px;
+}
+#readStory .usr-content{
+  margin: 24px 0;
+}
+
+#readStory footer{
+  border-top: 1px solid rgba(0,0,0,.05)!important;
+  padding: 25px 0;
+  margin: 25px 0;
+}
+
+#readStory footer .f-profile-img img{
+  height: 60px;
+  border-radius: 50%;
+}
+
+#readStory footer .f-usr-content{
+  margin-left: 15px!important;
+}
+
+#readStory footer .f-usr-content p{
+  font-size: 13px;
+}

@@ -4,6 +4,7 @@ const Authentication  = require('./controllers/authentication');
 const BloggerController  = require('./controllers/bloggerController');
 const BlogController  = require('./controllers/blogController');
 const BlogTagController  = require('./controllers/blogTagController');
+const StoryController  = require('./controllers/storyController');
 
 const Blogger = require('./models/blogger');
 const passportService = require('./services/passport'); // configuring passport to use LocalStrategy and JwtStrategy
@@ -40,6 +41,7 @@ module.exports = app => {
   app.post('/blog/action/publish/remove-tag/:postId',requireJwt, BlogTagController.removeBlogTag);
   app.get('/blog/action/publish/get-tag/:postId',requireJwt, BlogTagController.fetchBlogTag);
 
+  app.get('/api/story/:id', StoryController.fetchStory);
   /*
   * Testing
   */

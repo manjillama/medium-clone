@@ -99,7 +99,7 @@ function mapStateToProps(state){
   if(state.auth.authenticated){
     return { authUsername: state.auth.authenticated.user.username, blogger:state.blogger.info}
   }else{
-    return { authUsername: null}
+    return { authUsername: null, blogger:state.blogger.info}
   }
 }
 export default connect(mapStateToProps, {fetchBlogger})(Profile);

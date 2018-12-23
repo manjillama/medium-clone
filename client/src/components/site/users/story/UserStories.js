@@ -1,8 +1,7 @@
 import React from 'react';
 import { getUserPost } from 'services/blogService';
 import { utcToLocal } from 'services/utils';
-import { withRouter } from "react-router";
-
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 class UserStories extends React.Component {
@@ -82,7 +81,21 @@ class UserStories extends React.Component {
     );
   }
 
-
+  _renderBlogTitle(blog){
+    if(this.state.showStories === 'drafts'){
+      return (
+        <Link to={`/p/${blog.id}/edit`}>
+          <h3>{blog.title.length > 0 ? blog.title : 'Untitled Story'}</h3>
+        </Link>
+      );
+    }else{
+      return (
+        <Link to={`/@${this.props.username}/${blog.id}`}>
+          <h3>{blog.title}</h3>
+        </Link>
+      );
+    }
+  }
 
   renderPosts(){
     const { blogs } = this.state;
@@ -92,9 +105,7 @@ class UserStories extends React.Component {
           const timeStamp = utcToLocal(blog.modified_at);
           return (
             <li className="s-l-item" key={blog.id}>
-              <Link to={`/p/${blog.id}/edit`}>
-                <h3>{blog.title.length > 0 ? blog.title : 'Untitled Story'}</h3>
-              </Link>
+              {this._renderBlogTitle(blog)}
               <div className="d--flex">
                 <p className="s-l-taction">Last edited {timeStamp}</p>
                 <button className="btn-chromeless" onClick={this.createToolTipProps} id={`sItemId${blog.id}`} data-attr-id={blog.id} style={{position: 'relative'}}>
@@ -131,4 +142,7 @@ class UserStories extends React.Component {
   }
 }
 
-export default withRouter(UserStories);
+function mapStateToProps(state){
+  return {username: state.auth.authenticated.user.username};
+}
+export default connect(mapStateToProps, null)(UserStories);

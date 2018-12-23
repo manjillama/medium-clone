@@ -229,6 +229,10 @@ form button[type=submit][disabled] {
   display: flex;
 }
 
+.d--flex-col{
+  flex-direction: column;
+}
+
 .flex-sb{
   justify-content: space-between;
 }
