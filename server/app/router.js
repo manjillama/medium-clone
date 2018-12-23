@@ -40,12 +40,13 @@ module.exports = app => {
   app.post('/blog/action/publish/remove-tag/:postId',requireJwt, BlogTagController.removeBlogTag);
   app.get('/blog/action/publish/get-tag/:postId',requireJwt, BlogTagController.fetchBlogTag);
 
-
   /*
   * Testing
   */
   app.get('/users', TestController.findAllUsers);
   app.get('/test-user', TestController.findByUsernameOrEmail);
+  app.get('/test-tags', TestController.findUserStoryBlogTags);
+
 
   app.get('/unauthenticated', function(req, res){res.json({error: "Authentication Failed"})});
 

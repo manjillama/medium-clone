@@ -2,6 +2,8 @@ const User = require('../models/user');
 const Blogger = require('../models/blogger');
 const Sequelize = require('sequelize');
 const Blog = require('../models/blog');
+const BlogTag = require('../models/blogTag');
+
 const bcrypt = require('bcrypt');
 const Op = Sequelize.Op;
 
@@ -27,5 +29,23 @@ exports.findByUsernameOrEmail = (req, res) => {
     }]
   }).then(users => {
     res.send(users);
+  });
+}
+
+exports.findUserStoryBlogTags = (req, res) => {
+  const blogId = 1;
+  const bloggerId = 1;
+  BlogTag.findAll({
+    attributes: ['tag', 'id'],
+    include: [{
+      model: Blog,
+      attributes: [],
+      where: {
+        id: blogId,
+        blogger_id: bloggerId
+      }
+    }]
+  }).then(blogTags => {
+    res.send(blogTags);
   });
 }
