@@ -80,8 +80,10 @@ p.s-l-taction{
   width: 130px;
   border: 1px solid #ccc;
 }
-ul.s-l-tooltip>li{
+ul.s-l-tooltip>li, ul.s-l-tooltip>span{
   text-align: left;
   padding: 8px 15px;
+  display: block;
   color: rgba(0, 0, 0, 0.54);
+  cursor: pointer;
 }

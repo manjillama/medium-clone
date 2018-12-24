@@ -1,8 +1,9 @@
 import React from 'react';
-import { getUserPost } from 'services/blogService';
+import { getUserPost, deleteStory } from 'services/blogService';
 import { utcToLocal } from 'services/utils';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import ConfirmBox from 'components/site/utils/ConfirmBox';
 
 class UserStories extends React.Component {
   constructor(props){
@@ -10,7 +11,7 @@ class UserStories extends React.Component {
     this.state = {
       blogs: null,
       showStories: null,
-      tooltip: null
+      tooltip: null,
     }
   }
 
@@ -27,7 +28,7 @@ class UserStories extends React.Component {
   }
 
   async fetchPosts(){
-    const userToken = localStorage.getItem('token');
+    this.userToken = localStorage.getItem('token');
     let blogs = [];
     let status;
     if(this.state.showStories === 'drafts'){
@@ -35,7 +36,7 @@ class UserStories extends React.Component {
     }else{
       status = true;
     }
-    await getUserPost(userToken, status)
+    await getUserPost(this.userToken, status)
       .then(res => {
         res.data.forEach(blog => {
           blogs.push(blog);
@@ -62,7 +63,7 @@ class UserStories extends React.Component {
     }
   }
 
-  hideTooltip = (e) => {
+  hideTooltip = () => {
     this.setState({tooltip: null});
   }
 
@@ -75,10 +76,23 @@ class UserStories extends React.Component {
         <div id="s-tooltipOverlay" onClick={this.hideTooltip}></div>
         <ul className="s-l-tooltip list-n-block" style={styles}>
           <li><Link to={`/p/${this.state.tooltip.id}/edit`}>Edit Story</Link></li>
-          <li>Delete Story</li>
+          <ConfirmBox
+            className="Helo"
+            onMount={this.hideTooltip}
+            actionId={this.state.tooltip.id}
+            handleConfirm={this.handleStoryDelete}
+            text="Delete"
+            msg="Deleted stories are gone forever. Are you sure?"/>
         </ul>
       </div>
     );
+  }
+
+  handleStoryDelete = (blogId) => {
+    console.log("Delete", blogId);
+    deleteStory(this.userToken, blogId).then(()=>{
+      this.fetchPosts();
+    });
   }
 
   _renderBlogTitle(blog){
@@ -112,8 +126,6 @@ class UserStories extends React.Component {
                   <svg width="21" height="21" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4 7.33L10.03 14l.5.55.5-.55 5.96-6.6-.98-.9-5.98 6.6h1L4.98 6.45z" fillRule="evenodd"></path>
                   </svg>
-
-
                 </button>
               </div>
             </li>

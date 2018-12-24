@@ -118,6 +118,16 @@ hr{
   border-color: #018f69;
   color: #018f69;
 }
+.btn--dead-hollow{
+  border-color: rgba(0, 0, 0, 0.34);
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.btn-danger-hollow:hover{
+  color: rgb(204, 84, 84);
+  border-color: rgb(204, 84, 84);
+}
+
 .btn--d-hollow{
   border-color: rgba(0, 0, 0, 0.54);
   font-size: inherit !important;

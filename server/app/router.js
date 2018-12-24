@@ -4,6 +4,8 @@ const Authentication  = require('./controllers/authentication');
 const BloggerController  = require('./controllers/bloggerController');
 const BlogController  = require('./controllers/blogController');
 const BlogTagController  = require('./controllers/blogTagController');
+const BlogThumbnailController  = require('./controllers/blogThumbnailController');
+
 const StoryController  = require('./controllers/storyController');
 
 const Blogger = require('./models/blogger');
@@ -34,8 +36,11 @@ module.exports = app => {
   app.post('/blog/create-blog',requireJwt, BlogController.createBlog);
   app.get('/blog/action/edit/:id',requireJwt, BlogController.getBlog);
   app.post('/blog/action/publish/:id',requireJwt, BlogController.publishBlog);
-  app.post('/blog/action/upload-thumbnail/:id',requireJwt, BlogController.uploadThumbnail);
-  app.post('/blog/action/remove-thumbnail/:id',requireJwt, BlogController.removeThumbnail);
+  app.post('/blog/action/delete/:id',requireJwt, BlogController.deleteBlog);
+
+
+  app.post('/blog/action/upload-thumbnail/:id',requireJwt, BlogThumbnailController.uploadThumbnail);
+  app.post('/blog/action/remove-thumbnail/:id',requireJwt, BlogThumbnailController.removeThumbnail);
 
   app.post('/blog/action/publish/add-tag/:postId',requireJwt, BlogTagController.addBlogTag);
   app.post('/blog/action/publish/remove-tag/:postId',requireJwt, BlogTagController.removeBlogTag);

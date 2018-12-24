@@ -30,3 +30,8 @@ export function removeStoryImage(token, blogId){
   const headers = {'authorization': token};
   return axios.post(config.SERVER_URL+'blog/action/remove-thumbnail/'+blogId, null, { headers });
 }
+
+export function deleteStory(token, blogId){
+  const headers = {'authorization': token};
+  return axios.post(config.SERVER_URL+'blog/action/delete/'+blogId, null, { headers });
+}
