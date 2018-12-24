@@ -3,6 +3,7 @@ import { fetchBlogger } from 'services/bloggerService';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './Profile.css';
+import UserState from './includes/UserState';
 
 class Profile extends Component{
   constructor(props){
@@ -84,7 +85,7 @@ class Profile extends Component{
                     {this.renderProfileImage()}
                   </div>
                 </div>
-                <hr/>
+                <UserState blogger={this.state.blogger}/>
             </section>
           </div>
         );

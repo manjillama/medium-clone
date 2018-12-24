@@ -17,3 +17,16 @@ exports.fetchStory = async (req, res) => {
     res.json({blog});
   });
 }
+
+exports.fetchUserStories = (req, res) => {
+  const { id } = req.params;
+
+  Blog.findAll({
+    where: {
+      status: true,
+      blogger_id: id
+    }
+  }).then(blogs => {
+    res.json(blogs);
+  });
+}

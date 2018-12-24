@@ -38,17 +38,25 @@ module.exports = app => {
   app.post('/auth/blog/action/delete/:id',requireJwt, BlogController.deleteBlog);
   app.get('/auth/blog/get/blog-count/',requireJwt, BlogController.getBlogCount);
 
-
+  /*
+  * Blog thumbnail
+  */
   app.post('/auth/blog/action/upload-thumbnail/:id',requireJwt, BlogThumbnailController.uploadThumbnail);
   app.post('/auth/blog/action/remove-thumbnail/:id',requireJwt, BlogThumbnailController.removeThumbnail);
 
+  /*
+  * Blog Tags
+  */
   app.post('/auth/blog/action/publish/add-tag/:postId',requireJwt, BlogTagController.addBlogTag);
   app.post('/auth/blog/action/publish/remove-tag/:postId',requireJwt, BlogTagController.removeBlogTag);
   app.get('/auth/blog/action/publish/get-tag/:postId',requireJwt, BlogTagController.fetchBlogTag);
 
+  /*
+  * Publish Apis
+  */
   app.get('/api/story/:id', StoryController.fetchStory);
   app.get('/api/user/get-user/:username', BloggerController.getBloggerByUsername);
-
+  app.get('/api/user/get-stories/:id', StoryController.fetchUserStories);
   /*
   * Testing
   */

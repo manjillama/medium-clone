@@ -1,0 +1,49 @@
+.user-state nav{
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.user-state nav ul{
+  margin-bottom: -1px;
+}
+
+.user-state nav ul li{
+  padding: 10px 0;
+  font-size: 12px;
+}
+.user-state nav ul li button{
+  padding: 5px 0;
+  font-size: 12px;
+  line-height: 0;
+}
+
+.user-state nav ul li.active{
+  color: rgba(0, 0, 0, 0.84);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.54);
+}
+
+.p-story-list .p-story-wrap{
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 24px;
+  margin: 24px 0;
+}
+
+.p-story-list .info-wrap img, .p-story-list .info-wrap .usr-p-image{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background: rgb(1, 143, 105);
+  text-align: center;
+}
+.p-story-list .info-wrap{
+  margin-bottom: 15px;
+}
+
+.p-story-list .info-wrap .usr-w{
+  margin-left: 15px!important;
+}
+
+.p-story-list .info-wrap .usr-w span{
+  display: block;
+  color: rgba(0,0,0,.54)!important;
+  font-size: 13px;
+}
