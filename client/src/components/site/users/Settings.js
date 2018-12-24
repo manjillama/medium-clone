@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import requireAuth from 'components/requireAuth';
 
 class Settings extends Component{
   render(){
@@ -6,4 +7,4 @@ class Settings extends Component{
   }
 }
 
-export default Settings;
+export default requireAuth(Settings);

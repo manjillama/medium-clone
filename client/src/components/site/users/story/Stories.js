@@ -3,8 +3,9 @@ import './Stories.css';
 import { Link } from 'react-router-dom';
 import UserStories from './UserStories';
 import { getUserStoriesCount } from 'services/blogService';
+import requireAuth from 'components/requireAuth';
 
-export default class Stories extends React.Component {
+class Stories extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -65,3 +66,5 @@ export default class Stories extends React.Component {
     }
   }
 }
+
+export default requireAuth(Stories);

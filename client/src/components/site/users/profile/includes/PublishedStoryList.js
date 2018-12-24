@@ -48,7 +48,7 @@ export default class PublishedStoryList extends React.Component{
             </div>
           </div>
           <div>
-            <h3>{story.title}</h3>
+            <h3><Link to={`@${this.props.blogger.username}/${story.id}`}>{story.title}</Link></h3>
           </div>
         </div>
       );

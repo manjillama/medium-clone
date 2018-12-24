@@ -3,6 +3,7 @@ import './WriteStory.css';
 import StoryForm from './StoryForm';
 import StoryPublish from './publishStory/StoryPublish';
 import { writePost, fetchPost } from 'services/blogService';
+import requireAuth from 'components/requireAuth';
 
 class WriteStory extends Component{
   constructor(props){
@@ -131,4 +132,4 @@ class WriteStory extends Component{
   }
 }
 
-export default WriteStory;
+export default requireAuth(WriteStory);

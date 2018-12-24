@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import ProfileEditForm from './ProfileEditForm';
 import ImageCropper from 'components/site/utils/ImageCropper';
+import requireAuth from 'components/requireAuth';
 
 import config from 'config';
 
@@ -126,4 +127,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {fetchBlogger, updateBlogger})(ProfileEdit);
+export default connect(mapStateToProps, {fetchBlogger, updateBlogger})( requireAuth(ProfileEdit));
