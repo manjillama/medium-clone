@@ -26,8 +26,7 @@ module.exports = app => {
   * Blogger profile routes
   */
   app.get('/api/user/get-user',requireJwt, BloggerController.getBlogger);  // Restricting end point with JwtStrategy
-  app.post('/api/user/edit', BloggerController.updateBloggerInfo);
-  app.get('/api/user/get-user/:username', BloggerController.getBloggerByUsername);
+  app.post('/api/user/edit', requireJwt, BloggerController.updateBloggerInfo);
   app.get('/api/user/blogs/:status',requireJwt, BlogController.getUserStories);
 
   /*
@@ -48,6 +47,8 @@ module.exports = app => {
   app.get('/blog/action/publish/get-tag/:postId',requireJwt, BlogTagController.fetchBlogTag);
 
   app.get('/api/story/:id', StoryController.fetchStory);
+  app.get('/api/user/get-user/:username', BloggerController.getBloggerByUsername);
+
   /*
   * Testing
   */

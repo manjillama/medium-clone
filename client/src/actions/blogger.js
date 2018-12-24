@@ -15,8 +15,9 @@ export const fetchBlogger = (username, callback) => async dispatch => {
   }
 }
 
-export const updateBlogger = (formProps, callback) => async dispatch => {
-  await axios.post(config.SERVER_URL+'api/user/edit', formProps);
+export const updateBlogger = (token, formProps, callback) => async dispatch => {
+  const headers = {'authorization': token};
+  await axios.post(config.SERVER_URL+'api/user/edit', formProps,  { headers });
   dispatch({type: 'UPDATE', payload: null});
   callback();
 };

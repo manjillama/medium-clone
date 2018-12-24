@@ -3,23 +3,25 @@ const sharp = require('sharp'); // https://github.com/lovell/sharp
 const config = require('../config/config');
 
 
-exports.updateBloggerInfo = async (req, res) => {
-  let profileImageUrl = req.body.profile_image;
-  // If user has uploaded profile image
-  if(req.files && req.files.uploaded_image){
-    let userImage = req.files.uploaded_image;
-    let mimeType = userImage.mimetype;
-    if(mimeType.split('/')[0] === 'image'){
-      const outputDir = config.bloggerImageDir();
-      const imageName = req.body.id+'.jpg';
-      profileImageUrl = config.resourceHost+config.bloggerImageResourceUrl+imageName;
-      await sharp(userImage.data).resize(160, 160)
-        .toFile(outputDir+imageName);
-    }
-  }
+exports.updateBloggerInfo = (req, res) => {
 
-  Blogger.findByPk(req.body.id).then(blogger => {
+  Blogger.findByPk(req.user.id).then(async blogger => {
     if(blogger){
+
+      let profileImageUrl = req.body.profile_image;
+      // If user has uploaded profile image
+      if(req.files && req.files.uploaded_image){
+        let userImage = req.files.uploaded_image;
+        let mimeType = userImage.mimetype;
+        if(mimeType.split('/')[0] === 'image'){
+          const outputDir = config.bloggerImageDir();
+          const imageName = req.body.id+'.jpg';
+          profileImageUrl = config.resourceHost+config.bloggerImageResourceUrl+imageName;
+          await sharp(userImage.data).resize(160, 160)
+            .toFile(outputDir+imageName);
+        }
+      }
+
       blogger.update({
         fullname: req.body.fullname,
         bio: req.body.bio,

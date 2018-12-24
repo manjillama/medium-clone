@@ -21,6 +21,7 @@ class ProfileEdit extends Component{
   }
 
   componentDidMount () {
+    this.token = localStorage.getItem('token');
     this.props.fetchBlogger(this.props.authUsername, (error)=>{
       if(error){
         this.setState({error:true});
@@ -85,7 +86,7 @@ class ProfileEdit extends Component{
     }
     formData.append("uploaded_image", this.state.uploadedImage);
 
-    return this.props.updateBlogger(formData, () => {
+    return this.props.updateBlogger(this.token, formData, () => {
       const redirectTo = config.BASE_URL+'/@'+formProps.username;
       window.location.href = redirectTo;
     });

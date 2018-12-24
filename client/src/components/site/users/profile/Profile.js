@@ -1,49 +1,46 @@
 import React, { Component } from 'react';
+import { fetchBlogger } from 'services/bloggerService';
 import { connect } from 'react-redux';
-import { fetchBlogger } from 'actions/blogger';
-
 import { Link } from 'react-router-dom';
 import './Profile.css';
 
 class Profile extends Component{
   constructor(props){
     super(props);
-    this.state = {error:false, loading: true};
+    this.state = {
+      error:false,
+      loading: true,
+      blogger: null,
+      paramUsername: null
+    };
   }
   componentDidMount () {
-    // Listening to url change
-    this.unlisten = this.props.history.listen((location, action) => {
-      /*
-      *To prevent
-        - Can't perform a React state update on an unmounted component.
-        - This is a no-op, but it indicates a memory leak in your application.
-        - To fix, cancel all subscriptions and asynchronous tasks in the componentWillUnmount method.
-        - asynchronous fetchBlogger function won't set state if routed to another url***
-      */
-      const param = location.pathname.split('@')[1];
-      if(param)
-        this.fetchBlogger(param);
+    this.setState({paramUsername: this.props.match.params.username}, ()=>{
+      this.getBlogger(this.state.paramUsername);
     });
-    //const username  = this.props.match.params.username;
-    this.fetchBlogger()
   }
 
-  componentWillUnmount() {
-    this.unlisten();
+  componentWillReceiveProps(nextProps){
+    this.setState({error:false});
+
+    this.setState({paramUsername: nextProps.match.params.username}, ()=>{
+      this.getBlogger(this.state.paramUsername);
+    });
   }
 
-  fetchBlogger(param){
-    const username  = param ? param : this.props.match.params.username;
-    this.props.fetchBlogger(username, (error)=>{
-      if(error){
+  getBlogger(username){
+    fetchBlogger(username).then(res => {
+      if(res.data.error){
         this.setState({error:true});
+      }else{
+        this.setState({blogger: res.data});
       }
       this.setState({loading: false});
     });
   }
 
   renderEditLink(){
-    if(this.props.match.params.username === this.props.authUsername){
+    if(this.state.paramUsername === this.props.username){
       return (
         <div>
           <Link className="p-edit-btn mjl-btn btn--d-hollow" to="/profile/edit">Edit Profile</Link>
@@ -53,10 +50,10 @@ class Profile extends Component{
   }
 
   renderProfileImage(){
-    if(this.props.blogger.profile_image){
-      return <img className="user--pp" src={this.props.blogger.profile_image} alt={this.props.blogger.fullname}/>;
+    if(this.state.blogger.profile_image){
+      return <img className="user--pp" src={this.state.blogger.profile_image} alt={this.state.blogger.fullname}/>;
     }else{
-      const initial = this.props.blogger.fullname.charAt(0);
+      const initial = this.state.blogger.fullname.charAt(0);
       return <div className="user--pp">{initial}</div>;
     }
   }
@@ -74,12 +71,12 @@ class Profile extends Component{
                 <div style={{marginBottom: 30+'px'}} className="d--flex flex-ai-fs flex-col-rev-sm blogger-panel">
                   <div className="full-width">
                     <div className="d--flex">
-                      <h1>{this.props.blogger.fullname}</h1>
+                      <h1>{this.state.blogger.fullname}</h1>
                       {this.renderEditLink()}
                     </div>
                     <div>
                       <p className="textarea-u-b">
-                        {this.props.blogger.bio}
+                        {this.state.blogger.bio}
                       </p>
                     </div>
                   </div>
@@ -98,9 +95,10 @@ class Profile extends Component{
 
 function mapStateToProps(state){
   if(state.auth.authenticated){
-    return { authUsername: state.auth.authenticated.user.username, blogger:state.blogger.info}
+    return { username: state.auth.authenticated.user.username}
   }else{
-    return { authUsername: null, blogger:state.blogger.info}
+    return { username: null}
   }
 }
-export default connect(mapStateToProps, {fetchBlogger})(Profile);
+
+export default connect(mapStateToProps, null) (Profile);
