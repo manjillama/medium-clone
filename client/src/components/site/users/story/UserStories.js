@@ -81,7 +81,7 @@ class UserStories extends React.Component {
             onMount={this.hideTooltip}
             actionId={this.state.tooltip.id}
             handleConfirm={this.handleStoryDelete}
-            text="Delete"
+            text="Delete Story"
             msg="Deleted stories are gone forever. Are you sure?"/>
         </ul>
       </div>
@@ -89,7 +89,6 @@ class UserStories extends React.Component {
   }
 
   handleStoryDelete = (blogId) => {
-    console.log("Delete", blogId);
     deleteStory(this.userToken, blogId).then(()=>{
       this.fetchPosts();
     });

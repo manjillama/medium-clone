@@ -36,7 +36,7 @@ section{
 }
 hr{
   border: 0;
-  border-top: 1px solid #bbb;
+  border-top: 1px solid #ddd;
 }
 .full-width{
   width: 100%;
@@ -247,8 +247,15 @@ form button[type=submit][disabled] {
   justify-content: space-between;
 }
 
+.flex-fw{
+  flex-wrap: wrap;
+}
+
 .d--flex.flex-ai-fs{
   align-items: flex-start;
+}
+.d--flex.flex-ai-cn{
+  align-items:center;
 }
 
 .flex--item-left{

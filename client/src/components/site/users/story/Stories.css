@@ -18,6 +18,7 @@ nav.s-nav ul {
 }
 nav.s-nav ul li{
   padding: 10px 0;
+  font-size: 12px;
 }
 .user--msg{
   text-align: center;

@@ -71,14 +71,14 @@ class Profile extends Component{
         return (
           <div>
             <section className="container--sm">
-                <div className="d--flex flex-ai-fs flex-col-rev-sm blogger-panel">
+                <div style={{marginBottom: 30+'px'}} className="d--flex flex-ai-fs flex-col-rev-sm blogger-panel">
                   <div className="full-width">
                     <div className="d--flex">
                       <h1>{this.props.blogger.fullname}</h1>
                       {this.renderEditLink()}
                     </div>
                     <div>
-                      <p className="text--muted textarea-u-b">
+                      <p className="textarea-u-b">
                         {this.props.blogger.bio}
                       </p>
                     </div>
@@ -87,6 +87,7 @@ class Profile extends Component{
                     {this.renderProfileImage()}
                   </div>
                 </div>
+                <hr/>
             </section>
           </div>
         );

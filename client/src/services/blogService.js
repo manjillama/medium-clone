@@ -16,6 +16,11 @@ export function fetchPost(id, token){
   return axios.get(config.SERVER_URL+'blog/action/edit/'+id, { headers });
 }
 
+export function getUserStoriesCount(token){
+  const headers = {'authorization': token};
+  return axios.get(config.SERVER_URL+'blog/get/blog-count/', { headers });
+}
+
 export function getUserPost(token, status){
   const headers = {'authorization': token};
   return axios.get(config.SERVER_URL+'api/user/blogs/'+status, { headers });

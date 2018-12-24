@@ -28,6 +28,13 @@ export default class ReadStory extends React.Component{
           <img src={this.state.story.blogger.profile_image} alt={this.state.story.blogger.fullname}/>
         </Link>
       );
+    }else{
+      const initial = this.state.story.blogger.fullname.charAt(0);
+      return (
+        <Link to={`/@${this.state.story.blogger.username}`}>
+          <div className="usr-p-image"><span>{initial}</span></div>
+        </Link>
+      );
     }
   }
 

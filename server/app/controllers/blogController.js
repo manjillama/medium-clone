@@ -45,10 +45,30 @@ exports.getUserStories = (req, res) => {
   Blog.findAll({
     where: {blogger_id: userId, status},
     order: [['modified_at', 'DESC']],
-    attributes: ['id', 'title', 'description', 'created_at', 'modified_at']
+    attributes: ['id', 'title', 'created_at', 'modified_at']
   }).then(blog => {
     return res.json(blog);
   });
+}
+
+exports.getBlogCount = async (req, res) => {
+  const blogger_id = req.user.id;
+  let storyCount = {
+    published: 0,
+    drafts: 0
+  }
+  await Blog.count({
+    where: {blogger_id, status: false}
+  }).then( count => {
+    storyCount.drafts = count;
+  });
+
+  await Blog.count({
+    where: {blogger_id, status: true}
+  }).then( count => {
+    storyCount.published = count;
+  });
+  res.json(storyCount);
 }
 
 exports.publishBlog = async (req, res) => {
