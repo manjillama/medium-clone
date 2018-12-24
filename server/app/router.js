@@ -25,26 +25,26 @@ module.exports = app => {
   /*
   * Blogger profile routes
   */
-  app.get('/api/user/get-user',requireJwt, BloggerController.getBlogger);  // Restricting end point with JwtStrategy
-  app.post('/api/user/edit', requireJwt, BloggerController.updateBloggerInfo);
-  app.get('/api/user/blogs/:status',requireJwt, BlogController.getUserStories);
+  app.get('/auth/api/user/get-user',requireJwt, BloggerController.getBlogger);  // Restricting end point with JwtStrategy
+  app.post('/auth/api/user/edit', requireJwt, BloggerController.updateBloggerInfo);
+  app.get('/auth/api/user/blogs/:status',requireJwt, BlogController.getUserStories);
 
   /*
   * Blog actions
   */
-  app.post('/blog/create-blog',requireJwt, BlogController.createBlog);
-  app.get('/blog/action/edit/:id',requireJwt, BlogController.getBlog);
-  app.post('/blog/action/publish/:id',requireJwt, BlogController.publishBlog);
-  app.post('/blog/action/delete/:id',requireJwt, BlogController.deleteBlog);
-  app.get('/blog/get/blog-count/',requireJwt, BlogController.getBlogCount);
+  app.post('/auth/blog/create-blog',requireJwt, BlogController.createBlog);
+  app.get('/auth/blog/action/edit/:id',requireJwt, BlogController.getBlog);
+  app.post('/auth/blog/action/publish/:id',requireJwt, BlogController.publishBlog);
+  app.post('/auth/blog/action/delete/:id',requireJwt, BlogController.deleteBlog);
+  app.get('/auth/blog/get/blog-count/',requireJwt, BlogController.getBlogCount);
 
 
-  app.post('/blog/action/upload-thumbnail/:id',requireJwt, BlogThumbnailController.uploadThumbnail);
-  app.post('/blog/action/remove-thumbnail/:id',requireJwt, BlogThumbnailController.removeThumbnail);
+  app.post('/auth/blog/action/upload-thumbnail/:id',requireJwt, BlogThumbnailController.uploadThumbnail);
+  app.post('/auth/blog/action/remove-thumbnail/:id',requireJwt, BlogThumbnailController.removeThumbnail);
 
-  app.post('/blog/action/publish/add-tag/:postId',requireJwt, BlogTagController.addBlogTag);
-  app.post('/blog/action/publish/remove-tag/:postId',requireJwt, BlogTagController.removeBlogTag);
-  app.get('/blog/action/publish/get-tag/:postId',requireJwt, BlogTagController.fetchBlogTag);
+  app.post('/auth/blog/action/publish/add-tag/:postId',requireJwt, BlogTagController.addBlogTag);
+  app.post('/auth/blog/action/publish/remove-tag/:postId',requireJwt, BlogTagController.removeBlogTag);
+  app.get('/auth/blog/action/publish/get-tag/:postId',requireJwt, BlogTagController.fetchBlogTag);
 
   app.get('/api/story/:id', StoryController.fetchStory);
   app.get('/api/user/get-user/:username', BloggerController.getBloggerByUsername);
