@@ -38,6 +38,19 @@ export default class ReadStory extends React.Component{
     }
   }
 
+  renderHeaderImage(){
+    const storyImages = this.state.story.blogImages;
+
+    if(storyImages.length > 0){
+      const headerImage = storyImages[0].story_image;
+      return (
+        <div>
+          <img className="img-responsive" src={headerImage} alt={this.state.story.title}/>
+        </div>
+      );
+    }
+  }
+
   renderStory = () => {
     /*
     * To display data as html instead of plain text
@@ -65,6 +78,7 @@ export default class ReadStory extends React.Component{
                 <span>{storyCreationDate}</span>
               </div>
             </div>
+            {this.renderHeaderImage()}
             <article id="storyDesc">
             </article>
             <footer>

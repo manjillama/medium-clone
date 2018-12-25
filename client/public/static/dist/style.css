@@ -150,6 +150,11 @@ hr{
 /*
 * Generics
 */
+.img-responsive{
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
 .bg--danger{
   background-color:#cc5454;
   font-weight: bold;

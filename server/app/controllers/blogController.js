@@ -9,6 +9,7 @@ exports.createBlog = (req, res) => {
   let post = {
     title: req.body.title,
     description: req.body.post,
+    desc_summary: req.body.descSummary,
     modified_at: config.getUtcTimestamp(),
     blogger_id: req.user.id
   }

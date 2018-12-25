@@ -15,7 +15,8 @@ class WriteStory extends Component{
         description:''
       },
       savingState: 'onhold',
-      renderError: false
+      renderError: false,
+      loading: true
     }
   }
 
@@ -27,8 +28,11 @@ class WriteStory extends Component{
     // If component is mounted through edit section
     const postId = this.props.match.params.postId;
     // If component is rendered through editing page
-    if(postId)
+    if(postId){
       this.getPost(postId);
+    }else{
+      this.setState({loading:false})
+    }
   }
 
   /*
@@ -37,12 +41,13 @@ class WriteStory extends Component{
   * Triggering another props receving action from here will create an infinite loop
   */
   componentWillReceiveProps(nextProps){
-    this.setState({renderError: false}, () => {
+    this.setState({renderError: false, loading:true}, () => {
       let { path } = nextProps.match;
       if(path === '/new-story'){
         // User navigated to new story Page
         this.setState({
           blog: { id: null, title: '', description:''},
+          loading: false
         });
       }else{
         // User navigated to Edit Page
@@ -59,7 +64,8 @@ class WriteStory extends Component{
         let post = res.data.blog; // returns null if post doesn't exist or belongs to another user
         if(post){
           this.setState({
-            blog: post
+            blog: post,
+            loading: false
           });
         }else{
           this.setState({renderError: true});
@@ -80,13 +86,20 @@ class WriteStory extends Component{
     }, this.saveBlog());
   }
 
+  getBlogSummary(desc){
+    // removing html tags if any and doing substr
+    return desc.replace(/<(?:.|\n)*?>/gm, '').substr(0, 130);
+  }
+
   saveBlog = () => {
     if(this.timeout) clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
+
       let formData = new FormData();
       formData.append("title", this.state.blog.title);
       formData.append("post", this.state.blog.description);
       formData.append("postId", this.state.blog.id);
+      formData.append("descSummary", this.getBlogSummary(this.state.blog.description));
 
       this.setState({savingState: 'onprogress'});
       // If postId is null a new post is created else blog will get updated
@@ -117,17 +130,21 @@ class WriteStory extends Component{
         <h1>Page not found :(</h1>
       );
     }else{
-      return (
-        <section className="container--sm">
-          <StoryPublish savingState={this.state.savingState} blog={this.state.blog}/>
+      if(this.state.loading){
+        return <h3>Loading...</h3>;
+      }else{
+        return (
+          <section className="container--sm">
+            <StoryPublish savingState={this.state.savingState} blog={this.state.blog}/>
 
-          <StoryForm
-            handlePostChange={this.handlePostChange}
-            handleTitleChange={this.handleTitleChange}
-            blog={this.state.blog}/>
+            <StoryForm
+              handlePostChange={this.handlePostChange}
+              handleTitleChange={this.handleTitleChange}
+              blog={this.state.blog}/>
 
-        </section>
-      );
+          </section>
+        );
+      }
     }
   }
 }

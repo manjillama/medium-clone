@@ -27,6 +27,12 @@
   margin: 24px 0;
 }
 
+.p-story-list .p-story-wrap .desc-s{
+  font-size: 12px;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
 .p-story-list .info-wrap img, .p-story-list .info-wrap .usr-p-image{
   height: 50px;
   width: 50px;

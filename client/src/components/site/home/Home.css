@@ -1,0 +1,23 @@
+.h-page .d--flex>div{
+  height: 300px;
+}
+
+.h-page .main-c{
+  max-width: 680px;
+  background: red;
+  width: 100%
+}
+
+.h-page .h-s{
+  width: 328px;
+  background: green;
+}
+
+@media (max-width: 1038px){
+  .h-page .main-c {
+    max-width: 100%;
+  }
+  .h-page .h-s{
+    display: none;
+  }
+}

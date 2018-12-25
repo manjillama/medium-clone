@@ -14,6 +14,9 @@ const Blog = sequelize.define('blogs', {
   description: {
     type: Sequelize.TEXT,
   },
+  desc_summary: {
+    type: Sequelize.STRING(160),
+  },
   created_at: {
     type: Sequelize.DATE,
     allowNull: false,

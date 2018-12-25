@@ -2,6 +2,7 @@ const User = require('../models/user');
 const Blogger = require('../models/blogger');
 const Blog = require('../models/blog');
 const BlogTag = require('../models/blogTag');
+const BlogImage = require('../models/blogImage');
 
 module.exports = function(){
   User.hasOne(Blogger, {foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
@@ -13,4 +14,6 @@ module.exports = function(){
   Blog.hasMany(BlogTag, {foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
   BlogTag.belongsTo(Blog, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
 
+  Blog.hasMany(BlogImage, {foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
+  BlogImage.belongsTo(Blog, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
 }

@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import App from './components/App';
-import Home from './components/site/Home';
+import Home from './components/site/home/Home';
 import Contact from './components/site/Contact';
 import Settings from './components/site/users/Settings';
 import Profile from './components/site/users/profile/Profile';
