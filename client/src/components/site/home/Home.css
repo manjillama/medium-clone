@@ -25,6 +25,9 @@
 .main-c .c-item article{
   font-size: 13px;
 }
+.main-c .c-item article .d-summary{
+  margin-top: 5px;
+}
 
 .main-c .c-item .c-info{
   margin-top: 10px;
@@ -35,10 +38,12 @@
 }
 
 .main-c .c-item .h-s-img{
-  background: url('https://instagram.fktm8-1.fna.fbcdn.net/vp/530878ba85f5f1dbba64fd72897fd28a/5CA01CF4/t51.2885-15/e35/47113884_783994798626893_2170946393681840313_n.jpg?_nc_ht=instagram.fktm8-1.fna.fbcdn.net');
-  flex: 0 0 152px;
   background-size: cover!important;
   background-position: 50% 50%;
+  flex: 0 0 152px;
+}
+.main-c .c-item .h-s-img>div{
+
 }
 
 .h-s .adv-t{

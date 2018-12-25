@@ -63,6 +63,7 @@ module.exports = app => {
   app.get('/users', TestController.findAllUsers);
   app.get('/test-user', TestController.findByUsernameOrEmail);
   app.get('/test-tags', TestController.findUserStoryBlogTags);
+  app.get('/test-stories', TestController.findAllStories);
 
 
   app.get('/unauthenticated', function(req, res){res.json({error: "Authentication Failed"})});
