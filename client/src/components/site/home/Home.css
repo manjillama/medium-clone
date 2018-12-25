@@ -1,16 +1,50 @@
-.h-page .d--flex>div{
-  height: 300px;
-}
-
 .h-page .main-c{
-  max-width: 680px;
-  background: red;
+  max-width: 750px;
   width: 100%
 }
 
+.h-page .main-c h4.p-t{
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+
+
 .h-page .h-s{
-  width: 328px;
-  background: green;
+  width: 300px;
+  padding-left: 30px;
+}
+
+.main-c .c-item{
+  margin: 30px 0;
+}
+
+.main-c .c-item h3{
+  font-size: 18px;
+}
+
+.main-c .c-item article{
+  font-size: 13px;
+}
+
+.main-c .c-item .c-info{
+  margin-top: 10px;
+}
+
+.main-c .c-item .c-info>*{
+  margin: 4px 0;
+}
+
+.main-c .c-item .h-s-img{
+  background: url('https://instagram.fktm8-1.fna.fbcdn.net/vp/530878ba85f5f1dbba64fd72897fd28a/5CA01CF4/t51.2885-15/e35/47113884_783994798626893_2170946393681840313_n.jpg?_nc_ht=instagram.fktm8-1.fna.fbcdn.net');
+  flex: 0 0 152px;
+  background-size: cover!important;
+  background-position: 50% 50%;
+}
+
+.h-s .adv-t{
+  font-size: 12px;
+  margin-bottom: 8px;
+  display: block;
 }
 
 @media (max-width: 1038px){
@@ -18,6 +52,12 @@
     max-width: 100%;
   }
   .h-page .h-s{
+    display: none;
+  }
+}
+
+@media (max-width: 558px){
+  .main-c .c-item .d-summary{
     display: none;
   }
 }

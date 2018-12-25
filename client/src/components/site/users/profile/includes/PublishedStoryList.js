@@ -50,7 +50,7 @@ export default class PublishedStoryList extends React.Component{
           <div>
             <Link to={`@${this.props.blogger.username}/${story.id}`}>
               <h2>{story.title}</h2>
-              <p className="text--muted desc-s">{story.desc_summary}</p>
+              <p className="text--muted desc-s">{story.desc_summary}...</p>
             </Link>
           </div>
         </div>
