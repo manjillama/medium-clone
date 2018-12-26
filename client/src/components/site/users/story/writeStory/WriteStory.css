@@ -35,4 +35,27 @@
   background-color: #262625;
   padding: 10px;
   border-radius: 5px;
+  top: -72px;
+  left: -135px;
+}
+
+#editorBox button {
+  color: #fff;
+  padding: 3px;
+  font-size: 16px;
+  margin: 2px;
+}
+
+#editorBox:after {
+  -webkit-transform: rotate(45deg) translate(-50%,-50%);
+  transform: rotate(45deg) translate(-50%,-50%);
+  box-shadow: -1px -1px 1px -1px rgba(0,0,0,.54);
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  background: #262625;
 }
