@@ -22,7 +22,7 @@ class UserStories extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    this.setState({showStories: nextProps.showStories}, ()=>{
+    this.setState({showStories: nextProps.showStories, blogs: null}, ()=>{
       this.fetchPosts();
     })
   }
