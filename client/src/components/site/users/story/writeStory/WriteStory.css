@@ -29,3 +29,10 @@
 .input-story-p a{
   text-decoration: underline;
 }
+
+#editorBox{
+  position: absolute;
+  background-color: #262625;
+  padding: 10px;
+  border-radius: 5px;
+}

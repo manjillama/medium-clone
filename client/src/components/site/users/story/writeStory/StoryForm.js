@@ -15,33 +15,13 @@ export default class StoryForm extends React.Component{
 
   render(){
     return (
-      <form>
+      <div>
         <input className="input-story-t" type="text" placeholder="Title" value={this.props.blog.title} onChange={this.props.handleTitleChange}/>
         <div style={{position:'relative'}}>
           {this.renderPostPlaceHolder()}
 
-          <EditButton cmd="bold" />
-          <EditButton cmd="italic" />
-          <EditButton cmd="formatBlock" arg="<h1>" name="T" />
-          <EditButton cmd="formatBlock" arg="<p>" name="t" />
-          <EditButton cmd="formatBlock" arg="<blockquote>" name='""' />
 
-          <EditButton cmd="insertHTML" arg="&zwnj;<pre><div>&zwnj;" name="code" />
-          <EditButton cmd="insertUnorderedList" name="List" />
-          <EditButton
-            cmd="backColor"
-            arg="yellow"
-            name="Highlight"
-          />
-          <EditButton
-            cmd="createLink"
-            arg="https://github.com/lovasoa/react-contenteditable"
-            name="hyperlink"
-          />
-          <EditButton
-            cmd="unlink"
-          />
-
+          <RenderEditor />
           <ContentEditable
             className="input-story-p"
             innerRef={this.contentEditable}
@@ -50,9 +30,37 @@ export default class StoryForm extends React.Component{
             onChange={this.props.handlePostChange}
             />
         </div>
-      </form>
+      </div>
     );
   }
+}
+
+function RenderEditor(){
+  return (
+    <div id="editorBox">
+      <EditButton cmd="bold" name="B" />
+      <EditButton cmd="italic" name="i"/>
+      <EditButton cmd="formatBlock" arg="<h1>" name="T" />
+      <EditButton cmd="formatBlock" arg="<p>" name="t" />
+      <EditButton cmd="formatBlock" arg="<blockquote>" name='""' />
+
+      <EditButton cmd="insertHTML" arg="&zwnj;<pre><div>&zwnj;" name="</>" />
+      <EditButton cmd="insertUnorderedList" name="List" />
+      <EditButton
+        cmd="backColor"
+        arg="yellow"
+        name="Highlight"
+      />
+      <EditButton
+        cmd="createLink"
+        arg="https://github.com/lovasoa/react-contenteditable"
+        name="hyperlink"
+      />
+      <EditButton
+        cmd="unlink"
+      />
+    </div>
+  );
 }
 
 function EditButton(props) {
