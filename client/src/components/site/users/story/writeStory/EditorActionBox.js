@@ -2,7 +2,6 @@ import React from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 
 export default function EditorActionBox(props){
-  console.log(props);
   return (
     <div id="editorBox" style={{transform: `translate(${props.clientX}px, ${props.clientY}px)`}}>
       <EditButton cmd="bold" name="bold" />

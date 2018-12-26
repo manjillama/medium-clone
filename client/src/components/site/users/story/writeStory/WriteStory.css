@@ -11,12 +11,14 @@
   margin-top: 10px;
   outline: 0;
   font-size: 18px;
+  line-height: 30px;
 }
 
 .input-story-p pre{
   background: rgba(0,0,0,.05);
   padding: 20px;
   font-size: 14px;
+  line-height: 20px;
   overflow-y: scroll;
 }
 

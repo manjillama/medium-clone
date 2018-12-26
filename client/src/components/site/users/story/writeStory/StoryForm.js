@@ -32,13 +32,12 @@ export default class StoryForm extends React.Component{
   }
 
   onTextSelection = (e) => {
-    console.log(e);
     const selectedText = window.getSelection();
     if(selectedText && selectedText.toString() !== ''){
       this.setState({
         showEditorBox: {
-          clientX: e.clientX,
-          clientY: e.clientY
+          clientX: e.pageX,
+          clientY: e.pageY
         }
       }, () => {
         /*

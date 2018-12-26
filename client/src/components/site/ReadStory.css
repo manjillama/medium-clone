@@ -8,6 +8,7 @@
 #readStory article{
   font-family: 'PT Serif', serif;
   font-size: 18px;
+  line-height: 30px;
 }
 
 #readStory article a{
@@ -19,6 +20,7 @@
   padding: 20px;
   font-size: 14px;
   overflow-y: scroll;
+  line-height: 20px;
 }
 
 #readStory article blockquote{
