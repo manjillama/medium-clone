@@ -37,6 +37,11 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 router(app);
 
+var minutes = 15, the_interval = minutes * 60 * 1000;
+setInterval(function() {
+  console.log("I am doing my 15 minutes check so that Heroku won't put me to sleep.");
+}, the_interval);
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, function(){
   console.log(`Server started on port ${PORT}...`);
