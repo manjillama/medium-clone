@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Serif:400,700');
+
 .input-story-t{
   font-size: 37px;
   height: 48px;
@@ -5,9 +7,23 @@
 }
 
 .input-story-p{
+  font-family: 'PT Serif', serif;
   margin-top: 10px;
   outline: 0;
-  font-size: 17px;
+  font-size: 18px;
+}
+
+.input-story-p pre{
+  background: rgba(0,0,0,.05);
+  padding: 20px;
+  font-size: 14px;
+  overflow-y: scroll;
+}
+
+.input-story-p blockquote{
+  padding-left: 10px;
+  display: block;
+  border-left: 3px solid #000;
 }
 
 .input-story-p a{

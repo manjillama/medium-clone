@@ -22,12 +22,26 @@ export default class StoryForm extends React.Component{
 
           <EditButton cmd="bold" />
           <EditButton cmd="italic" />
-          <EditButton cmd="formatBlock" arg="h1" name="heading" />
+          <EditButton cmd="formatBlock" arg="<h1>" name="T" />
+          <EditButton cmd="formatBlock" arg="<p>" name="t" />
+          <EditButton cmd="formatBlock" arg="<blockquote>" name='""' />
+
+          <EditButton cmd="insertHTML" arg="&zwnj;<pre><div>&zwnj;" name="code" />
+          <EditButton cmd="insertUnorderedList" name="List" />
+          <EditButton
+            cmd="backColor"
+            arg="yellow"
+            name="Highlight"
+          />
           <EditButton
             cmd="createLink"
             arg="https://github.com/lovasoa/react-contenteditable"
             name="hyperlink"
           />
+          <EditButton
+            cmd="unlink"
+          />
+
           <ContentEditable
             className="input-story-p"
             innerRef={this.contentEditable}

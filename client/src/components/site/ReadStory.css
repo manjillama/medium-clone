@@ -1,10 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Serif:400,700');
+
 #readStory h1{
-  font-size: 32px;
+  font-size: 33px;
   font-weight: 600;
 }
 
 #readStory article{
-  font-size: 17px;
+  font-family: 'PT Serif', serif;
+  font-size: 18px;
+}
+
+#readStory article a{
+  text-decoration: underline;
+}
+
+#readStory article pre{
+  background: rgba(0,0,0,.05);
+  padding: 20px;
+  font-size: 14px;
+  overflow-y: scroll;
+}
+
+#readStory article blockquote{
+  padding-left: 10px;
+  display: block;
+  border-left: 3px solid #000;
 }
 
 #readStory .profile-img-wrap img, #readStory .profile-img-wrap .usr-p-image{
