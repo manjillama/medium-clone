@@ -15,7 +15,8 @@ class HandleThumbnail extends React.Component{
       error: {
         show: false,
         message: ''
-      }
+      },
+      showImageUploading: false
     }
     this.onDrop = this.onDrop.bind(this);
   }
@@ -62,10 +63,12 @@ class HandleThumbnail extends React.Component{
   handleImageUpload(image){
     let formData = new FormData();
     formData.append("storyImage", image);
+    this.setState({showImageUploading: true});
     uploadStoryImage(formData, this.token, this.props.blogId).then(res=>{
       this.setState({
         imageFilePreview: res.data.story_thumbnail+'?'+Date.now(),
-        disableDropzone: true
+        disableDropzone: true,
+        showImageUploading: false
       });
     });
   }
@@ -111,6 +114,8 @@ class HandleThumbnail extends React.Component{
                     <img src={this.state.imageFilePreview} className="thumbnail-img" alt="story-thumbnail"/>
                   </div>
                 )
+                :
+                this.state.showImageUploading ? (<span className="drop-caption">Image uploading Please wait...</span>)
                 :
                 (<span className="drop-caption">{this.state.dropHovered ? 'Drop your thumbnail.' : 'Include a high-quality image in your story to make it more inviting to readers.'}</span>)
               }

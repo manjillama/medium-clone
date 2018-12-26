@@ -17,7 +17,8 @@ class ProfileEdit extends Component{
       inputErr: {
         status: false,
         message: ''
-      }
+      },
+      formSubmitting: false
     };
   }
 
@@ -71,6 +72,8 @@ class ProfileEdit extends Component{
   }
 
   onSubmit = formProps => {
+    this.setState({formSubmitting: true});
+
     let formData = new FormData();
     Object.keys( formProps ).forEach( key => {
       if(formProps[key]) // Don't send properties whose value is null
@@ -109,7 +112,8 @@ class ProfileEdit extends Component{
                 onSubmit={this.onSubmit}
                 initialValues={this.props.initialValues}
                 handleChange={this.handleImageChange}
-                userImageSrc={this.state.userImageSrc}/>
+                userImageSrc={this.state.userImageSrc}
+                formSubmitting={this.state.formSubmitting}/>
               {this.renderCropModal()}
             </section>
           </div>

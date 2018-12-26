@@ -74,12 +74,22 @@ class ProfileEditForm extends Component{
             </label>
           </div>
         </div>
-        <button type="submit" disabled={invalid || submitting}  className="mjl-btn btn--p-hollow">Save</button>
-        <Link
-          style={{display: 'inline-block',marginLeft: 8+'px'}}
-          className="mjl-btn btn--d-hollow"
-          to={`/@${this.props.initialValues.username}`}
-          >Cancel</Link>
+        { this.props.formSubmitting ?
+          (
+            <div className="lds-ellipsis" style={{marginTop: -25+'px', marginLeft: -6+'px'}}><div></div><div></div><div></div><div></div></div>
+          )
+          :
+          (
+            <div>
+              <button type="submit" disabled={invalid || submitting}  className="mjl-btn btn--p-hollow">Save</button>
+              <Link
+                style={{display: 'inline-block',marginLeft: 8+'px'}}
+                className="mjl-btn btn--d-hollow"
+                to={`/@${this.props.initialValues.username}`}
+                >Cancel</Link>
+            </div>
+          )
+        }
       </form>
     );
   }

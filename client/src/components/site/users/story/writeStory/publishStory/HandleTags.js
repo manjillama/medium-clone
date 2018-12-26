@@ -72,7 +72,7 @@ class HandleTags extends React.Component{
               {this.renderTags()}
             </div>
             <div className="c-input-wrap">
-              {this.state.tags.length < 5 && (<input onChange={this.handleChange} placeholder="Add a tag..." id="tagEditor" />)}
+              {this.state.tags.length < 5 && (<input onChange={this.handleChange} placeholder="Separate tags with a comma..." id="tagEditor" />)}
             </div>
           </div>
       </div>
