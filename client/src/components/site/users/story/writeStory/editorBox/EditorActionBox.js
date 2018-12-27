@@ -1,7 +1,9 @@
 import React from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 import './Editor.css';
-
+/*
+* Shifted to bitbucket
+*/
 export default class EditorActionBox extends React.Component{
   constructor(){
     super();
