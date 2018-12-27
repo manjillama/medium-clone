@@ -87,8 +87,8 @@ class WriteStory extends Component{
   }
 
   getBlogSummary(desc){
-    // removing html tags if any and doing substr
-    return desc.replace(/<(?:.|\n)*?>/gm, '').substr(0, 130);
+    // removing html tags and entities if any and doing substr
+    return desc.replace(/<(?:.|\n)*?>/gm, '').replace(/&nbsp;/g, ' ').substr(0, 130);
   }
 
   saveBlog = () => {
@@ -100,7 +100,6 @@ class WriteStory extends Component{
       formData.append("post", this.state.blog.description);
       formData.append("postId", this.state.blog.id);
       formData.append("descSummary", this.getBlogSummary(this.state.blog.description));
-
       this.setState({savingState: 'onprogress'});
       // If postId is null a new post is created else blog will get updated
       writePost(formData, this.userToken)

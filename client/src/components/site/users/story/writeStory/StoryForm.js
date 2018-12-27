@@ -1,6 +1,6 @@
 import React from 'react';
 import ContentEditable from 'react-contenteditable'; //https://github.com/lovasoa/react-contenteditable
-import EditorActionBox from './EditorActionBox';
+import EditorActionBox from './editorBox/EditorActionBox';
 
 export default class StoryForm extends React.Component{
   constructor() {
@@ -62,6 +62,7 @@ export default class StoryForm extends React.Component{
         <div style={{position:'relative'}}>
           {this.renderPostPlaceHolder()}
           <ContentEditable
+            id="storyBox"
             className="input-story-p"
             innerRef={this.contentEditable}
             html={this.props.blog.description}

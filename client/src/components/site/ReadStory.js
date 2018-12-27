@@ -55,7 +55,7 @@ export default class ReadStory extends React.Component{
     /*
     * To display data as html instead of plain text
     */
-    const article = document.getElementById('storyDesc');
+    const article = document.getElementById('storyBox');
     if(article)
       article.innerHTML = this.state.story.description;
   }
@@ -79,7 +79,7 @@ export default class ReadStory extends React.Component{
               </div>
             </div>
             {this.renderHeaderImage()}
-            <article id="storyDesc">
+            <article id="storyBox">
             </article>
             <footer>
               <div className="d--flex">
