@@ -1,16 +1,23 @@
 import React from 'react';
 import ContentEditable from 'react-contenteditable'; //https://github.com/lovasoa/react-contenteditable
 import EditorActionBox from './editorBox/EditorActionBox';
+import FloatingButton from './editorBox/FloatingButton';
 
 export default class StoryForm extends React.Component{
   constructor() {
     super();
     this.state = {
       showEditorBox: null,
+      showFloatingButton: false,
     }
   };
 
+  componentDidMount(){
+    document.addEventListener('click', this.handleFloatingBar, true);
+  }
+
   componentWillUnmount(){
+    document.removeEventListener('click', this.handleFloatingBar, true);
     document.removeEventListener('click', this.hideEditorBox, true);
   }
 
@@ -55,6 +62,20 @@ export default class StoryForm extends React.Component{
     }
   }
 
+  handleFloatingBar = e => {
+    const editor = document.getElementById('storyBox');
+    const floatingBar = document.getElementById('editorFloatBar');
+    if(editor && editor.contains(e.target)){
+      this.setState({showFloatingButton:true});
+    }else{
+      if(floatingBar && floatingBar.contains(e.target)){
+        // Do nothing
+      }else{
+        this.setState({showFloatingButton:false});
+      }
+    }
+  }
+
   render(){
     return (
       <div>
@@ -70,6 +91,7 @@ export default class StoryForm extends React.Component{
             onMouseUp = {this.onTextSelection}
             onChange={this.props.handlePostChange}
             />
+            {this.state.showFloatingButton && <FloatingButton />}
         </div>
         { this.state.showEditorBox && <EditorActionBox
                                         hideEditorBox = {this.instantHideEditBox}

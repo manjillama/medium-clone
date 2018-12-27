@@ -1,5 +1,6 @@
 import React from 'react';
 import 'font-awesome/css/font-awesome.min.css';
+import './Editor.css';
 
 export default class EditorActionBox extends React.Component{
   constructor(){
@@ -78,6 +79,7 @@ export default class EditorActionBox extends React.Component{
       }else{
         return (
           <button onClick={()=>{
+            // Storing current selection
             const currentSelection  = this.saveSelection();
             this.setState({showLinkInput: true, currentSelection});
           }} className="btn-chromeless"><i className="fa fa-link"></i></button>
@@ -110,7 +112,7 @@ export default class EditorActionBox extends React.Component{
               <EditButton cmd="insertUnorderedList" name="list" />
               <EditButton
                 cmd="backColor"
-                arg="yellow"
+                arg="#FFF176"
                 name="highlight"
               />
               {this.renderHyperLinkButton()}

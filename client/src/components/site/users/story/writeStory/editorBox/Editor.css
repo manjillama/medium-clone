@@ -1,0 +1,64 @@
+#editorBox{
+  position: absolute;
+  background-color: #262625;
+  padding: 6px;
+  border-radius: 5px;
+  top: -72px;
+  left: -135px;
+}
+
+#editorBox .action-btns button {
+  color: #fff;
+  padding: 3px;
+  font-size: 16px;
+  margin: 2px;
+}
+
+#editorBox:after {
+  -webkit-transform: rotate(45deg) translate(-50%,-50%);
+  transform: rotate(45deg) translate(-50%,-50%);
+  box-shadow: -1px -1px 1px -1px rgba(0,0,0,.54);
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  background: #262625;
+}
+
+#editorBox>.input-e-l>input{
+  color: #fff;
+  min-width: 160px;
+  background-color: #262625;
+}
+#editorBox>.input-e-l button{
+  color: #fff;
+  margin-top: -3px;
+  font-size: 15px;
+  margin-left: 5px;
+}
+
+/*
+* Floating Bar
+*/
+#editorFloatBar{
+  position: fixed;
+  bottom: 35px;
+  left: -30px;
+}
+
+#editorFloatBar .edit-float-btn{
+  border-color: rgba(0,0,0,.68);
+  color: rgba(0,0,0,.68);
+  background: #fff;
+  border: 1px solid;
+  border-radius: 50%;
+  padding: 4px;
+  box-shadow: 0 5px 20px 0 rgba(0,0,0,.2);
+}
+
+#editorFloatBar .edit-float-btn label{
+  cursor: pointer;
+}
