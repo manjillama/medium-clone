@@ -24,11 +24,12 @@ export default class EditorActionBox extends React.Component{
       link = prefix[0] + link;
     }
 
+    // Restoring user selection which gets lost when user click on input to write url
     this.restoreSelection(this.state.currentSelection);
     var sText = document.getSelection();
     document.execCommand('insertHTML', false, '<a href="' + link + '" rel="noopener noreferrer" target="_blank">' + sText + '</a>');
 
-    this.props.hideEditorBox(); 
+    this.props.hideEditorBox();
   }
 
   /*
@@ -58,6 +59,34 @@ export default class EditorActionBox extends React.Component{
       }
   }
 
+  renderHyperLinkButton(){
+    /*
+    * Get wwhat user has currently selected
+    * Checks if user has selected a text or at empty space
+    *   If user has selected an empty space then link buttons will not be rendered
+    * Checks if user has selected a hyperlink or normal text
+    */
+    const selectionNode = document.getSelection().anchorNode;
+    if(selectionNode.nodeValue){
+      if(selectionNode.parentNode.localName === 'a'){
+        return (
+          <EditButton
+            cmd="unlink"
+            name="unlink"
+          />
+        )
+      }else{
+        return (
+          <button onClick={()=>{
+            const currentSelection  = this.saveSelection();
+            this.setState({showLinkInput: true, currentSelection});
+          }} className="btn-chromeless"><i className="fa fa-link"></i></button>
+        );
+      }
+    }
+
+  }
+
   render(){
     return (
       <div id="editorBox" style={{transform: `translate(${this.props.clientX}px, ${this.props.clientY}px)`}}>
@@ -84,17 +113,7 @@ export default class EditorActionBox extends React.Component{
                 arg="yellow"
                 name="highlight"
               />
-
-              <button onClick={()=>{
-                const currentSelection  = this.saveSelection();
-                this.setState({showLinkInput: true, currentSelection});
-                // console.log(document.getSelection().toString());
-              }} className="btn-chromeless"><i className="fa fa-link"></i></button>
-
-              <EditButton
-                cmd="unlink"
-                name="unlink"
-              />
+              {this.renderHyperLinkButton()}
             </div>
           )
         }
