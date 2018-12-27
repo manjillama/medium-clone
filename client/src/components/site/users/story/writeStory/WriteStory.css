@@ -35,13 +35,13 @@
 #editorBox{
   position: absolute;
   background-color: #262625;
-  padding: 10px;
+  padding: 6px;
   border-radius: 5px;
   top: -72px;
   left: -135px;
 }
 
-#editorBox button {
+#editorBox .action-btns button {
   color: #fff;
   padding: 3px;
   font-size: 16px;
@@ -60,4 +60,16 @@
   width: 14px;
   height: 14px;
   background: #262625;
+}
+
+#editorBox>.input-e-l>input{
+  color: #fff;
+  min-width: 160px;
+  background-color: #262625;
+}
+#editorBox>.input-e-l button{
+  color: #fff;
+  margin-top: -3px;
+  font-size: 15px;
+  margin-left: 5px;
 }

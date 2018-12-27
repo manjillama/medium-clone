@@ -22,13 +22,17 @@ export default class StoryForm extends React.Component{
   hideEditorBox = (e) => {
     const node = document.getElementById('editorBox');
     // If user clicks outside editorBox
-    if(!node.contains(e.srcElement)){
+    if(node && !node.contains(e.srcElement)){
       setTimeout(()=>{
         this.setState({showEditorBox:null}, ()=>{
           document.removeEventListener('click', this.hideEditorBox, true);
         });
       }, 100);
     }
+  }
+
+  instantHideEditBox = () => {
+    this.setState({showEditorBox:null});
   }
 
   onTextSelection = (e) => {
@@ -67,6 +71,7 @@ export default class StoryForm extends React.Component{
             />
         </div>
         { this.state.showEditorBox && <EditorActionBox
+                                        hideEditorBox = {this.instantHideEditBox}
                                         clientX={this.state.showEditorBox.clientX}
                                         clientY={this.state.showEditorBox.clientY}/>}
       </div>
