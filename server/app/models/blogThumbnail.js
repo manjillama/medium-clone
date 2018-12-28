@@ -1,16 +1,22 @@
 const sequelize = require('../config/dbConnection.js');
 const Sequelize = require('sequelize');
+// const Blog = require('./blog');
 
-const BlogImage = sequelize.define('blogImages', {
+const BlogThumbnail = sequelize.define('blogThumbnails', {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     primaryKey: true
   },
-  story_image: {
+  is_thumb: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
+  },
+  story_thumb: {
     type: Sequelize.STRING,
     allowNull: false,
   }
 }, { underscored: true });
 
-module.exports = BlogImage;
+module.exports = BlogThumbnail;

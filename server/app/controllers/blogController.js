@@ -1,5 +1,7 @@
 const Blog = require('../models/blog');
 const BlogTag = require('../models/blogTag');
+const BlogThumbnail = require('../models/blogThumbnail');
+
 const config = require('../config/config');
 const fs = require('fs');
 
@@ -34,7 +36,13 @@ exports.getBlog = function(req, res){
     where: {
       id: req.params.id,
       blogger_id: req.user.id
-    }
+    },
+    include: [
+      {
+        model: BlogThumbnail,
+        attributes: ['story_thumb'],
+      }
+    ]
   }).then(blog => {
     return res.json({blog});
   });
@@ -42,9 +50,9 @@ exports.getBlog = function(req, res){
 
 exports.getUserStories = (req, res) => {
   const userId = req.user.id;
-  const status  = req.params.status;  // true for published and false for drafts
+  const published  = req.params.status;  // true for published and false for drafts
   Blog.findAll({
-    where: {blogger_id: userId, status},
+    where: {blogger_id: userId, published},
     order: [['modified_at', 'DESC']],
     attributes: ['id', 'title', 'created_at', 'modified_at']
   }).then(blog => {
@@ -59,13 +67,13 @@ exports.getBlogCount = async (req, res) => {
     drafts: 0
   }
   await Blog.count({
-    where: {blogger_id, status: false}
+    where: {blogger_id, published: false}
   }).then( count => {
     storyCount.drafts = count;
   });
 
   await Blog.count({
-    where: {blogger_id, status: true}
+    where: {blogger_id, published: true}
   }).then( count => {
     storyCount.published = count;
   });
@@ -85,7 +93,7 @@ exports.publishBlog = async (req, res) => {
   }).then(blog => {
     if(blog){
       blog.update({
-        status: true
+        published: true
       });
     }
   });

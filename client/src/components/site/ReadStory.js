@@ -39,10 +39,10 @@ export default class ReadStory extends React.Component{
   }
 
   renderHeaderImage(){
-    const storyImages = this.state.story.blogImages;
+    const storyImages = this.state.story.blogThumbnails;
 
     if(storyImages.length > 0){
-      const headerImage = storyImages[0].story_image;
+      const headerImage = storyImages[0].story_thumb;
       return (
         <div style={{marginBottom: 25+'px'}}>
           <img className="img-responsive" src={headerImage} alt={this.state.story.title}/>

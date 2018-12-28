@@ -27,9 +27,10 @@ class Home extends React.Component{
   }
 
   __renderStoryThumb(story){
-    if(story.story_thumbnail){
+    if(story.blogThumbnails){
+      const src = story.blogThumbnails[0].story_thumb;
       return  (
-        <Link style={{backgroundImage: `url(${story.story_thumbnail})`}} to={`/@${story.blogger.username}/${story.id}`} className="h-s-img">
+        <Link style={{backgroundImage: `url(${src})`}} to={`/@${story.blogger.username}/${story.id}`} className="h-s-img">
         </Link>
       );
     }

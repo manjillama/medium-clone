@@ -1,6 +1,6 @@
 const Blog = require('../models/blog');
 const Blogger = require('../models/blogger');
-const BlogImage = require('../models/blogImage');
+const BlogThumbnail = require('../models/blogThumbnail');
 
 exports.fetchStory = async (req, res) => {
 
@@ -8,13 +8,15 @@ exports.fetchStory = async (req, res) => {
 
   Blog.findOne({
     where: {
-      status: true,
+      published: true,
       id
     },
     include: [{
       model: Blogger,
     },{
-      model: BlogImage,
+      model: BlogThumbnail,
+      attributes: ['story_thumb'],
+      where: {is_thumb: false}
     }]
   }).then(blog => {
     res.json({blog});
@@ -26,7 +28,7 @@ exports.fetchUserStories = (req, res) => {
 
   Blog.findAll({
     where: {
-      status: true,
+      published: true,
       blogger_id: id
     },
     order: [

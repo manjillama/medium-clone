@@ -5,6 +5,7 @@ const BloggerController  = require('./controllers/bloggerController');
 const BlogController  = require('./controllers/blogController');
 const BlogTagController  = require('./controllers/blogTagController');
 const BlogThumbnailController  = require('./controllers/blogThumbnailController');
+const BlogImageController  = require('./controllers/blogImageController');
 
 const StoryController  = require('./controllers/storyController');
 
@@ -43,6 +44,12 @@ module.exports = app => {
   */
   app.post('/auth/blog/action/upload-thumbnail/:id',requireJwt, BlogThumbnailController.uploadThumbnail);
   app.post('/auth/blog/action/remove-thumbnail/:id',requireJwt, BlogThumbnailController.removeThumbnail);
+
+  /*
+  * Blog image
+  */
+  app.post('/auth/blog/action/upload-image/:postId',requireJwt, BlogImageController.uploadBlogImage);
+
 
   /*
   * Blog Tags

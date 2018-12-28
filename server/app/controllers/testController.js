@@ -3,7 +3,7 @@ const Blogger = require('../models/blogger');
 const Sequelize = require('sequelize');
 const Blog = require('../models/blog');
 const BlogTag = require('../models/blogTag');
-const BlogImage = require('../models/blogImage');
+const BlogThumbnail = require('../models/blogThumbnail');
 
 const bcrypt = require('bcrypt');
 const Op = Sequelize.Op;
@@ -22,13 +22,14 @@ exports.findAllUsers = (req, res) => {
 exports.findAllStories = (req, res) => {
   Blog.findAll({
     where: {
-      status: true
+      published: true
     },
-    attributes: ['id', 'title', 'desc_summary', 'created_at', 'story_thumbnail'],
+    attributes: ['id', 'title', 'desc_summary', 'created_at'],
     include: [
       {
-        attributes: ['story_image'],
-        model: BlogImage,
+        attributes: ['story_thumb'],
+        model: BlogThumbnail,
+        where: {is_thumb: true}
       },
       {
         attributes: ['fullname', 'username'],

@@ -24,13 +24,10 @@ const Blog = sequelize.define('blogs', {
   modified_at: {
     type: Sequelize.DATE,
   },
-  status: {
+  published: {
     type: Sequelize.BOOLEAN,
     allowNull: false,
     defaultValue: false
-  },
-  story_thumbnail: {
-    type: Sequelize.STRING
   }
 },{underscored: true, timestamps: false});
 

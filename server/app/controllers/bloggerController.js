@@ -1,7 +1,8 @@
 const Blogger = require('../models/blogger');
 const sharp = require('sharp'); // https://github.com/lovell/sharp
 const config = require('../config/config');
-
+var fs = require('fs');
+const imageService = require('../services/imageService');
 
 exports.updateBloggerInfo = (req, res) => {
 
@@ -14,11 +15,25 @@ exports.updateBloggerInfo = (req, res) => {
         let userImage = req.files.uploaded_image;
         let mimeType = userImage.mimetype;
         if(mimeType.split('/')[0] === 'image'){
-          const outputDir = config.bloggerImageDir();
-          const imageName = req.body.id+'.jpg';
-          profileImageUrl = config.resourceHost+config.bloggerImageResourceUrl+imageName;
-          await sharp(userImage.data).resize(160, 160)
-            .toFile(outputDir+imageName);
+
+          const outputDir = config.userImageResourceDir(req.user.id);
+
+          let imageName;
+
+          /*
+          * If profile image already exist then
+          * extract image name
+          * and set profileImageUrl
+          */
+          if(blogger.profile_image){
+            imageName = blogger.profile_image.match(/[\w-]+\.jpg/g)[0];
+            profileImageUrl = blogger.profile_image;
+          }else{
+            imageName = config.getRandomString()+'.jpg';
+            profileImageUrl = config.resourceHost+config.userImageResourceUrl(req.user.id)+imageName;
+          }
+
+          await imageService.saveImage(outputDir,imageName,userImage.data,160,160);
         }
       }
 

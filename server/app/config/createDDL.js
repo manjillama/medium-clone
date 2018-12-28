@@ -2,6 +2,7 @@ const User = require('../models/user');
 const Blogger = require('../models/blogger');
 const Blog = require('../models/blog');
 const BlogTag = require('../models/blogTag');
+const BlogThumbnail = require('../models/blogThumbnail');
 const BlogImage = require('../models/blogImage');
 
 module.exports = () => {
@@ -11,6 +12,8 @@ module.exports = () => {
     Blogger.sync({force: autoCreateDDL}).then(() => {
         Blog.sync({force: autoCreateDDL}).then(() => {
           BlogTag.sync({force: autoCreateDDL}).then(() => {
+          });
+          BlogThumbnail.sync({force: autoCreateDDL}).then(() => {
           });
           BlogImage.sync({force: autoCreateDDL}).then(() => {
           });

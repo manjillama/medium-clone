@@ -91,7 +91,7 @@ export default class StoryForm extends React.Component{
             onMouseUp = {this.onTextSelection}
             onChange={this.props.handlePostChange}
             />
-            {this.state.showFloatingButton && <FloatingButton />}
+            {this.state.showFloatingButton && <FloatingButton blogId={this.props.blog.id}/>}
         </div>
         { this.state.showEditorBox && <EditorActionBox
                                         hideEditorBox = {this.instantHideEditBox}

@@ -27,8 +27,7 @@ sequelize
 
 // App
 const app = express();
-app.use(config.bloggerImageResourceUrl, express.static(config.bloggerImageDir()));
-app.use(config.storyImageResourceUrl, express.static(config.storyImageDir()));
+app.use(config.imageResourceUrl, express.static(config.imageResourceDir()));
 
 app.use(fileUpload());
 app.use(cors());

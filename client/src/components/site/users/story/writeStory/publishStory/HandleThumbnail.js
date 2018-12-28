@@ -24,9 +24,11 @@ class HandleThumbnail extends React.Component{
   componentDidMount(){
     this.token = localStorage.getItem('token');
     fetchPost(this.props.blogId, this.token).then(res => {
-      const {story_thumbnail} = res.data.blog;
-        if(story_thumbnail)
-          this.setState({imageFilePreview: story_thumbnail+'?'+Date.now(), disableDropzone: true});
+      const {blogThumbnails} = res.data.blog;
+      if(blogThumbnails.length>0){
+        const {story_thumb} = blogThumbnails[0];
+        this.setState({imageFilePreview: story_thumb+'?'+Date.now(), disableDropzone: true});
+      }
     });
   }
 
@@ -66,7 +68,7 @@ class HandleThumbnail extends React.Component{
     this.setState({showImageUploading: true});
     uploadStoryImage(formData, this.token, this.props.blogId).then(res=>{
       this.setState({
-        imageFilePreview: res.data.story_thumbnail+'?'+Date.now(),
+        imageFilePreview: res.data[0].story_thumb,
         disableDropzone: true,
         showImageUploading: false
       });
