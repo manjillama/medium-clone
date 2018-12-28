@@ -27,7 +27,7 @@ class Home extends React.Component{
   }
 
   __renderStoryThumb(story){
-    if(story.blogThumbnails){
+    if(story.blogThumbnails[0]){
       const src = story.blogThumbnails[0].story_thumb;
       return  (
         <Link style={{backgroundImage: `url(${src})`}} to={`/@${story.blogger.username}/${story.id}`} className="h-s-img">

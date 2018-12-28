@@ -29,7 +29,8 @@ exports.findAllStories = (req, res) => {
       {
         attributes: ['story_thumb'],
         model: BlogThumbnail,
-        where: {is_thumb: true}
+        where: {is_thumb: true},
+        required: false
       },
       {
         attributes: ['fullname', 'username'],
