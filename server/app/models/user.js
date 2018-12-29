@@ -24,10 +24,6 @@ const User = sequelize.define('users', {
 },{
   // creates table in database in snake_case
   underscored: true,
-  // defaultScope: {
-  //   // Excluding passwor from rest api
-  //   attributes: { exclude: ['password'] },
-  // },
   hooks: {
     beforeCreate: (user) => {
       const salt = bcrypt.genSaltSync();

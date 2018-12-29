@@ -59,7 +59,7 @@ module.exports = app => {
   app.get('/auth/blog/action/publish/get-tag/:postId',requireJwt, BlogTagController.fetchBlogTag);
 
   /*
-  * Publish Apis
+  * Public Apis
   */
   app.get('/api/story/:id', StoryController.fetchStory);
   app.get('/api/user/get-user/:username', BloggerController.getBloggerByUsername);

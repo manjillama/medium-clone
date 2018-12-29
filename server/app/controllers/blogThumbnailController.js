@@ -44,6 +44,7 @@ async function uploadStoryThumbnail(storyImage, blog){
   const imageName = config.getRandomString()+'_thumb.jpg';
   const dimensions = sizeOf(storyImage.data);
   const { width, height } = dimensions;
+  let story_thumb = null;
   if(width > 300){
     /*
     * w: 1200 h:1000
@@ -55,12 +56,10 @@ async function uploadStoryThumbnail(storyImage, blog){
     const width1 = 300;
     const height1 = Math.ceil(height*width1/width);
 
-    await imageService.saveImage(blog.blogger_id, imageName, storyImage.data, width1, height1)
+    story_thumb = await imageService.saveImage(blog.blogger_id, imageName, storyImage.data, width1, height1)
   }else{
-    await imageService.saveImage(blog.blogger_id, imageName, storyImage.data);
+    story_thumb = await imageService.saveImage(blog.blogger_id, imageName, storyImage.data);
   }
-
-  const story_thumb = config.resourceHost+config.userImageResourceUrl(blog.blogger_id)+imageName;
 
   await BlogThumbnail.create({
     story_thumb,
@@ -72,9 +71,7 @@ async function uploadStoryThumbnail(storyImage, blog){
 async function uploadStoryImage(storyImage, blog){
   const imageName = config.getRandomString()+'.jpg';
 
-  await imageService.saveImage(blog.blogger_id, imageName, storyImage.data);
-
-  const story_thumb = config.resourceHost+config.userImageResourceUrl(blog.blogger_id)+imageName;
+  const story_thumb = await imageService.saveImage(blog.blogger_id, imageName, storyImage.data);
 
   await BlogThumbnail.create({
     story_thumb,
@@ -98,7 +95,7 @@ exports.removeThumbnail = (req, res) => {
     if(blog){
 
       /*
-      * Fetch thumbnails and delete image
+      * Fetch thumbnails and delete images
       */
       await BlogThumbnail.findAll({
         where: {

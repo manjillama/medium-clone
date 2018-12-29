@@ -1,7 +1,9 @@
 var url = require('url');
 var randomstring = require("randomstring");
 
-// holds application secrets and config
+/*
+* Holds application development configs and generic helper functions
+*/
 module.exports = {
   SECRET: 'ksykd784ndg3399jjnm-338djddkdmdsd91hds-4hdk',
   HOME_DIR: require('os').homedir(),

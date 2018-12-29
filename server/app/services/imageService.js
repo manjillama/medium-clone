@@ -3,13 +3,16 @@ const sharp = require('sharp'); // https://github.com/lovell/sharp
 const config = require('../config/config');
 
 /*
-@params
-** Blogger id
-** Image Name
-** Image Buffer
-** Width (Optional)
-** Height (Optional)
-Images is save in individual user folder using blogger id
+* @params
+*   - Blogger id
+*   - Image Name
+*   - Image Buffer
+*   - Width (Optional)
+*   - Height (Optional)
+* Returns
+*   Saved story url
+********************
+Images are saved in individual user folders using blogger id
 i.e. bloggerId/cat.jpg
 */
 exports.saveImage = async (bloggerId,imageName, inputBuffer, w, h) => {
@@ -26,12 +29,16 @@ exports.saveImage = async (bloggerId,imageName, inputBuffer, w, h) => {
   }else{
     await sharp(inputBuffer).toFile(outputDir+imageName);
   }
+
+  const story_url = config.resourceHost+config.userImageResourceUrl(bloggerId)+imageName;
+  return story_url;
 }
 
 /*
 * @Param
 *    - Receives an array of images as an arguement
 *    - Receives a database colName
+*************************
 * Table rows to be deleted are passed as an arguement.
 * Iterate through each row and fetch image name column, which is passed as a second arguement.
 * Only the image name is extracted from the url i.e. cat.jpg
@@ -48,6 +55,13 @@ exports.deleteUserImages = (userId, images, colName)  => {
   });
 }
 
+/*
+* @params
+*   - Receives file
+* Returns
+*   - true if file is image
+*   - false if no file or file is not image
+*/
 exports.validateImage = (image) => {
   if(image){
     let mimeType = image.mimetype;

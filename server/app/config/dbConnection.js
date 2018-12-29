@@ -14,6 +14,4 @@ const sequelize = new Sequelize(connectionString, {
   logging: false,
 });
 
-
-
 module.exports = sequelize;
