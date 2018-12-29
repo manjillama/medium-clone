@@ -27,3 +27,6 @@ npm-debug.log
 *.env
 *.dev
 .DS_Store
+
+# Heruko Server .git
+server/*.git
