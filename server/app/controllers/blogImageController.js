@@ -18,9 +18,8 @@ exports.uploadBlogImage = (req, res) => {
       if(blog && file){
         const {storyImage} = file;
         if(imageService.validateImage(storyImage)){ //Validating image
-          const outputDir = config.userImageResourceDir(req.user.id);
           const imageName = config.getRandomString()+".jpg";
-          await imageService.saveImage(outputDir, imageName, storyImage.data);
+          await imageService.saveImage(req.user.id, imageName, storyImage.data);
 
           const story_image = config.resourceHost+config.userImageResourceUrl(req.user.id)+imageName;
 

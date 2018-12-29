@@ -30,9 +30,7 @@ class HandleTags extends React.Component{
   }
 
   handleTagRemove = (tagId) => {
-    let formData = new FormData();
-    formData.append('id', tagId);
-    removeBlogTag(formData, this.token, this.blogId).then(res => {
+    removeBlogTag(tagId, this.token, this.blogId).then(res => {
       this.setState({
         tags: res.data
       });

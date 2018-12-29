@@ -31,7 +31,7 @@ exports.addBlogTag = (req, res) => {
 }
 
 exports.removeBlogTag = (req, res) => {
-  const tagId = req.body.id;
+  const tagId = req.params.tagId;
   const postId = req.params.postId;
   const bloggerId = req.user.id;
 

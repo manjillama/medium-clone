@@ -1,7 +1,7 @@
 const Blog = require('../models/blog');
 const BlogTag = require('../models/blogTag');
 const BlogThumbnail = require('../models/blogThumbnail');
-
+const BlogImage = require('../models/blogImage');
 const config = require('../config/config');
 const fs = require('fs');
 
@@ -102,23 +102,43 @@ exports.publishBlog = async (req, res) => {
 }
 
 exports.deleteBlog = async (req, res) => {
+  const postId = req.params.id
   await Blog.findOne({
     where: {
-      id: req.params.id,
+      id: postId,
       blogger_id: req.user.id
     }
-  }).then(blog => {
+  }).then(async blog => {
     if(blog){
-      const storyThumb = blog.story_thumbnail;
-      if(storyThumb){ // if story thumbnail exist
-        const imageName = storyThumb.match(/[\w-]+\.jpg/g)[0];
-        try {
-          fs.unlinkSync(config.storyImageDir()+imageName);
-        } catch (err) {
-          // handle the error
-          console.log(err);
+
+      await BlogThumbnail.findAll({
+        where: {
+          blog_id: postId
         }
-      }
+      }).then(blogThumbnails => {
+        blogThumbnails.forEach(thumb => {
+          const imageName = thumb.story_thumb.match(/[\w-]+\.jpg/g)[0];
+          try {
+            fs.unlinkSync(config.userImageResourceDir(req.user.id)+imageName);
+          } catch (err) {
+          }
+        });
+      });
+
+      await BlogImage.findAll({
+        where: {
+          blog_id: postId
+        }
+      }).then(blogImages => {
+        blogImages.forEach(image => {
+          const imageName = image.story_image.match(/[\w-]+\.jpg/g)[0];
+          try {
+            fs.unlinkSync(config.userImageResourceDir(req.user.id)+imageName);
+          } catch (err) {
+          }
+        });
+      });
+
       // Delete story
       return blog.destroy();
     }

@@ -27,23 +27,23 @@ module.exports = app => {
   * Blogger profile routes
   */
   app.get('/auth/api/user/get-user',requireJwt, BloggerController.getBlogger);  // Restricting end point with JwtStrategy
-  app.post('/auth/api/user/edit', requireJwt, BloggerController.updateBloggerInfo);
+  app.put('/auth/api/user/edit', requireJwt, BloggerController.updateBloggerInfo);
   app.get('/auth/api/user/blogs/:status',requireJwt, BlogController.getUserStories);
 
   /*
   * Blog actions
   */
   app.post('/auth/blog/create-blog',requireJwt, BlogController.createBlog);
-  app.get('/auth/blog/action/edit/:id',requireJwt, BlogController.getBlog);
+  app.get('/auth/blog/action/get/:id',requireJwt, BlogController.getBlog);
   app.post('/auth/blog/action/publish/:id',requireJwt, BlogController.publishBlog);
-  app.post('/auth/blog/action/delete/:id',requireJwt, BlogController.deleteBlog);
+  app.delete('/auth/blog/action/delete/:id',requireJwt, BlogController.deleteBlog);
   app.get('/auth/blog/get/blog-count/',requireJwt, BlogController.getBlogCount);
 
   /*
   * Blog thumbnail
   */
   app.post('/auth/blog/action/upload-thumbnail/:id',requireJwt, BlogThumbnailController.uploadThumbnail);
-  app.post('/auth/blog/action/remove-thumbnail/:id',requireJwt, BlogThumbnailController.removeThumbnail);
+  app.delete('/auth/blog/action/remove-thumbnail/:id',requireJwt, BlogThumbnailController.removeThumbnail);
 
   /*
   * Blog image
@@ -55,7 +55,7 @@ module.exports = app => {
   * Blog Tags
   */
   app.post('/auth/blog/action/publish/add-tag/:postId',requireJwt, BlogTagController.addBlogTag);
-  app.post('/auth/blog/action/publish/remove-tag/:postId',requireJwt, BlogTagController.removeBlogTag);
+  app.delete('/auth/blog/action/publish/remove-tag/:postId/:tagId',requireJwt, BlogTagController.removeBlogTag);
   app.get('/auth/blog/action/publish/get-tag/:postId',requireJwt, BlogTagController.fetchBlogTag);
 
   /*

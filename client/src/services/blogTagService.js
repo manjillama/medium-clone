@@ -6,9 +6,9 @@ export function addBlogTag(formData, token, blogId){
   return axios.post(config.SERVER_URL+'auth/blog/action/publish/add-tag/'+blogId, formData, { headers });
 }
 
-export function removeBlogTag(formData, token, blogId){
+export function removeBlogTag(tagId, token, blogId){
   const headers = {'authorization': token};
-  return axios.post(config.SERVER_URL+'auth/blog/action/publish/remove-tag/'+blogId, formData, { headers });
+  return axios.delete(config.SERVER_URL+`auth/blog/action/publish/remove-tag/${blogId}/${tagId}`, { headers });
 }
 
 export function getBlogTag(token, blogId){

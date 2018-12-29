@@ -13,7 +13,7 @@ export function publishPost(token, blogId){
 
 export function fetchPost(id, token){
   const headers = {'authorization': token};
-  return axios.get(config.SERVER_URL+'auth/blog/action/edit/'+id, { headers });
+  return axios.get(config.SERVER_URL+'auth/blog/action/get/'+id, { headers });
 }
 
 export function getUserStoriesCount(token){
@@ -33,10 +33,10 @@ export function uploadStoryImage(formData, token, blogId){
 
 export function removeStoryImage(token, blogId){
   const headers = {'authorization': token};
-  return axios.post(config.SERVER_URL+'auth/blog/action/remove-thumbnail/'+blogId, null, { headers });
+  return axios.delete(config.SERVER_URL+'auth/blog/action/remove-thumbnail/'+blogId, { headers });
 }
 
 export function deleteStory(token, blogId){
   const headers = {'authorization': token};
-  return axios.post(config.SERVER_URL+'auth/blog/action/delete/'+blogId, null, { headers });
+  return axios.delete(config.SERVER_URL+'auth/blog/action/delete/'+blogId, { headers });
 }

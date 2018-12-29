@@ -22,10 +22,9 @@ exports.uploadThumbnail = async (req, res) => {
 
       const {storyImage} = file;
       if(imageService.validateImage(storyImage)){ //Validating image
-        const outputDir = config.userImageResourceDir(blog.blogger_id);
 
-        await uploadStoryThumbnail(outputDir, storyImage, blog);  //uploading thumbnail
-        uploadStoryImage(outputDir, storyImage, blog); // uploading true size image
+        await uploadStoryThumbnail(storyImage, blog);  //uploading thumbnail
+        uploadStoryImage(storyImage, blog); // uploading true size image
 
         return BlogThumbnail.findAll({
           where: {
@@ -41,7 +40,7 @@ exports.uploadThumbnail = async (req, res) => {
   });
 }
 
-async function uploadStoryThumbnail(outputDir, storyImage, blog){
+async function uploadStoryThumbnail(storyImage, blog){
   const imageName = config.getRandomString()+'_thumb.jpg';
   const dimensions = sizeOf(storyImage.data);
   const { width, height } = dimensions;
@@ -56,9 +55,9 @@ async function uploadStoryThumbnail(outputDir, storyImage, blog){
     const width1 = 300;
     const height1 = Math.ceil(height*width1/width);
 
-    await imageService.saveImage(outputDir, imageName, storyImage.data, width1, height1)
+    await imageService.saveImage(blog.blogger_id, imageName, storyImage.data, width1, height1)
   }else{
-    await imageService.saveImage(outputDir, imageName, storyImage.data);
+    await imageService.saveImage(blog.blogger_id, imageName, storyImage.data);
   }
 
   const story_thumb = config.resourceHost+config.userImageResourceUrl(blog.blogger_id)+imageName;
@@ -70,10 +69,10 @@ async function uploadStoryThumbnail(outputDir, storyImage, blog){
   })
 }
 
-async function uploadStoryImage(outputDir, storyImage, blog){
+async function uploadStoryImage(storyImage, blog){
   const imageName = config.getRandomString()+'.jpg';
 
-  await imageService.saveImage(outputDir, imageName, storyImage.data);
+  await imageService.saveImage(blog.blogger_id, imageName, storyImage.data);
 
   const story_thumb = config.resourceHost+config.userImageResourceUrl(blog.blogger_id)+imageName;
 
@@ -106,13 +105,13 @@ exports.removeThumbnail = (req, res) => {
           blog_id: postId
         }
       }).then(blogThumbnails => {
-        blogThumbnails.forEach(thumb => {
-          const imageName = thumb.story_thumb.match(/[\w-]+\.jpg/g)[0];
-          try {
-            fs.unlinkSync(config.userImageResourceDir(req.user.id)+imageName);
-          } catch (err) {
-          }
-        });
+        /*
+        * @params
+        *   - user id
+        *   - Array of images to be deleted
+        *   - database column name
+        */
+        imageService.deleteUserImages(req.user.id, blogThumbnails, 'story_thumb');
       });
 
       /*
