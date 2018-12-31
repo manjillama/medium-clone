@@ -11,18 +11,14 @@ module.exports = {
     return this.HOME_DIR+'/Documents/threadly/images/';
   },
   imageResourceUrl: '/static/images/',
-  userImageResourceDir: function(userId){
-    return this.imageResourceDir() + userId +'/';
-  },
-  userImageResourceUrl: function(userId){
-    return this.imageResourceUrl+ userId +'/';
-  },
   resourceHost: 'http://localhost:5000',
   getUtcTimestamp: function(){
     const now = new Date();
     return now.getTime() + now.getTimezoneOffset() * 60000;
   },
-  getRandomString: function(){
-    return randomstring.generate(12);
+  getRandomString: function(n){
+    if(n)
+      return randomstring.generate(n);
+    return randomstring.generate();
   }
 };

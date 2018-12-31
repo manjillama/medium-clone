@@ -1,36 +1,39 @@
-var fs = require('fs');
 const sharp = require('sharp'); // https://github.com/lovell/sharp
 const config = require('../config/config');
+const fs = require('fs');
 
 /*
 * @params
 *   - Blogger id
-*   - Image Name
 *   - Image Buffer
+    - Image Name (Optional)
+      -- Pass it when updating image
 *   - Width (Optional)
 *   - Height (Optional)
 * Returns
 *   Saved story url
-********************
-Images are saved in individual user folders using blogger id
-i.e. bloggerId/cat.jpg
 */
-exports.saveImage = async (bloggerId,imageName, inputBuffer, w, h) => {
-  const outputDir = config.userImageResourceDir(bloggerId);
-
-  // Create directory if not already exist
-  if (!fs.existsSync(outputDir)){
-    fs.mkdirSync(outputDir);
+exports.saveImage = async (bloggerId,inputBuffer,imageName, w, h) => {
+  //console.log(process.env.MODE === 'PRODUCTION');
+  let imgName = '';
+  if(imageName){
+    // If image is to update
+    imgName = imageName;
+  }else{
+    // Creating new image | image name consist of user id _ as suffix followed by random strings
+    imgName = `${bloggerId}_${config.getRandomString()}.jpg`;
   }
+
+  const outputDir = config.imageResourceDir();
 
   if(w && h){
     await sharp(inputBuffer).resize(w, h)
-      .toFile(outputDir+imageName);
+      .toFile(outputDir+imgName);
   }else{
-    await sharp(inputBuffer).toFile(outputDir+imageName);
+    await sharp(inputBuffer).toFile(outputDir+imgName);
   }
 
-  const story_url = config.resourceHost+config.userImageResourceUrl(bloggerId)+imageName;
+  const story_url = config.resourceHost+config.imageResourceUrl+imgName;
   return story_url;
 }
 
@@ -42,13 +45,13 @@ exports.saveImage = async (bloggerId,imageName, inputBuffer, w, h) => {
 * Table rows to be deleted are passed as an arguement.
 * Iterate through each row and fetch image name column, which is passed as a second arguement.
 * Only the image name is extracted from the url i.e. cat.jpg
-* Deletes the file from directory. userId/cat.jpg
+* Deletes the file from directory.
 */
-exports.deleteUserImages = (userId, images, colName)  => {
+exports.deleteUserImages = (images, colName)  => {
   images.forEach(image => {
     const imageName = image[colName].match(/[\w-]+\.jpg/g)[0];
     try {
-      fs.unlinkSync(config.userImageResourceDir(userId)+imageName);
+      fs.unlinkSync(config.imageResourceDir()+imageName);
     } catch (err) {
       console.log(err);
     }

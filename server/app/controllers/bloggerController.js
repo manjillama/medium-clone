@@ -5,35 +5,25 @@ var fs = require('fs');
 const imageService = require('../services/imageService');
 
 exports.updateBloggerInfo = (req, res) => {
-
-  Blogger.findByPk(req.user.id).then(async blogger => {
+  const bloggerId = req.user.id;
+  Blogger.findByPk(bloggerId).then(async blogger => {
     if(blogger){
 
       let profileImageUrl = req.body.profile_image;
       // If user has uploaded profile image
-      if(req.files && req.files.uploaded_image){
-        let userImage = req.files.uploaded_image;
-        let mimeType = userImage.mimetype;
-        if(mimeType.split('/')[0] === 'image'){
-
-          const outputDir = config.userImageResourceDir(req.user.id);
-
-          let imageName;
-
+      if(req.files){
+        const userImage = req.files.uploaded_image;
+        if(imageService.validateImage(userImage)){
           /*
           * If profile image already exist then
-          * extract image name
-          * and set profileImageUrl
+          * extract image name and pass it to update image
           */
           if(blogger.profile_image){
-            imageName = blogger.profile_image.match(/[\w-]+\.jpg/g)[0];
-            profileImageUrl = blogger.profile_image;
+            const imageName = blogger.profile_image.match(/[\w-]+\.jpg/g)[0];
+            profileImageUrl = await imageService.saveImage(bloggerId,userImage.data,imageName,160,160);
           }else{
-            imageName = config.getRandomString()+'.jpg';
-            profileImageUrl = config.resourceHost+config.userImageResourceUrl(req.user.id)+imageName;
+            profileImageUrl = await imageService.saveImage(bloggerId,userImage.data,null,160,160);
           }
-
-          await imageService.saveImage(outputDir,imageName,userImage.data,160,160);
         }
       }
 

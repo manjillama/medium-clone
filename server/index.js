@@ -1,5 +1,7 @@
 'use strict';
 
+process.env.MODE = 'PRODUCTION';
+
 const express = require('express');
 const path = require('path');
 const sequelize = require('./app/config/dbConnection.js');

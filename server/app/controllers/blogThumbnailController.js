@@ -41,7 +41,6 @@ exports.uploadThumbnail = async (req, res) => {
 }
 
 async function uploadStoryThumbnail(storyImage, blog){
-  const imageName = config.getRandomString()+'_thumb.jpg';
   const dimensions = sizeOf(storyImage.data);
   const { width, height } = dimensions;
   let story_thumb = null;
@@ -56,9 +55,9 @@ async function uploadStoryThumbnail(storyImage, blog){
     const width1 = 300;
     const height1 = Math.ceil(height*width1/width);
 
-    story_thumb = await imageService.saveImage(blog.blogger_id, imageName, storyImage.data, width1, height1)
+    story_thumb = await imageService.saveImage(blog.blogger_id, storyImage.data, null, width1, height1)
   }else{
-    story_thumb = await imageService.saveImage(blog.blogger_id, imageName, storyImage.data);
+    story_thumb = await imageService.saveImage(blog.blogger_id, storyImage.data);
   }
 
   await BlogThumbnail.create({
@@ -69,9 +68,8 @@ async function uploadStoryThumbnail(storyImage, blog){
 }
 
 async function uploadStoryImage(storyImage, blog){
-  const imageName = config.getRandomString()+'.jpg';
 
-  const story_thumb = await imageService.saveImage(blog.blogger_id, imageName, storyImage.data);
+  const story_thumb = await imageService.saveImage(blog.blogger_id, storyImage.data);
 
   await BlogThumbnail.create({
     story_thumb,
@@ -104,11 +102,10 @@ exports.removeThumbnail = (req, res) => {
       }).then(blogThumbnails => {
         /*
         * @params
-        *   - user id
         *   - Array of images to be deleted
         *   - database column name
         */
-        imageService.deleteUserImages(req.user.id, blogThumbnails, 'story_thumb');
+        imageService.deleteUserImages(blogThumbnails, 'story_thumb');
       });
 
       /*
