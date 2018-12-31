@@ -24,10 +24,11 @@ export default class FloatingBar extends Component{
         if(image.size < 1000000){
           let formData = new FormData();
           formData.append("storyImage", image);
-
+          this.props.imageIsUploading();
           uploadStoryImage(formData, this.userToken, this.props.blogId).then(res=>{
             const src = res.data.story_image;
             document.execCommand('insertHTML', false, '<img src="' + src + '" class="img-responsive"/>');
+            this.props.imageUploadCompleted();
           });
         }else{
           this.setState({error: {status: true, message: 'Please use image less than 1 MB'}}, ()=>{
@@ -48,18 +49,18 @@ export default class FloatingBar extends Component{
     }
   }
 
-  render(){
+
+  __render(){
     const editor = document.getElementById('storyBox');
     const documentWidth = document.body.clientWidth;
     const editorWidth = editor.clientWidth;
     const offset = (documentWidth-editorWidth)/2; // Divide by 2 so that we can get offset from left
     const floatX = offset+editorWidth;
-    const errorAlertClass = this.state.error.status ? 'bg--danger fixed--alert fixed--alert-active':'bg--danger fixed--alert';
 
-    return (
-      <div>
-        <p className={errorAlertClass}>{this.state.error.message}</p>
-
+    if(this.props.imageUploadStatus){
+      return <div id="floatSpinner" className="mjl-lds-circle" style={{transform: `translate(${floatX}px, ${0})`}}><div></div></div>
+    }else{
+      return (
         <div id="editorFloatBar" style={{transform: `translate(${floatX}px, ${0})`}}>
           <button onClick={this.handleSelection} className="edit-float-btn btn-chromeless">
 
@@ -77,6 +78,17 @@ export default class FloatingBar extends Component{
 
           </button>
         </div>
+      );
+    }
+  }
+
+  render(){
+    const errorAlertClass = this.state.error.status ? 'bg--danger fixed--alert fixed--alert-active':'bg--danger fixed--alert';
+
+    return (
+      <div>
+        <p className={errorAlertClass}>{this.state.error.message}</p>
+        {this.__render()}
       </div>
     );
   }

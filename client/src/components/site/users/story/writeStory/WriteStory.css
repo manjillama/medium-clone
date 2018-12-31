@@ -9,3 +9,9 @@
 .input-story-p{
   margin-top: 10px;
 }
+
+#floatSpinner{
+  position: fixed;
+  bottom: 35px;
+  left: -30px;
+}

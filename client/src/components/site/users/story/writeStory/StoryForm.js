@@ -9,6 +9,7 @@ export default class StoryForm extends React.Component{
     this.state = {
       showEditorBox: null,
       showFloatingButton: false,
+      imageIsUploading: false
     }
   };
 
@@ -76,6 +77,14 @@ export default class StoryForm extends React.Component{
     }
   }
 
+  imageIsUploading = () => {
+    this.setState({imageIsUploading: true})
+  }
+
+  imageUploadCompleted = () => {
+    this.setState({imageIsUploading: false})
+  }
+
   render(){
     return (
       <div>
@@ -91,7 +100,11 @@ export default class StoryForm extends React.Component{
             onMouseUp = {this.onTextSelection}
             onChange={this.props.handlePostChange}
             />
-            {this.state.showFloatingButton && <FloatingButton blogId={this.props.blog.id}/>}
+            {this.state.showFloatingButton && <FloatingButton
+                                                blogId={this.props.blog.id}
+                                                imageUploadStatus={this.state.imageIsUploading}
+                                                imageIsUploading={this.imageIsUploading}
+                                                imageUploadCompleted={this.imageUploadCompleted}/>}
         </div>
         { this.state.showEditorBox && <EditorActionBox
                                         hideEditorBox = {this.instantHideEditBox}
