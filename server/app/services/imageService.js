@@ -1,6 +1,7 @@
 const sharp = require('sharp'); // https://github.com/lovell/sharp
 const config = require('../config/config');
 const fs = require('fs');
+const prodEnvs = require('../config/prodEnvs');
 
 /*
 * @params
@@ -24,8 +25,29 @@ exports.saveImage = async (bloggerId,inputBuffer,imageName, w, h) => {
     imgName = `${bloggerId}_${config.getRandomString()}.jpg`;
   }
 
-  const outputDir = config.imageResourceDir();
+  let story_url = null;
 
+  if(process.env.MODE === 'PRODUCTION'){
+    if(w && h){
+      const imgBuffer = await sharp(inputBuffer)
+      .resize(w, h).toBuffer();
+      await prodEnvs.fileUpload(imgBuffer, imgName).then((data)=>{
+        story_url = data;
+      }).catch();
+    }else{
+      const imgBuffer = await sharp(inputBuffer).toBuffer();
+      await prodEnvs.fileUpload(imgBuffer, imgName).then((data)=>{
+        story_url = data;
+      }).catch();
+    }
+  }else{
+    story_url = await _devImageSave(w, h, inputBuffer, imgName);
+  }
+  return story_url;
+}
+
+async function _devImageSave(w, h, inputBuffer, imgName){
+  const outputDir = config.imageResourceDir();
   if(w && h){
     await sharp(inputBuffer).resize(w, h)
       .toFile(outputDir+imgName);

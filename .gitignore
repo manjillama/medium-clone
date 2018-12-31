@@ -30,3 +30,6 @@ npm-debug.log
 
 # Heruko Server .git
 server/*.git
+
+# Production server configs
+prodEnvs.js
