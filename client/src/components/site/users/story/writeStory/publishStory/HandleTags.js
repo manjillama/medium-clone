@@ -6,7 +6,8 @@ class HandleTags extends React.Component{
   constructor(){
     super();
     this.state = {
-      tags: []
+      tags: [],
+      inputText: ''
     }
   }
   componentDidMount(){
@@ -15,7 +16,6 @@ class HandleTags extends React.Component{
 
     getBlogTag(this.token, this.blogId).then(res => {
       this.setState({tags: res.data});
-      this.editor = document.getElementById("tagEditor");
     });
   }
 
@@ -38,13 +38,22 @@ class HandleTags extends React.Component{
   }
 
   handleChange = (e) => {
-    const val = e.target.value;
-    // Checking for comma
-    if (val.indexOf(',') !== -1) {
-      const tag = val.split(',')[0];
-      this.editor.value = '';
-      this.handleTagAdd(tag);
-    }
+    this.setState({inputText: e.target.value}, ()=>{
+      const val = this.state.inputText;
+      // Checking for comma
+      if (val.indexOf(',') !== -1) {
+        const tag = val.split(',')[0];
+        this.handleTagAdd(tag);
+        this.setState({inputText: ''});
+      }
+    });
+  }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    this.setState({inputText: ''});
+    this.handleTagAdd(this.state.inputText);
+    this.setState({inputText: ''});
   }
 
   renderTags(){
@@ -70,7 +79,11 @@ class HandleTags extends React.Component{
               {this.renderTags()}
             </div>
             <div className="c-input-wrap">
-              {this.state.tags.length < 5 && (<input onChange={this.handleChange} placeholder="Separate tags with a comma..." id="tagEditor" />)}
+              {this.state.tags.length < 5 && (
+                <form onSubmit={this.onSubmit}>
+                  <input value={this.state.inputText} onChange={this.handleChange} placeholder="Add a tag..." id="tagEditor" />
+                </form>
+              )}
             </div>
           </div>
       </div>

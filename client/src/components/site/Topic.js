@@ -1,13 +1,13 @@
 import React from 'react';
 import CategoryNav from 'components/site/includes/CategoryNav';
-import { connect } from 'react-redux';
 import StoryList from 'components/site/StoryList';
 import axios from 'axios';
 import config from 'config';
+
 /*
 * Testing phase on going...
 */
-class Home extends React.Component{
+export default class Topic extends React.Component{
   constructor(){
     super();
     this.state = {
@@ -16,12 +16,21 @@ class Home extends React.Component{
   }
 
   componentDidMount(){
+    this.fetchStory(this.props.match.params.topic);
+  }
+
+  fetchStory(topicParam){
+    const topic = topicParam;
     /*
     * Test
     */
-    axios.get(`${config.SERVER_URL}test-stories`).then(res => {
+    axios.get(`${config.SERVER_URL}test-topic/${topic}`).then(res => {
       this.setState({stories: res.data});
     });
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.fetchStory(nextProps.match.params.topic);
   }
 
   render(){
@@ -33,9 +42,3 @@ class Home extends React.Component{
     );
   }
 }
-
-function mapStateToProps(state){
-  return { state };
-}
-
-export default connect(mapStateToProps)(Home);

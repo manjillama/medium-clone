@@ -12,6 +12,8 @@ import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import App from './components/App';
 import Home from './components/site/home/Home';
+import Topic from './components/site/Topic';
+
 import Contact from './components/site/Contact';
 import Settings from './components/site/users/Settings';
 import Profile from './components/site/users/profile/Profile';
@@ -39,6 +41,8 @@ ReactDOM.render(
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/contact" component={Contact} />
+          <Route exact path="/topic/:topic" component={Topic} />
+
           <Route exact path="/@:username/:storyId" component={ReadStory} />
 
           <Route exact path="/new-story" component={WriteStory} />

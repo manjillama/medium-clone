@@ -20,12 +20,49 @@ exports.findAllUsers = (req, res) => {
 }
 
 exports.findAllStories = (req, res) => {
+
   Blog.findAll({
     where: {
       published: true
     },
     attributes: ['id', 'title', 'desc_summary', 'created_at'],
     include: [
+      {
+        attributes: ['story_thumb'],
+        model: BlogThumbnail,
+        where: {is_thumb: true},
+        required: false
+      },
+      {
+        attributes: ['fullname', 'username'],
+        model: Blogger,
+      }
+    ],
+    order: [
+      ['created_at', 'DESC'],
+    ],
+  }).then(blogs => {
+    res.send(blogs);
+  });
+
+}
+
+exports.findByTopic = (req, res) => {
+  const topic = req.params.topic;
+
+  Blog.findAll({
+    where: {
+      published: true
+    },
+    attributes: ['id', 'title', 'desc_summary', 'created_at'],
+    include: [
+      {
+        attributes: [],
+        model: BlogTag,
+        where: {
+          tag: {$iLike: topic} // $iLike for case-insensitive
+        }
+      },
       {
         attributes: ['story_thumb'],
         model: BlogThumbnail,
