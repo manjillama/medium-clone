@@ -1,6 +1,8 @@
 'use strict';
-
-process.env.MODE = 'PRODUCTION';
+/*
+* Uncomment for production mode
+*/
+// process.env.MODE = 'PRODUCTION';
 
 const express = require('express');
 const path = require('path');

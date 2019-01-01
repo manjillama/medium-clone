@@ -24,10 +24,10 @@ exports.saveImage = async (bloggerId,inputBuffer,imageName, w, h) => {
     // Creating new image | image name consist of user id _ as suffix followed by random strings
     imgName = `${bloggerId}_${config.getRandomString()}.jpg`;
   }
-
   let story_url = null;
 
   if(process.env.MODE === 'PRODUCTION'){
+    // For Production Mode
     if(w && h){
       const imgBuffer = await sharp(inputBuffer)
       .resize(w, h).toBuffer();
@@ -41,11 +41,15 @@ exports.saveImage = async (bloggerId,inputBuffer,imageName, w, h) => {
       }).catch();
     }
   }else{
+    // For Development Mode
     story_url = await _devImageSave(w, h, inputBuffer, imgName);
   }
   return story_url;
 }
 
+/*
+* Development Mode
+*/
 async function _devImageSave(w, h, inputBuffer, imgName){
   const outputDir = config.imageResourceDir();
   if(w && h){
@@ -70,12 +74,34 @@ async function _devImageSave(w, h, inputBuffer, imgName){
 * Deletes the file from directory.
 */
 exports.deleteUserImages = (images, colName)  => {
+  if(process.env.MODE === 'PRODUCTION'){
+    /*
+    * For Production mode
+    */
+    let objects = [];
+    images.forEach(image => {
+      const imageName = image[colName].match(/[\w-]+\.jpg/g)[0];
+      objects.push( {Key:imageName} );
+    });
+    prodEnvs.fileDelete(objects);
+  }else{
+    /*
+    * Development Mode
+    */
+    __devDeleteImage(images, colName);
+  }
+}
+
+/*
+* Only for development Mode
+*/
+function __devDeleteImage(images, colName){
   images.forEach(image => {
     const imageName = image[colName].match(/[\w-]+\.jpg/g)[0];
     try {
       fs.unlinkSync(config.imageResourceDir()+imageName);
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     }
   });
 }

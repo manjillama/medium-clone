@@ -3,7 +3,7 @@ const BlogTag = require('../models/blogTag');
 const BlogThumbnail = require('../models/blogThumbnail');
 const BlogImage = require('../models/blogImage');
 const config = require('../config/config');
-const fs = require('fs');
+const imageService = require('../services/imageService');
 
 exports.createBlog = (req, res) => {
   // If post alreadt exit then edit post
@@ -116,13 +116,12 @@ exports.deleteBlog = async (req, res) => {
           blog_id: postId
         }
       }).then(blogThumbnails => {
-        blogThumbnails.forEach(thumb => {
-          const imageName = thumb.story_thumb.match(/[\w-]+\.jpg/g)[0];
-          try {
-            fs.unlinkSync(config.userImageResourceDir(req.user.id)+imageName);
-          } catch (err) {
-          }
-        });
+        /*
+        * @params
+        * Image rows from database
+        * Image column name
+        */
+        imageService.deleteUserImages(blogThumbnails, 'story_thumb');
       });
 
       await BlogImage.findAll({
@@ -130,13 +129,7 @@ exports.deleteBlog = async (req, res) => {
           blog_id: postId
         }
       }).then(blogImages => {
-        blogImages.forEach(image => {
-          const imageName = image.story_image.match(/[\w-]+\.jpg/g)[0];
-          try {
-            fs.unlinkSync(config.userImageResourceDir(req.user.id)+imageName);
-          } catch (err) {
-          }
-        });
+        imageService.deleteUserImages(blogImages, 'story_image');
       });
 
       // Delete story
