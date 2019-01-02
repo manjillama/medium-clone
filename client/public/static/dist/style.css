@@ -53,6 +53,9 @@ hr{
 /*
 * Typography
 */
+.p--sm{
+  font-size: 13px;
+}
 .text-center{
   text-align: center;
 }
@@ -104,6 +107,7 @@ hr{
   border: 1px solid transparent;
   font-size: 14px;
 }
+
 .mjl-btn-sm{
   font-size: 12px !important;
   padding: 0px 10px;

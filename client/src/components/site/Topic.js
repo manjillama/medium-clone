@@ -16,25 +16,29 @@ export default class Topic extends React.Component{
 
   componentDidMount(){
     this.logoNode = document.getElementById('ThLogo');
-    const topic = this.props.match.params.topic;
-    this.__displayTopicTitle(topic);
-    this.fetchStory(topic);
+    this.topic = this.props.match.params.topic;
+    this.__displayTopicTitle();
+    this.fetchStory();
   }
 
   componentWillUnmount(){
     this.node.parentNode.removeChild(this.node);
   }
 
-  __displayTopicTitle(topic){
-    const t = topic.charAt(0).toUpperCase() + topic.substr(1);
+  __capitalizeFirstChar(text){
+    return text.charAt(0).toUpperCase() + text.substr(1);
+  }
+
+  __displayTopicTitle(){
+    const topic = this.__capitalizeFirstChar(this.topic);
     this.node = document.createElement("H2");
-    var textnode = document.createTextNode(t);
+    var textnode = document.createTextNode(topic);
     this.node.appendChild(textnode);
     this.logoNode.appendChild(this.node);
   }
 
-  fetchStory(topicParam){
-    const topic = topicParam;
+  fetchStory(){
+    const topic = this.topic;
     /*
     * Test
     */
@@ -43,14 +47,14 @@ export default class Topic extends React.Component{
     });
   }
 
-  // componentWillReceiveProps(nextProps){
-  //   this.fetchStory(nextProps.match.params.topic);
-  // }
-
   render(){
+    let topic = '';
+    if(this.topic){
+      topic =  this.__capitalizeFirstChar(this.topic);
+    }
     return (
       <section>
-        <StoryList stories={this.state.stories} />
+        <StoryList topic={topic} stories={this.state.stories} />
       </section>
     );
   }
