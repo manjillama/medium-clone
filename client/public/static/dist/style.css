@@ -433,36 +433,3 @@ form button[type=submit][disabled] {
   color: rgba(0,0,0,.54)!important;
   font-size: 13px;
 }
-
-#ThLogo img{
-  vertical-align: sub;
-}
-
-#ThLogo img.logo-x{
-  display: none;
-}
-
-#ThLogo h2{
-  display: inline-block;
-  font-weight: 300;
-  margin-left: 15px;
-  padding-left: 15px;
-  font-size: 18px;
-  border-left: 2px solid #dadada;
-}
-
-@media (max-width: 728px){
-  #ThLogo img.logo-x{
-    display: inline-block;
-    vertical-align: middle;
-    height: 50px;
-    margin-top: 5px;
-  }
-  #ThLogo img.logo-l{
-    display: none;
-  }
-  #ThLogo h2{
-    font-size: 14px;
-    vertical-align: middle;
-  }
-}

@@ -94,6 +94,10 @@
   .h-page .h-s {
     padding-left: 0;
   }
+  .main-c .t-featured a.f-img{
+    margin: 15px -15px;
+    height: 320px;
+  }
   .h-page .h-s .hs--ad{
     display: none;
   }

@@ -10,6 +10,7 @@ class CategoryNav extends Component{
           <li><Link to="/">Home</Link></li>
           <li><Link to="/topic/technology">Tech</Link></li>
           <li><Link to="/topic/startups">Startups</Link></li>
+          <li><Link to="/topic/self">Self</Link></li>
           <li><Link to="/topic/design">Design</Link></li>
           <li><Link to="/topic/health">Health</Link></li>
           <li><Link to="/topic/politics">Politics</Link></li>
