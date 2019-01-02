@@ -67,4 +67,5 @@
 
 #editorFloatBar .edit-float-btn label{
   cursor: pointer;
+  display: block;
 }

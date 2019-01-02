@@ -117,7 +117,7 @@ class Header extends Component{
         <div className="nav-top-bar">
           <nav className="mjl-container">
             <div className="tb-flex1">
-              <Link to="/">
+              <Link to="/" id="ThLogo">
                 <img src="/static/images/threadly-logo.png" height="25px" alt="Threadly Logo"/>
               </Link>
             </div>

@@ -374,7 +374,7 @@ form button[type=submit][disabled] {
 
 
 /*
-* READ/Write Story CSS
+* READ/Write Story CSS | Generic Global CSS
 */
 
 #storyBox{
@@ -400,4 +400,44 @@ form button[type=submit][disabled] {
 
 #storyBox a{
   text-decoration: underline;
+}
+
+.u-ct{
+  margin: 20px 0;
+}
+
+.u-ct .p-i-wrap img, .u-ct .p-i-wrap .usr-p-i{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background: rgb(1, 143, 105);
+  text-align: center;
+}
+
+.u-ct .p-i-wrap .usr-p-i span{
+  line-height: 48px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.u-ct .u-w{
+  margin-left: 15px!important;
+}
+
+.u-ct .u-w span{
+  display: block;
+  color: rgba(0,0,0,.54)!important;
+  font-size: 13px;
+}
+
+#ThLogo img{
+  vertical-align: sub;
+}
+
+#ThLogo h2{
+  display: inline-block;
+  font-weight: 300;
+  margin-left: 15px;
+  padding-left: 15px;
+  border-left: 2px solid #ccc;
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import CategoryNav from 'components/site/includes/CategoryNav';
 import StoryList from 'components/site/StoryList';
 import axios from 'axios';
 import config from 'config';
@@ -16,7 +15,22 @@ export default class Topic extends React.Component{
   }
 
   componentDidMount(){
-    this.fetchStory(this.props.match.params.topic);
+    this.logoNode = document.getElementById('ThLogo');
+    const topic = this.props.match.params.topic;
+    this.__displayTopicTitle(topic);
+    this.fetchStory(topic);
+  }
+
+  componentWillUnmount(){
+    this.node.parentNode.removeChild(this.node);
+  }
+
+  __displayTopicTitle(topic){
+    const t = topic.charAt(0).toUpperCase() + topic.substr(1);
+    this.node = document.createElement("H2");
+    var textnode = document.createTextNode(t);
+    this.node.appendChild(textnode);
+    this.logoNode.appendChild(this.node);
   }
 
   fetchStory(topicParam){
@@ -29,16 +43,15 @@ export default class Topic extends React.Component{
     });
   }
 
-  componentWillReceiveProps(nextProps){
-    this.fetchStory(nextProps.match.params.topic);
-  }
+  // componentWillReceiveProps(nextProps){
+  //   this.fetchStory(nextProps.match.params.topic);
+  // }
 
   render(){
     return (
-      <div>
-        <CategoryNav/>
+      <section>
         <StoryList stories={this.state.stories} />
-      </div>
+      </section>
     );
   }
 }

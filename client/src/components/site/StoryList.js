@@ -53,12 +53,14 @@ export default (props) => {
   return (
     <div>
       <section className="h-page">
-        <div className="d--flex h-c-wrap flex-fw">
+        <div className="d--flex h-c-wrap">
 
           <div className="main-c" >
 
+            <FeaturedStory/>
+
             <div>
-              <h4 className="p-t">Latest</h4>
+              <h4 className="p-t">LATEST</h4>
               {_renderStories()}
             </div>
 
@@ -81,7 +83,31 @@ export default (props) => {
       </section>
     </div>
   );
+}
 
-
-
+function FeaturedStory(props){
+  return(
+    <div className="t-featured">
+      <article>
+        <h4>FEATURED</h4>
+        <a className="f-img" href="http://threadly.vortexnepal.com/@tYjvY7EML/4">
+        </a>
+        <h1>
+          <a href="http://threadly.vortexnepal.com/@tYjvY7EML/4">Guide for writing better stories in Threadly</a>
+        </h1>
+        <p>
+          <a href="http://threadly.vortexnepal.com/@tYjvY7EML/4">Exciting new update! Threadly now supports text formatting. To get started just select the text you want to format or double click...</a>
+        </p>
+      </article>
+      <div className="d--flex u-ct">
+        <a href="http://threadly.vortexnepal.com/@tYjvY7EML" className="p-i-wrap">
+          <img src="https://manjiltamang-threadly.s3.ap-south-1.amazonaws.com/vRuRgmuYpED5.jpg" alt="Manjil Tamang"/>
+        </a>
+        <div className="u-w">
+          <a href="http://threadly.vortexnepal.com/@tYjvY7EML">Manjil Tamang</a>
+          <span>Jan 1st, 2019</span>
+        </div>
+      </div>
+    </div>
+  );
 }

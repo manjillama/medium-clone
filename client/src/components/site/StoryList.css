@@ -1,17 +1,36 @@
 .h-page .main-c{
-  max-width: 750px;
   width: 100%
 }
 
 .h-page .main-c h4.p-t{
   border-bottom: 1px solid #ccc;
-  padding-bottom: 5px;
+  padding-bottom: 8px;
 }
 
 
 .h-page .h-s{
-  width: 300px;
   padding-left: 30px;
+}
+.main-c .t-featured{
+  margin-bottom: 30px;
+}
+
+.main-c .t-featured h1{
+  font-size: 32px;
+  line-height: 45px;
+  margin-top: 13px;
+}
+.main-c .t-featured article p{
+  color: rgba(0,0,0,.54)!important;
+  margin-top: 6px;
+}
+.main-c .t-featured a.f-img{
+  height: 382px;
+  background-image: url(https://manjiltamang-threadly.s3.ap-south-1.amazonaws.com/1_TP80pFNtqKg5WoKnJjilvI99yZhUMdae.jpg);
+  display: block;
+  margin-top: 14px;
+  background-position: 49% 39%;
+  background-size: cover;
 }
 
 .main-c .c-item{
@@ -49,6 +68,14 @@
   font-size: 12px;
   margin-bottom: 8px;
   display: block;
+}
+
+.t-featured .u-ct .p-i-wrap{
+  border: 2px solid #fff;
+  border-top-color: rgb(1, 143, 105) !important;
+  border-bottom-color: rgb(1, 143, 105) !important;
+  border-radius: 50%;
+  padding: 2px;
 }
 
 @media (max-width: 1038px){

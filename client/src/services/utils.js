@@ -8,6 +8,6 @@ export const utcToLocal = (utcDate) => {
 
 export const utcToLocalMin = (utcDate) => {
   var utc = moment(utcDate).format('YYYY-MM-DD HH:mm:ss');
-  var local = moment.utc(utc).local().format('MMM Do, YY');
+  var local = moment.utc(utc).local().format('MMM Do, YYYY');
   return local;
 }

@@ -13,7 +13,10 @@ class CategoryNav extends Component{
           <li><Link to="/topic/design">Design</Link></li>
           <li><Link to="/topic/health">Health</Link></li>
           <li><Link to="/topic/politics">Politics</Link></li>
-          <li style={{border: 1+'px solid #ccc',padding: 3+'px',fontSize: 8+'px',verticalAlign: 'top'}}>Pre-Alpha</li>
+          {
+            //           <li style={{border: 1+'px solid #ccc',padding: 3+'px',fontSize: 8+'px',verticalAlign: 'top'}}>Pre-Alpha</li>
+
+          }
         </ul>
       </div>
     );
