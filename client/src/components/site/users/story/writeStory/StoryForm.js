@@ -100,7 +100,7 @@ export default class StoryForm extends React.Component{
             onMouseUp = {this.onTextSelection}
             onChange={this.props.handlePostChange}
             />
-            {this.state.showFloatingButton && <FloatingButton
+            {this.props.blog.id && this.state.showFloatingButton && <FloatingButton
                                                 blogId={this.props.blog.id}
                                                 imageUploadStatus={this.state.imageIsUploading}
                                                 imageIsUploading={this.imageIsUploading}

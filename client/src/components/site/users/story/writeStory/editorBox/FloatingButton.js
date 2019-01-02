@@ -15,9 +15,37 @@ export default class FloatingBar extends Component{
 
   componentDidMount(){
     this.userToken = localStorage.getItem('token');
-    document.getElementById('floatImgInputBtn').onclick = function() {
+    document.getElementById('floatImgInputBtn').onclick = () => {
+      this.currentSelection = this.saveSelection();
       document.getElementById('editorImgInput').click();
     };
+  }
+
+  /*
+  * https://stackoverflow.com/questions/3315824/preserve-text-selection-in-contenteditable-while-interacting-with-jquery-ui-dial
+  */
+  saveSelection() {
+    if (window.getSelection) {
+      let sel = window.getSelection();
+      if (sel.getRangeAt && sel.rangeCount) {
+        return sel.getRangeAt(0);
+      }
+    } else if (document.selection && document.selection.createRange) {
+      return document.selection.createRange();
+    }
+    return null;
+  }
+
+  restoreSelection(range) {
+    if (range) {
+      if (window.getSelection) {
+          let sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+      } else if (document.selection && range.select) {
+        range.select();
+      }
+    }
   }
 
   handleFile = (e) => {
@@ -30,6 +58,7 @@ export default class FloatingBar extends Component{
           this.props.imageIsUploading();
           uploadStoryImage(formData, this.userToken, this.props.blogId).then(res=>{
             const src = res.data.story_image;
+            this.restoreSelection(this.currentSelection);
             document.execCommand('insertHTML', false, '<img src="' + src + '" class="img-responsive"/>');
             this.props.imageUploadCompleted();
           });
