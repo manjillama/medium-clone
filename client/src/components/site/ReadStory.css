@@ -62,3 +62,12 @@ footer .f-profile-img .usr-p-image span{
 #readStory footer .f-usr-content p{
   font-size: 13px;
 }
+
+#readStory .r-h-img {
+  margin-bottom: 25px;
+}
+@media (max-width: 728px){
+  #readStory .r-h-img {
+    margin: 0 -15px 25px -15px;
+  }
+}

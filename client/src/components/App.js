@@ -8,10 +8,13 @@ import { withRouter } from 'react-router-dom';
 class App extends React.Component{
   constructor(props){
     super(props);
-    this.state = {openLoginModal: false, renderApp: true}
+    this.state = {renderApp: true}
   }
   componentWillMount(){
     const userToken = localStorage.getItem('token');
+    /*
+    * Auto login user if token is present
+    */
     if(userToken){
       this.setState({renderApp: false}, () => {
         this.props.getUser(userToken, () => {
@@ -20,22 +23,16 @@ class App extends React.Component{
       });
     }
   }
-  triggerModal(){
-    this.setState({openLoginModal: true});
-  }
-  closeModal(){
-    this.setState({openLoginModal: false});
-  }
   _renderModal(){
-    if(this.state.openLoginModal){
-      return <LoginModal modalState={this.state.openLoginModal} closeModal={this.closeModal.bind(this)}/>;
+    if(this.props.openModal){
+      return <LoginModal/>;
     }
   }
   render(){
     if(this.state.renderApp){
       return (
         <div>
-          <Header triggerModal={this.triggerModal.bind(this)}/>
+          <Header/>
           <div className="mjl-container">
             {this.props.children}
             {this._renderModal()}
@@ -48,4 +45,8 @@ class App extends React.Component{
   }
 };
 
-export default withRouter(connect(null, {getUser})(App));
+function mapStateToProps(state){
+  return {openModal: state.loginModal.openModal};
+}
+
+export default withRouter(connect(mapStateToProps, {getUser})(App));

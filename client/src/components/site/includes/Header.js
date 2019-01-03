@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { signOut } from 'actions';
 import './Header.css';
 import { withRouter } from 'react-router-dom';
+import { openModal } from 'actions/loginModal';
 
 class Header extends Component{
   constructor(props){
@@ -12,7 +13,9 @@ class Header extends Component{
   }
 
   triggerModal(){
-    this.props.triggerModal();
+    console.log("hereeee");
+    this.props.openModal();
+    //this.props.triggerModal();
   }
 
   toggleUserDropdown = () => {
@@ -140,4 +143,4 @@ function mapStateToProps(state){
   return {auth: state.auth.authenticated};
 }
 
-export default withRouter(connect(mapStateToProps, {signOut})(Header));
+export default withRouter(connect(mapStateToProps, {openModal, signOut})(Header));

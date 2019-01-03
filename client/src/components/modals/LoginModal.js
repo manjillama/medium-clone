@@ -10,6 +10,8 @@ import SignUpForm from 'components/forms/SignUpForm';
 
 import { Router } from 'react-router-dom';
 import { history } from 'index';
+import { closeModal } from 'actions/loginModal';
+import { connect } from 'react-redux';
 
 class LoginModal extends Component{
   constructor(props){
@@ -19,7 +21,7 @@ class LoginModal extends Component{
       - signInModal: change modal content between signin form and signup form
       - modalState: open and close modal
     */
-    this.state = {signInModal: true, modalState:this.props.modalState};
+    this.state = {signInModal: true};
     this.toggleContent = this.toggleContent.bind(this);
   }
 
@@ -35,12 +37,6 @@ class LoginModal extends Component{
     ReactDOM.unmountComponentAtNode(this.modalTarget);
     document.body.removeChild(this.modalTarget);
     document.removeEventListener('click', this.handleBlur, true);
-  }
-
-  componentWillReceiveProps(nextProps){
-    this.setState({modalState: nextProps.modalState},()=>{
-      this._render();
-    })
   }
 
   toggleContent(){
@@ -90,29 +86,25 @@ class LoginModal extends Component{
 
   createModal(){
     const background = this.state.signInModal ? '#D7EFEE' : '#E8F3EC';
-    if(this.state.modalState){
-      return (
-        <div id="loginModalWrapper">
-          <div className="modal-backdrop"></div>
-          <div className="modal">
-            <div className="modal-dialog" style={{backgroundColor: background}}>
-              <div className="modal-content">
-                <div className="modal-body">
-                  <svg className="closeModal" width="29" height="29" onClick={this.props.closeModal}>
-                    <path d="M20.13 8.11l-5.61 5.61-5.609-5.61-.801.801 5.61 5.61-5.61 5.61.801.8 5.61-5.609 5.61 5.61.8-.801-5.609-5.61 5.61-5.61" fillRule="evenodd"></path>
-                  </svg>
-                  <div className="login-holder">
-                    {this.toggleModalContent()}
-                  </div>
+    return (
+      <div id="loginModalWrapper">
+        <div className="modal-backdrop"></div>
+        <div className="modal">
+          <div className="modal-dialog" style={{backgroundColor: background}}>
+            <div className="modal-content">
+              <div className="modal-body">
+                <svg className="closeModal" width="29" height="29" onClick={this.props.closeModal}>
+                  <path d="M20.13 8.11l-5.61 5.61-5.609-5.61-.801.801 5.61 5.61-5.61 5.61.801.8 5.61-5.609 5.61 5.61.8-.801-5.609-5.61 5.61-5.61" fillRule="evenodd"></path>
+                </svg>
+                <div className="login-holder">
+                  {this.toggleModalContent()}
                 </div>
               </div>
             </div>
           </div>
         </div>
-      );
-    }else{
-      return <noscript/>;
-    }
+      </div>
+    );
   }
 
 /*
@@ -135,4 +127,4 @@ class LoginModal extends Component{
   }
 }
 
-export default LoginModal;
+export default connect(null, {closeModal}) (LoginModal);
