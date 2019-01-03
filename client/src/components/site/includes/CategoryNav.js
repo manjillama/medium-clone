@@ -9,11 +9,16 @@ class CategoryNav extends Component{
         <ul className="nav-cate-l list-inline">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/topic/technology">Tech</Link></li>
+          <li><Link to="/topic/entertainment">Entertainment</Link></li>
           <li><Link to="/topic/startups">Startups</Link></li>
-          <li><Link to="/topic/self">Self</Link></li>
+          <li><Link to="/topic/industry">Industry</Link></li>
+          <li><Link to="/topic/life">Life</Link></li>
           <li><Link to="/topic/design">Design</Link></li>
           <li><Link to="/topic/health">Health</Link></li>
+          <li><Link to="/topic/country">Country</Link></li>
           <li><Link to="/topic/politics">Politics</Link></li>
+          <li><Link to="/topics">More</Link></li>
+
           {
             //           <li style={{border: 1+'px solid #ccc',padding: 3+'px',fontSize: 8+'px',verticalAlign: 'top'}}>Pre-Alpha</li>
 

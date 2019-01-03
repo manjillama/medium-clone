@@ -1,5 +1,5 @@
 import React from 'react';
-import StoryList from 'components/site/StoryList';
+import StoryList from './StoryList';
 import axios from 'axios';
 import config from 'config';
 
@@ -10,19 +10,21 @@ export default class Topic extends React.Component{
   constructor(){
     super();
     this.state = {
-      stories: null
+      stories: null,
+      error: false
     }
   }
 
   componentDidMount(){
     this.logoNode = document.getElementById('ThLogo');
     this.topic = this.props.match.params.topic;
-    this.__displayTopicTitle();
     this.fetchStory();
   }
 
   componentWillUnmount(){
-    this.node.parentNode.removeChild(this.node);
+    if(this.node){
+      this.node.parentNode.removeChild(this.node);
+    }
   }
 
   __capitalizeFirstChar(text){
@@ -43,7 +45,12 @@ export default class Topic extends React.Component{
     * Test
     */
     axios.get(`${config.SERVER_URL}test-topic/${topic}`).then(res => {
-      this.setState({stories: res.data});
+      if(res.data.error){
+        this.setState({error: true});
+      }else{
+        this.__displayTopicTitle();
+        this.setState({stories: res.data});
+      }
     });
   }
 
@@ -54,7 +61,11 @@ export default class Topic extends React.Component{
     }
     return (
       <section>
-        <StoryList topic={topic} stories={this.state.stories} />
+        {
+          this.state.error ? (<h1>404 Page not found</h1>)
+          :
+          (<StoryList topic={topic} stories={this.state.stories} />)
+        }
       </section>
     );
   }

@@ -1,4 +1,7 @@
-const TestController = require('./controllers/testController');
+/**************** TEST CONTROLLERS *******************************************/
+const TestController = require('./controllers/test/testController');
+const TopicTestController = require('./controllers/test/topicTestController');
+/****************************************************************************/
 const HomeController = require('./controllers/homeController');
 const Authentication  = require('./controllers/authentication');
 const BloggerController  = require('./controllers/bloggerController');
@@ -71,7 +74,7 @@ module.exports = app => {
   app.get('/test-user', TestController.findByUsernameOrEmail);
   app.get('/test-tags', TestController.findUserStoryBlogTags);
   app.get('/test-stories', TestController.findAllStories);
-  app.get('/test-topic/:topic', TestController.findByTopic);
+  app.get('/test-topic/:topic', TopicTestController.findByTopic);
 
 
   app.get('/unauthenticated', function(req, res){res.json({error: "Authentication Failed"})});

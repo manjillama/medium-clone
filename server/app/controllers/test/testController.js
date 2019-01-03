@@ -1,9 +1,9 @@
-const User = require('../models/user');
-const Blogger = require('../models/blogger');
+const User = require('../../models/user');
+const Blogger = require('../../models/blogger');
 const Sequelize = require('sequelize');
-const Blog = require('../models/blog');
-const BlogTag = require('../models/blogTag');
-const BlogThumbnail = require('../models/blogThumbnail');
+const Blog = require('../../models/blog');
+const BlogTag = require('../../models/blogTag');
+const BlogThumbnail = require('../../models/blogThumbnail');
 
 const bcrypt = require('bcrypt');
 const Op = Sequelize.Op;
@@ -47,40 +47,7 @@ exports.findAllStories = (req, res) => {
 
 }
 
-exports.findByTopic = (req, res) => {
-  const topic = req.params.topic;
 
-  Blog.findAll({
-    where: {
-      published: true
-    },
-    attributes: ['id', 'title', 'desc_summary', 'created_at'],
-    include: [
-      {
-        attributes: [],
-        model: BlogTag,
-        where: {
-          tag: {$iLike: topic} // $iLike for case-insensitive
-        }
-      },
-      {
-        attributes: ['story_thumb'],
-        model: BlogThumbnail,
-        where: {is_thumb: true},
-        required: false
-      },
-      {
-        attributes: ['fullname', 'username'],
-        model: Blogger,
-      }
-    ],
-    order: [
-      ['created_at', 'DESC'],
-    ],
-  }).then(blogs => {
-    res.send(blogs);
-  });
-}
 
 exports.findByUsernameOrEmail = (req, res) => {
   let username = 'QTem3fRRE';

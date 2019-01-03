@@ -2,6 +2,7 @@ import React from 'react';
 import { utcToLocalMin } from 'services/utils';
 import { Link } from 'react-router-dom';
 import './StoryList.css';
+import FollowTopic from './FollowTopic/FollowTopic';
 
 export default (props) => {
 
@@ -49,14 +50,13 @@ export default (props) => {
       );
     }
   }
-
   return (
     <div>
       <section className="h-page">
         <div className="d--flex flex-sb h-c-wrap">
 
           <div className="main-c" >
-
+          
             <FeaturedStory/>
 
             <div>
@@ -69,7 +69,7 @@ export default (props) => {
             {props.topic && (
               <div className="t-aside">
                 <h2>{props.topic}</h2>
-                <button className="mjl-btn btn--p-hollow">Follow</button>
+                <FollowTopic />
                 <p className="p--sm text--muted">
                   Follow to get great stories about {props.topic} in your inbox and on your homepage
                 </p>

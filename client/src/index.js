@@ -11,8 +11,9 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import App from './components/App';
-import Home from './components/site/home/Home';
-import Topic from './components/site/Topic';
+import Home from './components/site/topic/Home';
+import Topic from './components/site/topic/Topic';
+import AllTopics from './components/site/topic/AllTopics';
 
 import Contact from './components/site/Contact';
 import Settings from './components/site/users/Settings';
@@ -41,6 +42,7 @@ ReactDOM.render(
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/contact" component={Contact} />
+          <Route exact path="/topics" component={AllTopics} />
           <Route exact path="/topic/:topic" component={Topic} />
 
           <Route exact path="/@:username/:storyId" component={ReadStory} />

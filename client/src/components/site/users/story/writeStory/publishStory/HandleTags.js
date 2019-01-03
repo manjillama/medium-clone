@@ -81,7 +81,7 @@ class HandleTags extends React.Component{
             <div className="c-input-wrap">
               {this.state.tags.length < 5 && (
                 <form onSubmit={this.onSubmit}>
-                  <input value={this.state.inputText} onChange={this.handleChange} placeholder="Add a tag..." id="tagEditor" />
+                  <input value={this.state.inputText} onChange={this.handleChange} placeholder="Add a tag..." id="tagEditor" autoComplete="off"/>
                 </form>
               )}
             </div>

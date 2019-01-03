@@ -81,8 +81,8 @@
 
 .t-featured .u-ct .p-i-wrap{
   border: 2px solid #fff;
-  border-top-color: rgb(1, 143, 105) !important;
-  border-bottom-color: rgb(1, 143, 105) !important;
+  border-top-color: #03a87c !important;
+  border-bottom-color: #03a87c !important;
   border-radius: 50%;
   padding: 2px;
 }
