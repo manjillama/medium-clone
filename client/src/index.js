@@ -15,8 +15,8 @@ import Home from './components/site/topic/Home';
 import Topic from './components/site/topic/Topic';
 import AllTopics from './components/site/topic/AllTopics';
 
-import Contact from './components/site/Contact';
-import Settings from './components/site/users/Settings';
+import About from './components/site/about/About';
+import Settings from './components/site/users/settings/Settings';
 import Profile from './components/site/users/profile/Profile';
 import ProfileEdit from './components/site/users/profile/ProfileEdit';
 import WriteStory from './components/site/users/story/writeStory/WriteStory';
@@ -41,7 +41,7 @@ ReactDOM.render(
       <App>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/contact" component={Contact} />
+          <Route exact path="/about" component={About} />
           <Route exact path="/topics" component={AllTopics} />
           <Route exact path="/topic/:topic" component={Topic} />
 

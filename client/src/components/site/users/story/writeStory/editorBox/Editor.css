@@ -14,6 +14,10 @@
   margin: 2px;
 }
 
+#editorBox .action-btns button.font-sm {
+  font-size: 13px;
+}
+
 #editorBox:after {
   -webkit-transform: rotate(45deg) translate(-50%,-50%);
   transform: rotate(45deg) translate(-50%,-50%);

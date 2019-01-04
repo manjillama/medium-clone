@@ -86,8 +86,6 @@ class WriteStory extends Component{
     }, this.saveBlog());
   }
 
-
-
   saveBlog = () => {
     if(this.timeout) clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
@@ -96,7 +94,7 @@ class WriteStory extends Component{
       formData.append("title", this.state.blog.title);
       formData.append("post", this.state.blog.draft);
       formData.append("postId", this.state.blog.id);
-      this.setState({savingState: 'onprogress'});
+      this.setState({savingState: 'saving'});
       // If postId is null a new post is created else blog will get updated
       writePost(formData, this.userToken)
         .then((response) => {
@@ -108,9 +106,6 @@ class WriteStory extends Component{
                 this.props.history.push(`/p/${id}/edit`);
               });
             }
-            setTimeout(() => {
-              this.setState({savingState: 'onhold'});
-            }, 1200);
           });
 
         });

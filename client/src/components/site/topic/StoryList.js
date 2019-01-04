@@ -2,7 +2,7 @@ import React from 'react';
 import { utcToLocalMin } from 'services/utils';
 import { Link } from 'react-router-dom';
 import './StoryList.css';
-import FollowTopic from './FollowTopic/FollowTopic';
+// import FollowTopic from './FollowTopic/FollowTopic';
 
 export default (props) => {
 
@@ -52,7 +52,7 @@ export default (props) => {
   }
   return (
     <div>
-      <section className="h-page">
+      <div className="h-page">
         <div className="d--flex flex-sb h-c-wrap">
 
           <div className="main-c" >
@@ -66,20 +66,22 @@ export default (props) => {
 
           </div>
           <div className="h-s">
-            {props.topic && (
-              <div className="t-aside">
-                <h2>{props.topic}</h2>
-                <FollowTopic />
-                <p className="p--sm text--muted">
-                  Follow to get great stories about {props.topic} in your inbox and on your homepage
-                </p>
-              </div>
-            )}
+            {
+              // props.topic && (
+              //   <div className="t-aside">
+              //     <h2>{props.topic}</h2>
+              //     <FollowTopic />
+              //     <p className="p--sm text--muted">
+              //       Follow to get great stories about {props.topic} in your inbox and on your homepage
+              //     </p>
+              //   </div>
+              // )
+            }
             <StoryAd/>
           </div>
 
         </div>
-      </section>
+      </div>
     </div>
   );
 }
@@ -107,21 +109,21 @@ function FeaturedStory(props){
     <div className="t-featured">
       <article>
         <h4>FEATURED</h4>
-        <a className="f-img" href="http://threadly.vortexnepal.com/@tYjvY7EML/4">
+        <a className="f-img" href="http://threadly.vortexnepal.com/@DuuDoh3v6/1">
         </a>
         <h1>
-          <a href="http://threadly.vortexnepal.com/@tYjvY7EML/4">Guide for writing better stories in Threadly</a>
+          <a href="http://threadly.vortexnepal.com/@DuuDoh3v6/1">Guide for writing better stories in Threadly</a>
         </h1>
         <p>
-          <a href="http://threadly.vortexnepal.com/@tYjvY7EML/4">Exciting new update! Threadly now supports text formatting. To get started just select the text you want to format or double click...</a>
+          <a href="http://threadly.vortexnepal.com/@DuuDoh3v6/1">Exciting new update! Threadly now supports text formatting. To get started just select the text you want to format or double click...</a>
         </p>
       </article>
       <div className="d--flex u-ct">
-        <a href="http://threadly.vortexnepal.com/@tYjvY7EML" className="p-i-wrap">
-          <img src="https://manjiltamang-threadly.s3.ap-south-1.amazonaws.com/vRuRgmuYpED5.jpg" alt="Manjil Tamang"/>
+        <a href="http://threadly.vortexnepal.com/@DuuDoh3v6" className="p-i-wrap">
+          <img src="https://manjiltamang-threadly.s3.ap-south-1.amazonaws.com/1_xG6j0K1DgI1YiAzC1bItZL2s090EYXDQ.jpg" alt="Manjil Tamang"/>
         </a>
         <div className="u-w">
-          <a href="http://threadly.vortexnepal.com/@tYjvY7EML">Manjil Tamang</a>
+          <a href="http://threadly.vortexnepal.com/@DuuDoh3v6">Manjil Tamang</a>
           <span>Jan 1st, 2019</span>
         </div>
       </div>

@@ -106,8 +106,8 @@ export default class EditorActionBox extends React.Component{
             <div className="action-btns">
               <EditButton cmd="bold" name="bold" />
               <EditButton cmd="italic" name="italic"/>
-              <EditButton cmd="formatBlock" arg="<h1>" name="heading" />
-              <EditButton cmd="formatBlock" arg="<p>" name="a" />
+              <EditButton cmd="formatBlock" arg="<h1>" name="text" />
+              <EditButton btnClass="font-sm" cmd="fontSize" arg="2" name="text" />
               <EditButton cmd="formatBlock" arg="<blockquote>" name='quote' />
 
               <EditButton cmd="insertHTML" arg="&zwnj;<pre><div>&zwnj;" name="code" />
@@ -127,11 +127,12 @@ export default class EditorActionBox extends React.Component{
 }
 
 function EditButton(props) {
+  const btnClass = !props.btnClass ? 'btn-chromeless' : `btn-chromeless ${props.btnClass}`;
   return (
     <button
       type="button"
       key={props.cmd}
-      className="btn-chromeless"
+      className={btnClass}
       onMouseDown={evt => {
         evt.preventDefault(); // Avoids loosing focus from the editable area
         document.execCommand(props.cmd, false, props.arg); // Send the command to the browser
@@ -148,7 +149,7 @@ function RenderEditorBtntext(props){
       return <i className="fa fa-quote-left"></i>
     case 'code':
       return <i className="fa fa-code"></i>
-    case 'heading':
+    case 'text':
       return <i className="fa fa-font"></i>
     case 'bold':
       return <i className="fa fa-bold"></i>

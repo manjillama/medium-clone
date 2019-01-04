@@ -22,7 +22,7 @@ export default class StoryPublish extends React.Component{
     }
   }
   renderSavingState(){
-    if(this.props.savingState === 'onprogress'){
+    if(this.props.savingState === 'saving'){
       return <span>Saving</span>;
     }else if(this.props.savingState === 'saved'){
       return <span>Saved</span>

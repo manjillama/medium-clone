@@ -3,6 +3,7 @@
 #readStory h1{
   font-size: 33px;
   font-weight: 600;
+  line-height: 42px;
 }
 
 #readStory .profile-img-wrap img, #readStory .profile-img-wrap .usr-p-image{
