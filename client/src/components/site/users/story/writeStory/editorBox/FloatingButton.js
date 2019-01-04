@@ -15,10 +15,6 @@ export default class FloatingBar extends Component{
 
   componentDidMount(){
     this.userToken = localStorage.getItem('token');
-    document.getElementById('floatImgInputBtn').onclick = () => {
-      this.currentSelection = this.saveSelection();
-      document.getElementById('editorImgInput').click();
-    };
   }
 
   /*
@@ -81,6 +77,11 @@ export default class FloatingBar extends Component{
     }
   }
 
+  handleInputBtnClick = () => {
+    this.currentSelection = this.saveSelection();
+    document.getElementById('editorImgInput').click();
+  }
+
 
   __render(){
     const editor = document.getElementById('storyBox');
@@ -94,7 +95,7 @@ export default class FloatingBar extends Component{
     }else{
       return (
         <div id="editorFloatBar" style={{transform: `translate(${floatX}px, ${0})`}}>
-          <button id="floatImgInputBtn" className="edit-float-btn btn-chromeless">
+          <button id="floatImgInputBtn" onClick={this.handleInputBtnClick} className="edit-float-btn btn-chromeless">
 
               <svg className="svgIcon-use" width="25" height="25">
                 <g fillRule="evenodd">

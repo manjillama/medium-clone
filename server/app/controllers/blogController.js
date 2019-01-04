@@ -10,8 +10,7 @@ exports.createBlog = (req, res) => {
   const postId = req.body.postId;
   let post = {
     title: req.body.title,
-    description: req.body.post,
-    desc_summary: req.body.descSummary,
+    draft: req.body.post,
     modified_at: config.getUtcTimestamp(),
     blogger_id: req.user.id
   }
@@ -80,6 +79,11 @@ exports.getBlogCount = async (req, res) => {
   res.json(storyCount);
 }
 
+function getBlogSummary(desc){
+  // removing html tags and entities if any and doing substr
+  return desc.replace(/<(?:.|\n)*?>/gm, '').replace(/&nbsp;/g, ' ').substr(0, 130);
+}
+
 exports.publishBlog = async (req, res) => {
   const file = req.files;
 
@@ -93,7 +97,9 @@ exports.publishBlog = async (req, res) => {
   }).then(blog => {
     if(blog){
       blog.update({
-        published: true
+        story: blog.draft,
+        published: true,
+        story_summary: getBlogSummary(blog.draft)
       });
     }
   });

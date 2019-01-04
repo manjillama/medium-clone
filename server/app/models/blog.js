@@ -11,10 +11,13 @@ const Blog = sequelize.define('blogs', {
   title: {
     type: Sequelize.STRING,
   },
-  description: {
+  draft: {
     type: Sequelize.TEXT,
   },
-  desc_summary: {
+  story: {
+    type: Sequelize.TEXT,
+  },
+  story_summary: {
     type: Sequelize.STRING(160),
   },
   created_at: {

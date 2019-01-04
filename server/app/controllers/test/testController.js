@@ -25,7 +25,7 @@ exports.findAllStories = (req, res) => {
     where: {
       published: true
     },
-    attributes: ['id', 'title', 'desc_summary', 'created_at'],
+    attributes: ['id', 'title', 'story_summary', 'created_at'],
     include: [
       {
         attributes: ['story_thumb'],

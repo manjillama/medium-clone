@@ -12,7 +12,7 @@ class WriteStory extends Component{
       blog: {
         id: null,
         title: '',
-        description:''
+        draft:''
       },
       savingState: 'onhold',
       renderError: false,
@@ -46,7 +46,7 @@ class WriteStory extends Component{
       if(path === '/new-story'){
         // User navigated to new story Page
         this.setState({
-          blog: { id: null, title: '', description:''},
+          blog: { id: null, title: '', draft:''},
           loading: false
         });
       }else{
@@ -82,14 +82,11 @@ class WriteStory extends Component{
 
   handlePostChange = (e) => {
     this.setState({
-      blog: {...this.state.blog, description: e.target.value}
+      blog: {...this.state.blog, draft: e.target.value}
     }, this.saveBlog());
   }
 
-  getBlogSummary(desc){
-    // removing html tags and entities if any and doing substr
-    return desc.replace(/<(?:.|\n)*?>/gm, '').replace(/&nbsp;/g, ' ').substr(0, 130);
-  }
+
 
   saveBlog = () => {
     if(this.timeout) clearTimeout(this.timeout);
@@ -97,9 +94,8 @@ class WriteStory extends Component{
 
       let formData = new FormData();
       formData.append("title", this.state.blog.title);
-      formData.append("post", this.state.blog.description);
+      formData.append("post", this.state.blog.draft);
       formData.append("postId", this.state.blog.id);
-      formData.append("descSummary", this.getBlogSummary(this.state.blog.description));
       this.setState({savingState: 'onprogress'});
       // If postId is null a new post is created else blog will get updated
       writePost(formData, this.userToken)

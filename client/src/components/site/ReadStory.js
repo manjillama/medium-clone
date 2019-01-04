@@ -57,7 +57,7 @@ export default class ReadStory extends React.Component{
     */
     const article = document.getElementById('storyBox');
     if(article)
-      article.innerHTML = this.state.story.description;
+      article.innerHTML = this.state.story.story;
   }
 
   render(){

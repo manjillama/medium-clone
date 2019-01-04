@@ -11,7 +11,7 @@ export default class StoryPublish extends React.Component{
     }
   }
   handlePublishClick = () => {
-    if(this.props.blog.title === '' || this.props.blog.description === ''){
+    if(this.props.blog.title === '' || this.props.blog.draft === ''){
       this.setState({noStoryError: true}, () => {
         setTimeout(() => {
           this.setState({noStoryError: false});

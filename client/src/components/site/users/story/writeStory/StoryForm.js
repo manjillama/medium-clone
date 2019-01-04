@@ -23,7 +23,7 @@ export default class StoryForm extends React.Component{
   }
 
   renderPostPlaceHolder(){
-    if(this.props.blog.description === '')
+    if(this.props.blog.draft === '')
       return <span style={{position:'absolute',top:-5+'px',left:0,fontSize: 22+'px',zIndex: -1}} className="text--muted">Tell us your story...</span>
   }
 
@@ -95,7 +95,7 @@ export default class StoryForm extends React.Component{
             id="storyBox"
             className="input-story-p"
             innerRef={this.contentEditable}
-            html={this.props.blog.description}
+            html={this.props.blog.draft}
             disabled={false}
             onMouseUp = {this.onTextSelection}
             onChange={this.props.handlePostChange}

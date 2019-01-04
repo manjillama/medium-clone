@@ -18,7 +18,7 @@ export default (props) => {
                   <Link to={`/@${story.blogger.username}/${story.id}`}>
                     <h3>{story.title}</h3>
                     <p className="d-summary text--muted">
-                      {story.desc_summary}...
+                      {story.story_summary}...
                     </p>
                   </Link>
                   <div className="c-info">
@@ -56,7 +56,7 @@ export default (props) => {
         <div className="d--flex flex-sb h-c-wrap">
 
           <div className="main-c" >
-          
+
             <FeaturedStory/>
 
             <div>
