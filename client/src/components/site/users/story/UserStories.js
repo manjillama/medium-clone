@@ -98,13 +98,13 @@ class UserStories extends React.Component {
     if(this.state.showStories === 'drafts'){
       return (
         <Link to={`/p/${blog.id}/edit`}>
-          <h3>{blog.title.length > 0 ? blog.title : 'Untitled Story'}</h3>
+          <h3>{blog.title_draft.length > 0 ? blog.title_draft : 'Untitled Story'}</h3>
         </Link>
       );
     }else{
       return (
         <Link to={`/@${this.props.username}/${blog.id}`}>
-          <h3>{blog.title}</h3>
+          <h3>{blog.title_draft}</h3>
         </Link>
       );
     }

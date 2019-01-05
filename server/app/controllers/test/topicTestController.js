@@ -30,7 +30,7 @@ function topicKeywords(){
       'sexuality', 'spirituality'
     ],
     design: [
-      'art', 'desgin', 'artwork', 'graphic design', 'visual design', 'sketch', 'painting'
+      'art', 'design', 'artwork', 'graphic design', 'visual design', 'sketch', 'painting', 'interior design'
     ],
     health: [
       'biology', 'health', 'neuroscience'

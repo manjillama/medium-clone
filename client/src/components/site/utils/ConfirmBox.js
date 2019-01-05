@@ -38,7 +38,7 @@ ConfirmBox.propTypes = {
   onMount: PropTypes.func,  // This function is executed when dialog box is opened
   text: PropTypes.string.isRequired,
   msg: PropTypes.string.isRequired,
-  actionId: PropTypes.node, // Can to anything to be returned as an arguement
+  actionId: PropTypes.node, // anything to be returned as an arguement
   handleConfirm: PropTypes.func.isRequired
 }
 

@@ -9,7 +9,7 @@ const BlogController  = require('./controllers/blogController');
 const BlogTagController  = require('./controllers/blogTagController');
 const BlogThumbnailController  = require('./controllers/blogThumbnailController');
 const BlogImageController  = require('./controllers/blogImageController');
-
+const UsernameController = require('./controllers/usernameController');
 const StoryController  = require('./controllers/storyController');
 
 const Blogger = require('./models/blogger');
@@ -60,6 +60,14 @@ module.exports = app => {
   app.post('/auth/blog/action/publish/add-tag/:postId',requireJwt, BlogTagController.addBlogTag);
   app.delete('/auth/blog/action/publish/remove-tag/:postId/:tagId',requireJwt, BlogTagController.removeBlogTag);
   app.get('/auth/blog/action/publish/get-tag/:postId',requireJwt, BlogTagController.fetchBlogTag);
+
+  /*
+  * Settings
+  */
+  app.post('/auth/api/user/username-check',requireJwt, UsernameController.checkAvaibility);
+  app.post('/auth/api/user/change-username',requireJwt, UsernameController.changeUsername);
+
+
 
   /*
   * Public Apis

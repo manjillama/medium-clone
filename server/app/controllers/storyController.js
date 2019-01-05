@@ -10,8 +10,10 @@ exports.fetchStory = async (req, res) => {
       published: true,
       id
     },
+    attributes: ['id', 'title', 'story', 'created_at'],
     include: [
       {
+        attributes: ['fullname', 'profile_image', 'username'],
         model: Blogger,
       },
       {

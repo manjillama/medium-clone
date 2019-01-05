@@ -9,13 +9,13 @@ exports.createBlog = (req, res) => {
   // If post alreadt exit then edit post
   const postId = req.body.postId;
   let post = {
-    title: req.body.title,
+    title_draft: req.body.title,
     draft: req.body.post,
     modified_at: config.getUtcTimestamp(),
     blogger_id: req.user.id
   }
 
-  // formData assins null as String idk ...
+  // formData assigns postid as null String ...
   if(postId !== 'null'){
     Blog.findByPk(postId).then(blog => {
       if(blog)
@@ -36,6 +36,8 @@ exports.getBlog = function(req, res){
       id: req.params.id,
       blogger_id: req.user.id
     },
+    attributes: ['id', 'title_draft', 'draft'],
+
     include: [
       {
         model: BlogThumbnail,
@@ -53,7 +55,7 @@ exports.getUserStories = (req, res) => {
   Blog.findAll({
     where: {blogger_id: userId, published},
     order: [['modified_at', 'DESC']],
-    attributes: ['id', 'title', 'created_at', 'modified_at']
+    attributes: ['id', 'title_draft', 'created_at', 'modified_at']
   }).then(blog => {
     return res.json(blog);
   });
@@ -98,6 +100,7 @@ exports.publishBlog = async (req, res) => {
     if(blog){
       blog.update({
         story: blog.draft,
+        title: blog.title_draft,
         published: true,
         story_summary: getBlogSummary(blog.draft)
       });

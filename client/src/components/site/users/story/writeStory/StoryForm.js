@@ -88,7 +88,7 @@ export default class StoryForm extends React.Component{
   render(){
     return (
       <div>
-        <input className="input-story-t" type="text" placeholder="Title" value={this.props.blog.title} onChange={this.props.handleTitleChange}/>
+        <input className="input-story-t" type="text" placeholder="Title" value={this.props.blog.title_draft} onChange={this.props.handleTitleChange}/>
         <div style={{position:'relative'}}>
           {this.renderPostPlaceHolder()}
           <ContentEditable

@@ -11,6 +11,9 @@ const Blog = sequelize.define('blogs', {
   title: {
     type: Sequelize.STRING,
   },
+  title_draft: {
+    type: Sequelize.STRING,
+  },
   draft: {
     type: Sequelize.TEXT,
   },

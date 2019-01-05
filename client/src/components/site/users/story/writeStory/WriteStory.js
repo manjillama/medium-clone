@@ -11,7 +11,7 @@ class WriteStory extends Component{
     this.state = {
       blog: {
         id: null,
-        title: '',
+        title_draft: '',
         draft:''
       },
       savingState: 'onhold',
@@ -46,7 +46,7 @@ class WriteStory extends Component{
       if(path === '/new-story'){
         // User navigated to new story Page
         this.setState({
-          blog: { id: null, title: '', draft:''},
+          blog: { id: null, title_draft: '', draft:''},
           loading: false
         });
       }else{
@@ -76,7 +76,7 @@ class WriteStory extends Component{
 
   handleTitleChange = (e) => {
     this.setState({
-      blog: {...this.state.blog, title: e.target.value}
+      blog: {...this.state.blog, title_draft: e.target.value}
     }, this.saveBlog());
   }
 
@@ -91,7 +91,7 @@ class WriteStory extends Component{
     this.timeout = setTimeout(() => {
 
       let formData = new FormData();
-      formData.append("title", this.state.blog.title);
+      formData.append("title", this.state.blog.title_draft);
       formData.append("post", this.state.blog.draft);
       formData.append("postId", this.state.blog.id);
       this.setState({savingState: 'saving'});

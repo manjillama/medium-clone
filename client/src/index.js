@@ -14,6 +14,7 @@ import App from './components/App';
 import Home from './components/site/topic/Home';
 import Topic from './components/site/topic/Topic';
 import AllTopics from './components/site/topic/AllTopics';
+import Search from './components/site/search/Search';
 
 import About from './components/site/about/About';
 import Settings from './components/site/users/settings/Settings';
@@ -44,6 +45,8 @@ ReactDOM.render(
           <Route exact path="/about" component={About} />
           <Route exact path="/topics" component={AllTopics} />
           <Route exact path="/topic/:topic" component={Topic} />
+          <Route exact path="/search" component={Search} />
+
 
           <Route exact path="/@:username/:storyId" component={ReadStory} />
 

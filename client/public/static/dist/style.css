@@ -32,7 +32,7 @@ a {
   text-decoration: none;
 }
 section{
-  padding: 30px 0 !important;
+  padding: 50px 0 !important;
 }
 hr{
   border: 0;
@@ -149,6 +149,12 @@ hr{
   padding: 0;
   outline: 0;
   cursor: pointer;
+}
+
+button[disabled], button[disabled]:hover {
+  pointer-events: none;
+  opacity: .25;
+  cursor: default;
 }
 
 /*

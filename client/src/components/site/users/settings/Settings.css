@@ -1,3 +1,63 @@
 .p-u-settings h1{
   font-size: 34px;
+  margin-bottom: 20px;
+}
+.p-u-settings .s-block .b-header{
+  border-bottom: 1px solid #ddd;
+  padding: 8px 0;
+}
+
+.p-u-settings .s-block ul{
+  padding: 0;
+}
+
+.p-u-settings .s-block>ul>li{
+  font-size: 15px;
+  padding: 25px 0;
+}
+
+.p-u-settings .s-block ul>li .f-f span{
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.p-u-settings .s-block ul>li input{
+  color: #000;
+  font-size: 14px;
+  height: 26px;
+  max-width: 145px;
+}
+.p-u-settings .s-block ul>li .f-f{
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  margin-bottom: 8px;
+}
+
+.p-u-settings .s-block ul>li button.def{
+  color: rgba(0, 0, 0, 0.54);
+  border: 1px solid rgba(0,0,0,.15);
+}
+
+.p-u-settings .s-block ul>li button.def:hover{
+  color: #000;
+  border: 1px solid #000;
+}
+
+.p-u-settings .s-block ul>li button.m-right{
+  margin-right: 8px;
+}
+.p-u-settings .s-block ul>li> .u-btns span{
+  border: 1px solid #018f69;
+  color: #018f69;
+  padding: 0 15px;
+  line-height: 37px;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-right: 8px;
+  display: inline-block;
 }
