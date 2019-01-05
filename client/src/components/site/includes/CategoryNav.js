@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import './Header.css';
-import { Link } from 'react-router-dom';
 
 class CategoryNav extends Component{
   render(){
     return (
       <div className="main-category-nav">
         <ul className="nav-cate-l list-inline">
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/topic/technology">Tech</Link></li>
-          <li><Link to="/topic/entertainment">Entertainment</Link></li>
-          <li><Link to="/topic/startups">Startups</Link></li>
-          <li><Link to="/topic/industry">Industry</Link></li>
-          <li><Link to="/topic/life">Life</Link></li>
-          <li><Link to="/topic/design">Design</Link></li>
-          <li><Link to="/topic/health">Health</Link></li>
-          <li><Link to="/topic/country">Country</Link></li>
-          <li><Link to="/topic/politics">Politics</Link></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/topic/technology">Tech</a></li>
+          <li><a href="/topic/entertainment">Entertainment</a></li>
+          <li><a href="/topic/startups">Startups</a></li>
+          <li><a href="/topic/industry">Industry</a></li>
+          <li><a href="/topic/life">Life</a></li>
+          <li><a href="/topic/design">Design</a></li>
+          <li><a href="/topic/health">Health</a></li>
+          <li><a href="/topic/country">Country</a></li>
+          <li><a href="/topic/politics">Politics</a></li>
           {
             //<li><Link to="/topics">More</Link></li>
           }

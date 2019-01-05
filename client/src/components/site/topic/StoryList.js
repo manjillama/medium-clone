@@ -2,6 +2,8 @@ import React from 'react';
 import { utcToLocalMin } from 'services/utils';
 import { Link } from 'react-router-dom';
 import './StoryList.css';
+import FeaturedStory from './FeaturedAd/FeaturedStory';
+
 // import FollowTopic from './FollowTopic/FollowTopic';
 
 export default (props) => {
@@ -50,6 +52,7 @@ export default (props) => {
       );
     }
   }
+
   return (
     <div>
       <div className="h-page">
@@ -57,7 +60,7 @@ export default (props) => {
 
           <div className="main-c" >
 
-            <FeaturedStory/>
+            <FeaturedStory topic={props.topic}/>
 
             <div>
               <h4 className="p-t">LATEST</h4>
@@ -99,33 +102,6 @@ function StoryAd(){
         <a href="https://www.ghyampostore.com" rel="noopener noreferrer" target="_blank">
           <img src="/static/images/ghyampo-sidebanner.png" alt="ghyampo store banner"/>
         </a>
-      </div>
-    </div>
-  );
-}
-
-function FeaturedStory(props){
-  return(
-    <div className="t-featured">
-      <article>
-        <h4>FEATURED</h4>
-        <a className="f-img" href="http://threadly.vortexnepal.com/@DuuDoh3v6/1">
-        </a>
-        <h1>
-          <a href="http://threadly.vortexnepal.com/@DuuDoh3v6/1">Guide for writing better stories in Threadly</a>
-        </h1>
-        <p>
-          <a href="http://threadly.vortexnepal.com/@DuuDoh3v6/1">Exciting new update! Threadly now supports text formatting. To get started just select the text you want to format or double click...</a>
-        </p>
-      </article>
-      <div className="d--flex u-ct">
-        <a href="http://threadly.vortexnepal.com/@DuuDoh3v6" className="p-i-wrap">
-          <img src="https://manjiltamang-threadly.s3.ap-south-1.amazonaws.com/1_xG6j0K1DgI1YiAzC1bItZL2s090EYXDQ.jpg" alt="Manjil Tamang"/>
-        </a>
-        <div className="u-w">
-          <a href="http://threadly.vortexnepal.com/@DuuDoh3v6">Manjil Tamang</a>
-          <span>Jan 1st, 2019</span>
-        </div>
       </div>
     </div>
   );

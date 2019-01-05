@@ -44,8 +44,7 @@ export default class ReadStory extends React.Component{
     if(storyImages.length > 0){
       const headerImage = storyImages[0].story_thumb;
       return (
-        <div className="r-h-img">
-          <img className="img-responsive" src={headerImage} alt={this.state.story.title}/>
+        <div className="r-h-img" style={{background: `url(${headerImage})`}}>
         </div>
       );
     }

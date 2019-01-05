@@ -1,7 +1,7 @@
-/* .h-page .main-c{
+.h-page .main-c{
   width: 100%;
-  max-width: 680px;
-} */
+  /* max-width: 680px; */
+}
 
 .h-page .main-c h4.p-t{
   border-bottom: 1px solid #ccc;
@@ -35,7 +35,6 @@
 }
 .main-c .t-featured a.f-img{
   height: 382px;
-  background-image: url(https://manjiltamang-threadly.s3.ap-south-1.amazonaws.com/1_as5gKw5DiziF0UvbJHSvyW13gd1urYt7.jpg);
   display: block;
   margin-top: 14px;
   background-position: 49% 39%;
