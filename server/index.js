@@ -3,6 +3,7 @@
 * Uncomment for production mode
 */
 // process.env.MODE = 'PRODUCTION';
+const esClient = require('./app/config/es-config');
 
 const express = require('express');
 const path = require('path');
@@ -17,10 +18,21 @@ const fileUpload = require('express-fileupload');
 
 const config = require('./app/config/config');
 
+esClient.ping({
+  requestTimeout: 30000,
+}, function (error) {
+  if (error) {
+    console.error('Dev elasticsearch cluster is down!');
+  } else {
+    console.log('Elastic cluster up and running...');
+  }
+});
+
 sequelize
   .authenticate()
   .then(() => {
     console.log('Postgres connection has been established successfully.');
+    console.log('---------------------------------');
     // Auto create table if not already exist
     createDDL();
     createRelationships();
@@ -42,5 +54,7 @@ router(app);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, function(){
+  console.log('---------------------------------');
   console.log(`Server started on port ${PORT}...`);
+  console.log('---------------------------------');
 });
