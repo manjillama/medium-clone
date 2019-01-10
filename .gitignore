@@ -33,3 +33,4 @@ server/*.git
 
 # Production server configs
 prodEnvs.js
+es-config.js

@@ -121,7 +121,7 @@ class Settings extends React.Component {
                   <span>{config.BASE_URL}/@</span>
                   {
                     this.state.editMode ?
-                    (<input maxLength="30" value={this.state.username} onChange={this.onInputChange}/>)
+                    (<input maxLength="30" value={this.state.username} onChange={this.onInputChange} autoComplete="off"/>)
                     :
                     (<input maxLength="30" disabled value={this.state.username}/>)
                   }

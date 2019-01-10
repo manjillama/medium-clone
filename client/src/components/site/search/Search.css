@@ -8,3 +8,10 @@
   padding: 0;
   width: 100%;
 }
+
+@media (max-width: 728px){
+  .p-search .text-input{
+    font-size: 26px;
+    height: 52px;
+  }
+}

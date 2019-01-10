@@ -13,7 +13,7 @@ exports.fetchStory = async (req, res) => {
     attributes: ['id', 'title', 'story', 'created_at'],
     include: [
       {
-        attributes: ['fullname', 'profile_image', 'username'],
+        attributes: ['fullname', 'profile_image', 'username', 'bio'],
         model: Blogger,
       },
       {

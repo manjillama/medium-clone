@@ -56,7 +56,7 @@ export default class FeaturedStory extends React.Component{
             </p>
           </article>
           <div className="d--flex u-ct">
-            <a href={`http://threadly.vortexnepal.com/@${story.blogger.username}/${story.id}`} className="p-i-wrap">
+            <a href={`http://threadly.vortexnepal.com/@${story.blogger.username}`} className="p-i-wrap">
               <img src={story.blogger.profile_image} alt="Manjil Tamang"/>
             </a>
             <div className="u-w">

@@ -37,6 +37,7 @@
 .p-u-settings .s-block ul>li button.def{
   color: rgba(0, 0, 0, 0.54);
   border: 1px solid rgba(0,0,0,.15);
+  margin-top: 6px;
 }
 
 .p-u-settings .s-block ul>li button.def:hover{
