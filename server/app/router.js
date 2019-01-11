@@ -1,6 +1,7 @@
 /**************** TEST CONTROLLERS *******************************************/
 const TestController = require('./controllers/test/testController');
 const TopicTestController = require('./controllers/test/topicTestController');
+const CreateIndex = require('./services/elastic-search/CreateIndex');
 /****************************************************************************/
 const HomeController = require('./controllers/homeController');
 const Authentication  = require('./controllers/authentication');
@@ -83,6 +84,11 @@ module.exports = app => {
   app.get('/test-tags', TestController.findUserStoryBlogTags);
   app.get('/test-stories', TestController.findAllStories);
   app.get('/test-topic/:topic', TopicTestController.findByTopic);
+
+  /*
+  * Test elastic search
+  */
+  app.get('/api/search/dev/create-index', CreateIndex);
 
 
   app.get('/unauthenticated', function(req, res){res.json({error: "Authentication Failed"})});

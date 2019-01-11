@@ -72,11 +72,12 @@ class ProfileEdit extends Component{
   }
 
   onSubmit = formProps => {
+    console.log(formProps);
     this.setState({formSubmitting: true});
 
     let formData = new FormData();
     Object.keys( formProps ).forEach( key => {
-      if(formProps[key]) // Don't send properties whose value is null
+      //if(formProps[key]) // Don't send properties whose value is null
         formData.append(key, formProps[key]);
     });
 

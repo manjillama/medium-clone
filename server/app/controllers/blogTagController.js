@@ -1,5 +1,6 @@
 const BlogTag = require('../models/blogTag');
 const Blog = require('../models/blog');
+const blogEs = require('../services/elastic-search/blogEs');
 
 exports.addBlogTag = (req, res) => {
   const tag = req.body.tag;
@@ -18,6 +19,10 @@ exports.addBlogTag = (req, res) => {
         blog_id: postId
       }
       BlogTag.create(tagObj).then(blogTag => {
+        /* Indexing on elastic search */
+        if(blog.published)
+          blogEs.postBlog(req.user.id);
+
         BlogTag.findAll({
           where: {
             blog_id: postId
@@ -47,6 +52,10 @@ exports.removeBlogTag = (req, res) => {
           id: tagId
         }
       }).then(() => {
+        /* Indexing on elastic search */
+        if(blog.published)
+          blogEs.postBlog(req.user.id);
+
         BlogTag.findAll({
           where: {
             blog_id: postId

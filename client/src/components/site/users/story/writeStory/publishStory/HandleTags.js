@@ -43,17 +43,20 @@ class HandleTags extends React.Component{
       // Checking for comma
       if (val.indexOf(',') !== -1) {
         const tag = val.split(',')[0];
-        this.handleTagAdd(tag);
-        this.setState({inputText: ''});
+        if(tag !== ""){ // If not empty
+          this.handleTagAdd(tag);
+          this.setState({inputText: ''});
+        }
       }
     });
   }
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.setState({inputText: ''});
-    this.handleTagAdd(this.state.inputText);
-    this.setState({inputText: ''});
+    if (this.state.inputText !== "") { // If not empty
+      this.handleTagAdd(this.state.inputText);
+      this.setState({inputText: ''});
+    }
   }
 
   renderTags(){

@@ -3,7 +3,7 @@
 * Uncomment for production mode
 */
 // process.env.MODE = 'PRODUCTION';
-const esClient = require('./app/config/es-config');
+const esConfig = require('./app/config/es-config');
 
 const express = require('express');
 const path = require('path');
@@ -18,7 +18,7 @@ const fileUpload = require('express-fileupload');
 
 const config = require('./app/config/config');
 
-esClient.ping({
+esConfig.client.ping({
   requestTimeout: 30000,
 }, function (error) {
   if (error) {

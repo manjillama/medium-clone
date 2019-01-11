@@ -1,5 +1,6 @@
 const Blog = require('../models/blog');
 const BlogThumbnail = require('../models/blogThumbnail');
+const blogEs = require('../services/elastic-search/blogEs');
 
 const sharp = require('sharp');
 var sizeOf = require('image-size');
@@ -24,13 +25,18 @@ exports.uploadThumbnail = async (req, res) => {
       if(imageService.validateImage(storyImage)){ //Validating image
 
         await uploadStoryThumbnail(storyImage, blog);  //uploading thumbnail
-        uploadStoryImage(storyImage, blog); // uploading true size image
+        uploadStoryImage(storyImage, blog, () => {// uploading true size image
+          /* Indexing on elastic search */
+          if(blog.published)
+            blogEs.postBlog(req.user.id);
+        });
 
         return BlogThumbnail.findAll({
           where: {
             blog_id: blog.id
           }
         }).then(blogThumbnails => {
+
           return res.json(blogThumbnails);
         });
       }
@@ -67,14 +73,16 @@ async function uploadStoryThumbnail(storyImage, blog){
   })
 }
 
-async function uploadStoryImage(storyImage, blog){
+async function uploadStoryImage(storyImage, blog, callback){
 
   const story_thumb = await imageService.saveImage(blog.blogger_id, storyImage.data);
 
   await BlogThumbnail.create({
     story_thumb,
     blog_id: blog.id
-  })
+  });
+
+  callback();
 }
 
 
@@ -115,9 +123,13 @@ exports.removeThumbnail = (req, res) => {
         where: {
           blog_id: postId
         }
+      }).then(()=>{
+        /* Indexing on elastic search */
+        if(blog.published)
+          blogEs.postBlog(req.user.id);
       });
 
     }
   });
-
+  res.send("ok");
 }

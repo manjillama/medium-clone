@@ -1,4 +1,5 @@
 const Blogger = require('../models/blogger');
+const bloggerEs = require('../services/elastic-search/bloggerEs');
 
 exports.checkAvaibility = (req, res) => {
   const {username} = req.body;
@@ -17,6 +18,10 @@ exports.changeUsername = (req, res) => {
     if(blogger){
       blogger.update({
         username
+      })
+      .then(() => {
+        /* Elastic search indexing */
+        bloggerEs.updateBloggerUsername(id, username);
       })
       .catch( err =>{
         res.status(500);

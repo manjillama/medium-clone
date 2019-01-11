@@ -4,6 +4,7 @@ const BlogThumbnail = require('../models/blogThumbnail');
 const BlogImage = require('../models/blogImage');
 const config = require('../config/config');
 const imageService = require('../services/imageService');
+const blogEs = require('../services/elastic-search/blogEs');
 
 exports.createBlog = (req, res) => {
   // If post alreadt exit then edit post
@@ -89,12 +90,12 @@ function getBlogSummary(desc){
 exports.publishBlog = async (req, res) => {
   const file = req.files;
 
-  const userId = req.user.id;
+  const bloggerId = req.user.id;
 
   await Blog.findOne({
     where: {
       id: req.params.id,
-      blogger_id: req.user.id
+      blogger_id: bloggerId
     }
   }).then(blog => {
     if(blog){
@@ -103,6 +104,9 @@ exports.publishBlog = async (req, res) => {
         title: blog.title_draft,
         published: true,
         story_summary: getBlogSummary(blog.draft)
+      }).then(()=>{
+        /* Indexing on elastic search */
+        blogEs.postBlog(bloggerId);
       });
     }
   });
@@ -142,7 +146,10 @@ exports.deleteBlog = async (req, res) => {
       });
 
       // Delete story
-      return blog.destroy();
+      return blog.destroy().then(()=>{
+        /* Indexing on elastic search */
+        blogEs.postBlog(req.user.id);
+      });
     }
   });
   res.status(200).send("Ok");
