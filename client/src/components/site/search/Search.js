@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Stories from './Stories';
 import People from './People';
 import { fetchStories, fetchPeople } from 'services/searchService';
+const queryString = require('query-string');
 
 export default class Search extends React.Component {
   constructor(){
@@ -11,33 +12,49 @@ export default class Search extends React.Component {
     this.state = {
       stories:[],
       people: [],
+      query: ''
     }
   }
 
   componentDidMount(){
     // To delay blog data send
     this.timeout =  0;
-    // fetchStories('cat sam').then(res => {
-    //   console.log(res.data);
-    // });
+
+    /*
+    * If query string is present in url i.e. /users?q=tamang
+    */
+    const parsed = queryString.parse(this.props.history.location.search);
+    const query = parsed.q;
+    if(query){
+      this.setState({query});
+      this.fetchSearchData(query);
+    }
   }
 
   onSearch = e => {
     e.preventDefault();
-    const query = e.target.value;
-    if(this.timeout) clearTimeout(this.timeout);
-    this.timeout = setTimeout(() => {
-      if(query !== ''){ // if input is not empty
-        fetchStories(query).then(res => {
-          this.setState({stories: res.data})
-        });
-        fetchPeople(query).then(res => {
-          this.setState({people: res.data})
-        });
-      }else{
-        this.setState({ stories:[], people:[] });
-      }
-    }, 800);
+    this.setState({query:e.target.value}, () => {
+      if(this.timeout) clearTimeout(this.timeout);
+      this.timeout = setTimeout(() => {
+        const {query} = this.state;
+        if(query !== ''){ // if input is not empty
+          this.fetchSearchData(query);
+          this.props.history.push(`${this.props.history.location.pathname}?q=${query}`);
+        }else{
+          this.setState({ stories:[], people:[] });
+          this.props.history.push(this.props.history.location.pathname);
+        }
+      }, 800);
+    });
+  }
+
+  fetchSearchData(query){
+    fetchStories(query).then(res => {
+      this.setState({stories: res.data})
+    });
+    fetchPeople(query).then(res => {
+      this.setState({people: res.data})
+    });
   }
 
   __renderContent(url){
@@ -50,21 +67,35 @@ export default class Search extends React.Component {
       }
   }
 
+  _renderTabs(){
+    if(this.state.query === ''){
+      return (
+        <ul className="list-inline">
+          <li><Link to="/search">Stories</Link></li>
+          <li><Link to="/search/users">People</Link></li>
+        </ul>
+      );
+    }else{
+      return (
+        <ul className="list-inline">
+          <li><Link to={`/search?q=${this.state.query}`}>Stories</Link></li>
+          <li><Link to={`/search/users?q=${this.state.query}`}>People</Link></li>
+        </ul>
+      );
+    }
+  }
 
   render(){
     const url = this.props.location.pathname;
     return (
       <section className="mjl-container p-search">
         <form onSubmit={this.onSearch}>
-          <input autoComplete="off" placeholder="Search Threadly" onChange={this.onSearch} className="text-input"/>
+          <input value={this.state.query} autoComplete="off" placeholder="Search Threadly" onChange={this.onSearch} className="text-input"/>
         </form>
 
         <div className="s-wrapper">
           <nav>
-            <ul className="list-inline">
-              <li><Link to="/search">Stories</Link></li>
-              <li><Link to="/search/users">People</Link></li>
-            </ul>
+            {this._renderTabs()}
           </nav>
 
           <div className="s-content d--flex">
