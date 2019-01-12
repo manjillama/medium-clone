@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
                 title: { type: "text" },
                 story_summary: { enabled: false },
                 created_at: {enabled: false},
-                story_thumbnails: {enabled: false}
+                story_thumbnail: {enabled: false}
               }
             }
           }

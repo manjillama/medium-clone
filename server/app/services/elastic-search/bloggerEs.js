@@ -11,7 +11,9 @@ exports.createBlogger = async (blogger) => {
     id: blogger.id,
     body: {
       fullname: blogger.fullname,
-      username: blogger.username
+      username: blogger.username,
+      bio: null,
+      profile_image: null
     }
   });
 }

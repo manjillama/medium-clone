@@ -47,19 +47,19 @@ exports.postBlog = async (bloggerId) => {
         story_summary,
         created_at
       }
-      
+
       let esBlogTags = [];
-      let esBlogThumbnails = [];
+      let esBlogThumbnail;
 
       blogTags.forEach(blogTag => {
         esBlogTags.push(blogTag.tag);
       });
 
       blogThumbnails.forEach(blogThumbnail => {
-        esBlogThumbnails.push(blogThumbnail.story_thumb);
+        esBlogThumbnail = blogThumbnail.story_thumb;
       });
       blogObj.tags = esBlogTags;
-      blogObj.story_thumbnails = esBlogThumbnails;
+      blogObj.story_thumbnail = esBlogThumbnail;
       esBlogs.push(blogObj);
     });
 
