@@ -17,8 +17,8 @@
 }
 
 .p-search .s-content .s-adv {
-    padding-left: 30px;
-    max-width: 300px;
+  padding-left: 30px;
+  max-width: 300px;
 }
 
 /*
@@ -32,11 +32,17 @@
   border-bottom: 1px solid rgba(0,0,0,.15);
 }
 
-.p-search .p-c .people-c img{
+.p-search .p-c .people-c .usr--img{
   height: 60px;
+  width: 60px;
   border-radius: 50%;
   background: #018f69;
   text-align: center;
+}
+.p-search .p-c .people-c .usr--img span{
+  line-height: 55px;
+  color: #fff;
+  font-weight: 600;
 }
 .p-search .people-c .p-a{
   padding-left: 15px;
@@ -76,6 +82,7 @@
 }
 .p-search .s-content .user--img {
   height: 36px;
+  display: inline-block;
   width: 36px;
   border-radius: 50%;
   background: #018f69;
@@ -85,6 +92,7 @@
   background-size: cover!important;
   background-position: 50% 50%;
   margin: 25px 0;
+  display: block;
   height: 200px;
 }
 

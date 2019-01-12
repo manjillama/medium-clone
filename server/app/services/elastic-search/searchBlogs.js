@@ -23,6 +23,7 @@ exports.searchBlogs = async (req, res) => {
           },
           inner_hits: {
             _source: [
+              "blogs.id",
               "blogs.title",
               "blogs.story_summary",
               "blogs.created_at",
@@ -61,9 +62,9 @@ exports.searchBlogs = async (req, res) => {
 
       let stories = [];
       hit.inner_hits.blogs.hits.hits.forEach(innerHit => {
-        const {title, story_summary, created_at, story_thumbnail} = innerHit._source;
+        const {id, title, story_summary, created_at, story_thumbnail} = innerHit._source;
         const innerHitObj = {
-          title, story_summary, created_at, story_thumbnail
+          id, title, story_summary, created_at, story_thumbnail
         }
         stories.push(innerHitObj);
       });

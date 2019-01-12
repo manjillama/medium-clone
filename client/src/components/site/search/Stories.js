@@ -1,65 +1,61 @@
 import React from 'react';
 
-export default () => {
-  const backgroundImage = 'https://manjiltamang-threadly.s3.ap-south-1.amazonaws.com/1_FXta44aycRPHPxDkFssi3IgOxIUXuoki.jpg';
-
+export default (props) => {
   return (
     <div className="s-c">
-
-      <div>
-        <div style={{margin: `${20}px ${0}`}}>
-          <img className="user--img"
-            src="https://manjiltamang-threadly.s3.ap-south-1.amazonaws.com/1_xG6j0K1DgI1YiAzC1bItZL2s090EYXDQ.jpg"
-            alt="Manjil Tamang"/>
-          <div className="user-i">
-            <a href="/">Manjil Tamang</a>
-            <span className="text--muted">Jan 19, 2017</span>
-          </div>
-        </div>
-        <div className="s-story">
-          <div className="story-box" style={{backgroundImage: `url(${backgroundImage})`}}>
-          </div>
-          <article>
-            <h2>So long MVP. Hello Minimum Loveable Product.</h2>
-            <p className="text--muted">
-              Key Findings:Most common question which I had during my research on Elastic Search.1. Why Elasticsearch?A. The answer is simple, t...
-            </p>
-          </article>
-        </div>
-        <div className="s-story">
-          <div className="story-box" style={{backgroundImage: `url(${backgroundImage})`}}>
-          </div>
-          <article>
-            <h2>So long MVP. Hello Minimum Loveable Product.</h2>
-            <p className="text--muted">
-              Key Findings:Most common question which I had during my research on Elastic Search.1. Why Elasticsearch?A. The answer is simple, t...
-            </p>
-          </article>
-        </div>
-      </div>
-
-      <div>
-        <div style={{margin: `${15}px ${0}`}}>
-          <img className="user--img"
-            src="https://manjiltamang-threadly.s3.ap-south-1.amazonaws.com/1_xG6j0K1DgI1YiAzC1bItZL2s090EYXDQ.jpg"
-            alt="Manjil Tamang"/>
-          <div className="user-i">
-            <a href="/">Manjil Tamang</a>
-            <span className="text--muted">Jan 19, 2017</span>
-          </div>
-        </div>
-        <div className="s-story">
-          <div className="story-box" style={{backgroundImage: `url(${backgroundImage})`}}>
-          </div>
-          <article>
-            <h2>So long MVP. Hello Minimum Loveable Product.</h2>
-            <p className="text--muted">
-              Key Findings:Most common question which I had during my research on Elastic Search.1. Why Elasticsearch?A. The answer is simple, t...
-            </p>
-          </article>
-        </div>
-      </div>
-
+      {renderStories(props.stories)}
     </div>
   );
+}
+
+function renderStories(stories){
+  return stories.map(story => {
+    return (
+      <div key={story.username}>
+        <div style={{margin: `${20}px ${0}`}}>
+          {_renderProfileImage(story)}
+          <div className="user-i">
+            <a href={`/@${story.username}`}>{story.fullname}</a>
+            <span>{story.bio}</span>
+          </div>
+        </div>
+        {renderInnerStories(story.stories, story.username)}
+      </div>
+    );
+  })
+}
+
+function renderInnerStories(stories, username){
+  return stories.map((story) => {
+    const backgroundImage = story.story_thumbnail;
+    return (
+      <div className="s-story" key={story.id}>
+        <a href={`/@${username}/${story.id}`} className="story-box" style={{backgroundImage: `url(${backgroundImage})`}}>
+        </a>
+        <article>
+          <h2>{story.title}</h2>
+          <p className="text--muted">
+            {story.story_summary}
+          </p>
+        </article>
+      </div>
+    );
+  })
+}
+
+function _renderProfileImage(story){
+  if(story.profile_image){
+    return (
+      <a href={`/@${story.username}`}>
+        <img className="user--img" src={story.profile_image} alt={story.fullname}/>
+      </a>
+    );
+  }else{
+    const initial = story.fullname.charAt(0);
+    return (
+      <a href={`/@${story.username}`}>
+        <div className="user--img"><span>{initial}</span></div>
+      </a>
+    );
+  }
 }

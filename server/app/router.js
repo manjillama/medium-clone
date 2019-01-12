@@ -93,7 +93,7 @@ module.exports = app => {
   */
   app.get('/api/search/dev/create-index', CreateIndex);
   app.get('/api/search/stories/:q', SearchBlogs.searchBlogs);
-  app.get('/api/search/writers/:q', SearchWriters.searchWriters);
+  app.get('/api/search/people/:q', SearchWriters.searchWriters);
 
 
   app.get('/unauthenticated', function(req, res){res.json({error: "Authentication Failed"})});

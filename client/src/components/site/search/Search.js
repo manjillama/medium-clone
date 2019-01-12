@@ -3,21 +3,41 @@ import './Search.css';
 import { Link } from 'react-router-dom';
 import Stories from './Stories';
 import People from './People';
-import { fetchStories } from 'services/searchService';
+import { fetchStories, fetchPeople } from 'services/searchService';
 
 export default class Search extends React.Component {
   constructor(){
     super();
     this.state = {
       stories:[],
-      people: []
+      people: [],
     }
   }
 
   componentDidMount(){
-    fetchStories('cat sam').then(res => {
-      console.log(res.data);
-    });
+    // To delay blog data send
+    this.timeout =  0;
+    // fetchStories('cat sam').then(res => {
+    //   console.log(res.data);
+    // });
+  }
+
+  onSearch = e => {
+    e.preventDefault();
+    const query = e.target.value;
+    if(this.timeout) clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      if(query !== ''){ // if input is not empty
+        fetchStories(query).then(res => {
+          this.setState({stories: res.data})
+        });
+        fetchPeople(query).then(res => {
+          this.setState({people: res.data})
+        });
+      }else{
+        this.setState({ stories:[], people:[] });
+      }
+    }, 800);
   }
 
   __renderContent(url){
@@ -30,16 +50,13 @@ export default class Search extends React.Component {
       }
   }
 
-  handleOnSubmit = (e) => {
-    e.preventDefault();
-  }
 
   render(){
     const url = this.props.location.pathname;
     return (
       <section className="mjl-container p-search">
-        <form onSubmit={this.handleOnSubmit}>
-          <input autoComplete="off" placeholder="Search Threadly" className="text-input"/>
+        <form onSubmit={this.onSearch}>
+          <input autoComplete="off" placeholder="Search Threadly" onChange={this.onSearch} className="text-input"/>
         </form>
 
         <div className="s-wrapper">

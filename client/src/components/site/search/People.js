@@ -1,26 +1,42 @@
 import React from 'react';
 
-export default () => {
-
+export default (props) => {
   return (
     <div className="p-c">
-
-      <div className="people-c d--flex">
-        <img src="https://manjiltamang-threadly.s3.ap-south-1.amazonaws.com/2_VebOKyLW92bEfnUXJpFQi91ZX7Tj4hbU.jpg" alt="Manjil Tamang"/>
-        <div className="p-a">
-          <h3>Manjil Tamang</h3>
-          <p>Hello Guys! I’m a high school counselor and Internet Savvy. I Saw this http://www.norsk-kjokkenfornying.no which caught my attention and I want it to share to e</p>
-        </div>
-      </div>
-
-      <div className="people-c d--flex">
-        <img src="https://manjiltamang-threadly.s3.ap-south-1.amazonaws.com/2_VebOKyLW92bEfnUXJpFQi91ZX7Tj4hbU.jpg" alt="Manjil Tamang"/>
-        <div className="p-a">
-          <h3>Manjil Tamang</h3>
-          <p>Hello Guys! I’m a high school counselor and Internet Savvy. </p>
-        </div>
-      </div>
-
+      {renderPeople(props.people)}
     </div>
   );
+}
+
+function renderPeople(people){
+  return people.map(person => {
+    return (
+      <div key={person.id} className="people-c d--flex">
+        {_renderProfileImage(person)}
+        <div className="p-a">
+          <a href={`/@${person.username}`}>
+            <h3>{person.fullname}</h3>
+          </a>
+          <p>{person.bio}</p>
+        </div>
+      </div>
+    );
+  });
+}
+
+function _renderProfileImage(person){
+  if(person.profile_image){
+    return (
+      <a href={`/@${person.username}`}>
+        <img className="usr--img" src={person.profile_image} alt={person.fullname}/>
+      </a>
+    );
+  }else{
+    const initial = person.fullname.charAt(0);
+    return (
+      <a href={`/@${person.username}`}>
+        <div className="usr--img"><span>{initial}</span></div>
+      </a>
+    );
+  }
 }
