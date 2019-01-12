@@ -8,10 +8,102 @@
   padding: 0;
   width: 100%;
 }
+.p-search .s-wrapper nav{
+  margin: 25px 0;
+}
+.p-search .s-wrapper nav li a{
+  font-size: 13px;
+  color: rgba(0,0,0,.54);
+}
+
+.p-search .s-content .s-adv {
+    padding-left: 30px;
+    max-width: 300px;
+}
+
+/*
+* People
+*/
+.p-search .s-content .p-c{
+  width: 100%;
+}
+.p-search .p-c .people-c{
+  padding: 25px 0;
+  border-bottom: 1px solid rgba(0,0,0,.15);
+}
+
+.p-search .p-c .people-c img{
+  height: 60px;
+  border-radius: 50%;
+  background: #018f69;
+  text-align: center;
+}
+.p-search .people-c .p-a{
+  padding-left: 15px;
+}
+.p-search .people-c .p-a p{
+  font-size: 13px;
+}
+
+
+/*
+* Stories
+*/
+.p-search .s-content .s-c{
+  width: 100%;
+}
+
+.p-search .s-c .s-story{
+  border-bottom: 1px solid rgba(0,0,0,.0785)!important;
+  padding-bottom: 20px;
+}
+
+.p-search .s-content .s-c .user-i{
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 10px;
+}
+
+.p-search .s-story article p{
+  font-size: 13px;
+}
+.p-search .s-content .s-c .user-i>*{
+  display: block;
+  font-size: 12px;
+}
+.p-search .s-content .s-c .user-i>a{
+  color: #018f69;
+}
+.p-search .s-content .user--img {
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  background: #018f69;
+  text-align: center;
+}
+.p-search .s-content .story-box{
+  background-size: cover!important;
+  background-position: 50% 50%;
+  margin: 25px 0;
+  height: 200px;
+}
+
+/*
+* Adv
+*/
+
+.p-search .s-wrapper .adv-t{
+  font-size: 12px;
+  margin-bottom: 15px;
+  display: block;
+}
 
 @media (max-width: 728px){
   .p-search .text-input{
     font-size: 26px;
     height: 52px;
+  }
+  .p-search .s-adv{
+    display: none;
   }
 }
