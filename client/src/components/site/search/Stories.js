@@ -28,10 +28,12 @@ function renderStories(stories){
 function renderInnerStories(stories, username){
   return stories.map((story) => {
     const backgroundImage = story.story_thumbnail;
+    console.log(backgroundImage);
     return (
       <div className="s-story" key={story.id}>
-        <a href={`/@${username}/${story.id}`} className="story-box" style={{backgroundImage: `url(${backgroundImage})`}}>
-        </a>
+        {(backgroundImage &&
+          <a href={`/@${username}/${story.id}`} className="story-box" style={{backgroundImage: `url(${backgroundImage})`}}>
+          </a>)}
         <article>
           <h2>{story.title}</h2>
           <p className="text--muted">

@@ -5,7 +5,6 @@ var randomstring = require("randomstring");
 
 const bcrypt = require('bcrypt');
 const jwt = require('jwt-simple');
-const esBlogger = require('../services/elastic-search/bloggerEs');
 
 /*
 * Generating token for user
@@ -56,10 +55,6 @@ exports.signUp = (req, res) => {
         .then(() => {
           Blogger.create(blogger)
           .then((bloggerRes) => {
-            /*
-            * Index user to elastic search
-            */
-            esBlogger.createBlogger(bloggerRes);
             // Deleting user password from user object
             delete user.password;
             // Respond to request indicating the user was created

@@ -3,7 +3,6 @@ const sharp = require('sharp'); // https://github.com/lovell/sharp
 const config = require('../config/config');
 var fs = require('fs');
 const imageService = require('../services/imageService');
-const bloggerEs = require('../services/elastic-search/bloggerEs');
 
 exports.updateBloggerInfo = (req, res) => {
   const bloggerId = req.user.id;
@@ -37,15 +36,13 @@ exports.updateBloggerInfo = (req, res) => {
       /*
       * Issue: null value gets converted into string 'null' when sent from client
       */
-      if(req.body.bio === 'null')
+      console.log(req.body.bio);
+      if(req.body.bio === 'null' || req.body.bio === '')
         bloggerData.bio = null;
       if(profileImageUrl === 'null')
         bloggerData.profile_image = null;
 
-      blogger.update(bloggerData).then((res) => {
-        /* Elastic search indexing */
-        bloggerEs.updateBlogger(res);
-      })
+      blogger.update(bloggerData)
       .catch( err =>{
         res.status(500);
       });

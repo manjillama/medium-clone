@@ -81,7 +81,7 @@ async function uploadStoryImage(storyImage, blog, callback){
     story_thumb,
     blog_id: blog.id
   });
-
+  /* Elastic search callback */
   callback();
 }
 

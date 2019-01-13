@@ -1,7 +1,9 @@
 /**************** TEST CONTROLLERS *******************************************/
 const TestController = require('./controllers/test/testController');
 const TopicTestController = require('./controllers/test/topicTestController');
-const CreateIndex = require('./services/elastic-search/CreateIndex');
+const CreateSchema = require('./services/elastic-search/dev/createSchema');
+const Reindex = require('./services/elastic-search/dev/reindex');
+
 const SearchBlogs = require('./services/elastic-search/searchBlogs');
 const SearchWriters = require('./services/elastic-search/searchWriters');
 
@@ -91,7 +93,9 @@ module.exports = app => {
   /*
   * Test elastic search
   */
-  app.get('/api/search/dev/create-index', CreateIndex);
+  app.get('/auth/api/search/dev/create-schema', CreateSchema);
+  app.get('/auth/api/search/dev/reindex', Reindex);
+
   app.get('/api/search/stories/:q', SearchBlogs.searchBlogs);
   app.get('/api/search/people/:q', SearchWriters.searchWriters);
 

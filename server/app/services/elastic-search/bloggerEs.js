@@ -1,7 +1,7 @@
 const esConfig = require('../../config/es-config');
 const client = esConfig.client;
 
-exports.createBlogger = async (blogger) => {
+exports.createBlogger = (blogger) => {
   /*
   * Indexing blogger to elastic search
   */
@@ -21,8 +21,8 @@ exports.createBlogger = async (blogger) => {
 /*
 * When blogger info is updated
 */
-exports.updateBlogger = async (blogger) => {
-  const {id, fullname, bio, profile_image} = blogger;
+exports.updateBlogger = (blogger) => {
+  const {id, fullname, bio, profile_image, username} = blogger;
 
   client.update({
     index: esConfig.index,
@@ -32,22 +32,7 @@ exports.updateBlogger = async (blogger) => {
       doc: {
         fullname,
         bio,
-        profile_image
-      }
-    }
-  });
-}
-
-/*
-* when blogger username is updated
-*/
-exports.updateBloggerUsername = async (bloggerId, username) => {
-  client.update({
-    index: esConfig.index,
-    type: esConfig.type,
-    id: bloggerId,
-    body: {
-      doc: {
+        profile_image,
         username
       }
     }

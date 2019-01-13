@@ -1,5 +1,6 @@
 const sequelize = require('../config/dbConnection.js');
 const Sequelize = require('sequelize');
+const bloggerEs = require('../services/elastic-search/bloggerEs');
 
 const Blogger = sequelize.define('bloggers', {
   id: {
@@ -24,7 +25,11 @@ const Blogger = sequelize.define('bloggers', {
   }
 }, {
   // creates table in database in snake_case
-  underscored: true
+  underscored: true,
+  hooks: {
+    afterCreate: bloggerEs.createBlogger,
+    afterUpdate: bloggerEs.updateBlogger
+  }
 });
 
 module.exports = Blogger;

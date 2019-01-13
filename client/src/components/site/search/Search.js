@@ -23,7 +23,19 @@ export default class Search extends React.Component {
     /*
     * If query string is present in url i.e. /users?q=tamang
     */
-    const parsed = queryString.parse(this.props.history.location.search);
+    this._searchInitializer(this.props.history.location.search);
+
+  }
+
+  componentWillReceiveProps(nextProps){
+    /*
+      When user navigate forward and backward from browser
+    */
+    this._searchInitializer(nextProps.history.location.search);
+  }
+
+  _searchInitializer(qString){
+    const parsed = queryString.parse(qString);
     const query = parsed.q;
     if(query){
       this.setState({query});

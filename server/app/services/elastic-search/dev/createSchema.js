@@ -1,4 +1,4 @@
-const esConfig = require('../../config/es-config');
+const esConfig = require('../../../config/es-config');
 const client = esConfig.client;
 
 /*
@@ -37,6 +37,6 @@ module.exports = async (req, res) => {
         }
       }
     }
-  });
+  }).catch(()=> "Schema already created.");
   res.send(response);
 }

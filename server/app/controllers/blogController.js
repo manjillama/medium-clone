@@ -147,7 +147,7 @@ exports.deleteBlog = async (req, res) => {
 
       // Delete story
       return blog.destroy().then(()=>{
-        /* Indexing on elastic search */
+        /* Re-indexing on elastic search */
         blogEs.postBlog(req.user.id);
       });
     }
