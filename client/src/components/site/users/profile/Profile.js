@@ -52,7 +52,8 @@ class Profile extends Component{
 
   renderProfileImage(){
     if(this.state.blogger.profile_image){
-      return <img className="user--pp" src={this.state.blogger.profile_image} alt={this.state.blogger.fullname}/>;
+      const d = new Date();
+      return <img className="user--pp" src={this.state.blogger.profile_image+'?cache='+d.getTime()} alt={this.state.blogger.fullname}/>;
     }else{
       const initial = this.state.blogger.fullname.charAt(0);
       return <div className="user--pp">{initial}</div>;

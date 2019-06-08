@@ -5,7 +5,6 @@ import axios from 'axios';
 export const signUp = (formProps, callback) => async dispatch => {
   try{
     const response = await axios.post(config.SERVER_URL+'signup', formProps);
-    console.log(response);
     if(response.data.error)
       throw new Error('Email already taken');
 
@@ -24,7 +23,7 @@ export const signIn = (formProps, callback) => async dispatch => {
   try{
     const response = await axios.post(config.SERVER_URL+'signin', formProps);
     if(response.data.error)
-      throw new Error('Incorrent username or password');
+      throw new Error('Incorrect username or password');
 
     dispatch({type: AUTH_USER, payload: response.data});
 

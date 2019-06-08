@@ -8,10 +8,7 @@ export default class Contact extends React.Component{
         <article>
           <h1>Be Influential and Get Influenced! Welcome to Threadly.</h1>
           <p>
-            It wouldn't be an overstatement to say Nepal, as a country is undoubtedly one of the least developed nation gasping to catch up with rest of the world.
-            I personally don't believe its because of lack of talent among Nepalese people.
-            Talent doesn't necessarily comes with birth but something that's forged out of an individual with years of training.
-            Here at Threadly, we firmly believe that.
+            Who really aren't visionaries? We all dream of changing the world or community for the betterment. But being a visionary and strong will only takes a person so far. <b>WE ALL NEED A TEAM TO MAKE IT WORK! A Paul Allen for Bill Gates, Steve Wozniak for Steve Jobs.</b>
             Threadly aims to provide a platform for such Nepalese people to share ideas and discover talents in close quarters.
             Read, share, be influential and get influenced that's what Threadly is all about.
           </p>

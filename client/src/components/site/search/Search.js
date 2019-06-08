@@ -44,7 +44,6 @@ export default class Search extends React.Component {
   }
 
   onSearch = e => {
-    e.preventDefault();
     this.setState({query:e.target.value}, () => {
       if(this.timeout) clearTimeout(this.timeout);
       this.timeout = setTimeout(() => {
@@ -79,35 +78,53 @@ export default class Search extends React.Component {
       }
   }
 
-  _renderTabs(){
+  _renderTabs(url){
+    let storyLink;
+    let userLink;
+
     if(this.state.query === ''){
+      storyLink = '/search';
+      userLink = '/search/users';
+    }else{
+      storyLink = `/search?q=${this.state.query}`;
+      userLink = `/search/users?q=${this.state.query}`;
+    }
+
+
+    if(url === '/search'){
       return (
         <ul className="list-inline">
-          <li><Link to="/search">Stories</Link></li>
-          <li><Link to="/search/users">People</Link></li>
+          <li><Link to={storyLink} className="active">Stories</Link></li>
+          <li><Link to={userLink}>People</Link></li>
         </ul>
       );
-    }else{
+    }else if(url === '/search/users'){
       return (
         <ul className="list-inline">
-          <li><Link to={`/search?q=${this.state.query}`}>Stories</Link></li>
-          <li><Link to={`/search/users?q=${this.state.query}`}>People</Link></li>
+          <li><Link to={storyLink}>Stories</Link></li>
+          <li><Link to={userLink} className="active">People</Link></li>
         </ul>
       );
     }
+
+    return (
+      <ul className="list-inline">
+        <li><Link to={storyLink} className="active">Stories</Link></li>
+        <li><Link to={userLink}>People</Link></li>
+      </ul>
+    );
   }
 
   render(){
     const url = this.props.location.pathname;
     return (
       <section className="mjl-container p-search">
-        <form onSubmit={this.onSearch}>
-          <input value={this.state.query} autoComplete="off" placeholder="Search Threadly" onChange={this.onSearch} className="text-input"/>
-        </form>
+
+        <input value={this.state.query} autoComplete="off" placeholder="Search Threadly" onChange={this.onSearch} className="text-input"/>
 
         <div className="s-wrapper">
           <nav>
-            {this._renderTabs()}
+            {this._renderTabs(url)}
           </nav>
 
           <div className="s-content d--flex">
@@ -123,7 +140,7 @@ export default class Search extends React.Component {
               </span>
               <div>
                 <a href="https://www.ghyampostore.com" rel="noopener noreferrer" target="_blank">
-                  <img src="/static/images/ghyampo-sidebanner.png" alt="ghyampo store banner"/>
+                  <img src="/static/images/ghyampo-sb.png" alt="ghyampo store banner"/>
                 </a>
               </div>
             </div>

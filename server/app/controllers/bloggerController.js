@@ -36,7 +36,6 @@ exports.updateBloggerInfo = (req, res) => {
       /*
       * Issue: null value gets converted into string 'null' when sent from client
       */
-      console.log(req.body.bio);
       if(req.body.bio === 'null' || req.body.bio === '')
         bloggerData.bio = null;
       if(profileImageUrl === 'null')

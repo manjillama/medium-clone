@@ -3,7 +3,6 @@ const Blogger = require('../models/blogger');
 const config = require('../config/config');
 var randomstring = require("randomstring");
 
-const bcrypt = require('bcrypt');
 const jwt = require('jwt-simple');
 
 /*

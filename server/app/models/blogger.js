@@ -24,7 +24,7 @@ const Blogger = sequelize.define('bloggers', {
     type: Sequelize.STRING(160),
   }
 }, {
-  // creates table in database in snake_case
+  // creates foreignkey field in database in snake_case
   underscored: true,
   hooks: {
     afterCreate: bloggerEs.createBlogger,

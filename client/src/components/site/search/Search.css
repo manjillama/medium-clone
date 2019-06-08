@@ -14,6 +14,12 @@
 .p-search .s-wrapper nav li a{
   font-size: 13px;
   color: rgba(0,0,0,.54);
+  padding-bottom: 2px;
+}
+
+.p-search .s-wrapper nav li a.active{
+  border-bottom: 1px solid #000;
+  color: #000;
 }
 
 .p-search .s-content .s-adv {
@@ -107,6 +113,10 @@
 }
 
 @media (max-width: 728px){
+  .p-search .s-content .story-box{
+    margin: 25px -15px;
+  }
+
   .p-search .text-input{
     font-size: 26px;
     height: 52px;

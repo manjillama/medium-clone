@@ -43,6 +43,38 @@
   border: none;
 }
 
+
+.user--img{
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  background: rgb(1, 143, 105);
+  text-align: center;
+}
+
+.user--img span{
+  color: #fff;
+  font-weight: bold;
+  line-height: 33px;
+}
+
+#ThLogo img{
+  vertical-align: sub;
+}
+
+#ThLogo img.logo-x{
+  display: none;
+}
+
+#ThLogo h2{
+  display: inline-block;
+  font-weight: 300;
+  margin-left: 10px;
+  padding-left: 10px;
+  font-size: 18px;
+  border-left: 2px solid #dadada;
+}
+
 .tb-flex1 {
   -webkit-box-flex: 1;
   -webkit-flex: 1 1 auto;
@@ -68,8 +100,6 @@
   display: block;
   width: 14px;
   position: absolute;
-  top: -14px;
-  right: 1px;
   z-index: 1000;
   height: 14px;
   background: #fff;
@@ -82,33 +112,9 @@
   box-shadow: 0 1px 2px rgba(0,0,0,.25), 0 0 1px rgba(0,0,0,.35);
   width: 260px;
   position: absolute;
-  right: 8px;
-  top: 43px;
+
   z-index: 100;
-}
-
-.popover-userAction ul li a{
-  width: 100%;
-  display: block;
-  padding: 7px 0;
-}
-
-.popover-p-wrap{
-  position:relative;
-}
-
-.user--img{
-  height: 35px;
-  width: 35px;
-  border-radius: 50%;
-  background: rgb(1, 143, 105);
-  text-align: center;
-}
-
-.user--img span{
-  color: #fff;
-  font-weight: bold;
-  line-height: 33px;
+  border-top-right-radius: 0;
 }
 
 .popover-userAction ul{
@@ -118,42 +124,47 @@
 
 .popover-userAction ul li{
   padding: 10px 20px;
+  text-align: left;
 }
 
 .popover-userAction ul li a{
+  width: 100%;
+  display: block;
   padding: 0;
 }
 
-#ThLogo img{
-  vertical-align: sub;
+.popover-userAction.usr-drd{
+  right: 6px;
+  top: 46px;
 }
 
-#ThLogo img.logo-x{
-  display: none;
+.popover-userAction.usr-drd:before, .popover-userAction.usr-n:before{
+  top: -15px;
+  right: 3px;
 }
 
-#ThLogo h2{
-  display: inline-block;
-  font-weight: 300;
-  margin-left: 10px;
-  padding-left: 10px;
-  font-size: 18px;
-  border-left: 2px solid #dadada;
+.popover-userAction.usr-n{
+  right: 2px;
+  top: 36px;
 }
+
 
 @media screen and (max-width: 728px){
   .nav-top-bar>nav{
     height: 55px!important;
   }
-  .popover-userAction:before{
+  .popover-userAction.usr-drd:before{
     right: 24px;
+  }
+  .popover-userAction.usr-n:before{
+    right: 79px;
   }
   .popover-userAction{
     width: 100%;
-    top: 60px;
+    top: 56px !important;
     position: fixed;
     height: auto;
-    right: 0;
+    right: 0 !important;
   }
   #ThLogo img.logo-x{
     display: inline-block;

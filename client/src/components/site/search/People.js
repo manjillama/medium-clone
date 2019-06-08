@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default (props) => {
   return (
@@ -14,9 +15,9 @@ function renderPeople(people){
       <div key={person.id} className="people-c d--flex">
         {_renderProfileImage(person)}
         <div className="p-a">
-          <a href={`/@${person.username}`}>
+          <Link to={`/@${person.username}`}>
             <h3>{person.fullname}</h3>
-          </a>
+          </Link>
           <p>{person.bio}</p>
         </div>
       </div>
@@ -27,16 +28,16 @@ function renderPeople(people){
 function _renderProfileImage(person){
   if(person.profile_image){
     return (
-      <a href={`/@${person.username}`}>
+      <Link to={`/@${person.username}`}>
         <img className="usr--img" src={person.profile_image} alt={person.fullname}/>
-      </a>
+      </Link>
     );
   }else{
     const initial = person.fullname.charAt(0);
     return (
-      <a href={`/@${person.username}`}>
+      <Link to={`/@${person.username}`}>
         <div className="usr--img"><span>{initial}</span></div>
-      </a>
+      </Link>
     );
   }
 }

@@ -2,13 +2,14 @@
 /*
 * Uncomment for production mode
 */
-// process.env.MODE = 'PRODUCTION';
+process.env.MODE = 'PRODUCTION';
+
 const esConfig = require('./app/config/es-config');
 
 const express = require('express');
 const path = require('path');
 const sequelize = require('./app/config/dbConnection.js');
-const favicon = require('serve-favicon')
+const favicon = require('serve-favicon');
 const router = require('./app/router');
 const bodyParser = require('body-parser');
 const createDDL = require('./app/config/createDDL');
@@ -22,7 +23,7 @@ esConfig.client.ping({
   requestTimeout: 30000,
 }, function (error) {
   if (error) {
-    console.error('Dev elasticsearch cluster is down!');
+    console.error('Elasticsearch cluster is down!');
   } else {
     console.log('Elastic cluster up and running...');
   }

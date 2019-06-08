@@ -8,7 +8,7 @@ module.exports = {
   SECRET: 'ksykd784ndg3399jjnm-338djddkdmdsd91hds-4hdk',
   HOME_DIR: require('os').homedir(),
   imageResourceDir: function(){
-    return this.HOME_DIR+'/Documents/threadly/images/';
+    return this.HOME_DIR+'/Documents/carlos/images/';
   },
   imageResourceUrl: '/static/images/',
   resourceHost: 'http://localhost:5000',

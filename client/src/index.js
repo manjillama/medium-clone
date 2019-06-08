@@ -45,7 +45,8 @@ ReactDOM.render(
           <Route exact path="/about" component={About} />
           <Route exact path="/topics" component={AllTopics} />
           <Route exact path="/topic/:topic" component={Topic} />
-          <Route path="/search" component={Search} />
+          <Route exact path="/search" component={Search} />
+          <Route exact path="/search/users" component={Search} />
 
 
           <Route exact path="/@:username/:storyId" component={ReadStory} />
