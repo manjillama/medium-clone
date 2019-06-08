@@ -10,8 +10,16 @@
 
 .h-page .h-s{
   padding-left: 30px;
-  max-width: 300px;
+  width: 300px;
+  min-width: 300px;
 }
+
+.h-page .h-s .hs--ad.sticky{
+  position: fixed;
+  top: 15px;
+}
+
+
 .h-s .t-aside{
   margin-bottom: 40px;
 }
@@ -76,6 +84,25 @@
   font-size: 12px;
   margin-bottom: 15px;
   display: block;
+}
+.h-s .site-map{
+  margin-top: 12px;
+  border-top: 1px solid rgba(0,0,0,.05);
+  padding-top: 6px;
+}
+
+.h-s .site-map ul>li:first-child {
+  margin-left: 0;
+}
+
+.h-s .site-map ul>li{
+  display: inline-block;
+  margin-left: 16px;
+  font-size: 12px;
+}
+
+.h-s .site-map ul>li a:hover{
+  text-decoration: underline;
 }
 
 .t-featured .u-ct .p-i-wrap{

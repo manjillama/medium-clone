@@ -4,11 +4,17 @@
 
 .p-about>article h1, .p-about>h2{
   text-align: center;
-  font-size: 40px;
+  font-size: 32px;
 }
-
+.p-about img{
+  max-width: 160px;
+  border-radius: 50%;
+  border: 5px solid #59d199;
+  margin: 15px 0;
+}
 .p-about>article p, .p-about>.c-quote{
   font-size: 16px;
   text-align: center;
   margin-top: 20px;
+  color: rgba(0,0,0,.77);
 }

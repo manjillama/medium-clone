@@ -216,6 +216,14 @@ form button[type=submit][disabled] {
 /*
 * Lists
 */
+/*
+* List
+*/
+
+ul.neutralize{
+  list-style-type: none;
+  padding: 0;
+}
 .inline-continue{
   display: inline;
 }

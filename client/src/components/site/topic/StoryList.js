@@ -3,6 +3,7 @@ import { utcToLocalMin } from 'services/utils';
 import { Link } from 'react-router-dom';
 import './StoryList.css';
 import FeaturedStory from './FeaturedAd/FeaturedStory';
+import { StickyContainer, Sticky } from 'react-sticky';
 
 // import FollowTopic from './FollowTopic/FollowTopic';
 
@@ -80,7 +81,21 @@ export default (props) => {
               //   </div>
               // )
             }
-            <StoryAd/>
+            <StickyContainer>
+              <Sticky>
+                {
+                  ({
+                    distanceFromTop
+                  }) => {
+                    let style = {};
+                    if(distanceFromTop<0)
+                      style = {top:10+'px', position: 'fixed'}
+                    return <div style={style}><StoryAd/></div>
+                  }
+                }
+              </Sticky>
+            </StickyContainer>
+
           </div>
 
         </div>
@@ -102,6 +117,19 @@ function StoryAd(){
         <a href="https://www.ghyampostore.com" rel="noopener noreferrer" target="_blank">
           <img src="/static/images/ghyampo-sidebanner.png" alt="ghyampo store banner"/>
         </a>
+      </div>
+      <div className="site-map">
+        <ul className="neutralize text--muted">
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+          <li>
+            <Link to="/about">Privacy</Link>
+          </li>
+          <li>
+            <Link to="/terms">Terms</Link>
+          </li>
+        </ul>
       </div>
     </div>
   );
