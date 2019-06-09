@@ -2,7 +2,7 @@
 /*
 * Uncomment for production mode
 */
-process.env.MODE = 'PRODUCTION';
+// process.env.MODE = 'PRODUCTION';
 
 const esConfig = require('./app/config/es-config');
 

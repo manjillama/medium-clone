@@ -1,7 +1,7 @@
 #editorBox{
   position: absolute;
   background-color: #262625;
-  padding: 6px;
+  padding: 8px 10px;
   border-radius: 5px;
   top: -72px;
   left: -135px;
@@ -25,10 +25,10 @@
   content: '';
   display: block;
   position: absolute;
-  bottom: -16px;
+  bottom: -13px;
   left: 50%;
-  width: 14px;
-  height: 14px;
+  width: 11px;
+  height: 11px;
   background: #262625;
 }
 
