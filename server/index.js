@@ -19,6 +19,7 @@ const fileUpload = require('express-fileupload');
 
 const config = require('./app/config/config');
 
+// Elasticsearch version ^6.0.0
 esConfig.client.ping({
   requestTimeout: 30000,
 }, function (error) {

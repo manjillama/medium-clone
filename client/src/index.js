@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import App from './components/App';
-import Home from './components/site/topic/Home';
+import Home from './components/site/Home';
 import Topic from './components/site/topic/Topic';
 import AllTopics from './components/site/topic/AllTopics';
 import Search from './components/site/search/Search';

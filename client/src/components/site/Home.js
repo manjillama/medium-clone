@@ -1,7 +1,7 @@
 import React from 'react';
 import CategoryNav from 'components/site/includes/CategoryNav';
 import { connect } from 'react-redux';
-import StoryList from './StoryList';
+import StoryList from './topic/StoryList';
 import axios from 'axios';
 import config from 'config';
 /*

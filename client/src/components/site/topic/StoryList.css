@@ -86,9 +86,7 @@
   display: block;
 }
 .h-s .site-map{
-  margin-top: 12px;
-  border-top: 1px solid rgba(0,0,0,.05);
-  padding-top: 6px;
+  margin-top: 8px;
 }
 
 .h-s .site-map ul>li:first-child {

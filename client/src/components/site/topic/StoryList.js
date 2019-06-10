@@ -89,7 +89,7 @@ export default (props) => {
                   }) => {
                     let style = {};
                     if(distanceFromTop<0)
-                      style = {top:10+'px', position: 'fixed'}
+                      style = {top:8+'px', position: 'fixed'}
                     return <div style={style}><StoryAd/></div>
                   }
                 }

@@ -28,9 +28,6 @@ npm-debug.log
 *.dev
 .DS_Store
 
-# Heruko Server .git
-server/*.git
-
 # Production server configs
 prodEnvs.js
 es-config.js
