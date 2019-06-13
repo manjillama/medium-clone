@@ -1,5 +1,5 @@
 #editorBox{
-  position: fixed;
+  position: absolute;
   background-color: #262625;
   padding: 8px 10px;
   border-radius: 5px;
