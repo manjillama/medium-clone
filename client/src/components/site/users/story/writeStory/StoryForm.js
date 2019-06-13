@@ -19,6 +19,7 @@ export default class StoryForm extends React.Component{
 
   componentWillUnmount(){
     document.removeEventListener('click', this.handleFloatingBar, true);
+    document.removeEventListener('click', this.hideEditorBox, true);
   }
 
   renderPostPlaceHolder(){
@@ -26,11 +27,15 @@ export default class StoryForm extends React.Component{
       return <span style={{position:'absolute',top:-5+'px',left:0,fontSize: 22+'px',zIndex: -1}} className="text--muted">Tell us your story...</span>
   }
 
-  hideEditorBox = () => {
+  hideEditorBox = (e) => {
     const node = document.getElementById('editorBox');
     // If user clicks outside editorBox
-    if(node){
-      this.setState({showEditorBox:null});
+    if(node && !node.contains(e.srcElement)){
+      setTimeout(()=>{
+        this.setState({showEditorBox:null}, ()=>{
+          document.removeEventListener('click', this.hideEditorBox, true);
+        });
+      }, 100);
     }
   }
 
@@ -39,20 +44,22 @@ export default class StoryForm extends React.Component{
   }
 
   onTextSelection = (e) => {
-    const selectedText = window.getSelection().getRangeAt(0);
-    /*
-    * Maybe a more positioning accurate approach?
-    * console.log(selectedText.getRangeAt(0).getBoundingClientRect());
-    */
+    const selectedText = window.getSelection();
     if(selectedText && selectedText.toString() !== ''){
       this.setState({
         showEditorBox: {
           clientX: e.pageX,
           clientY: e.pageY
         }
-      });
-    }else{
-      this.hideEditorBox();
+      }, () => {
+        /*
+        * Adding timeout of 100 so that the event listner
+        * Gets added after we trigger the text selection
+        */
+        setTimeout(()=>{
+          document.addEventListener('click', this.hideEditorBox, true);
+        }, 100);
+      })
     }
   }
 
@@ -90,7 +97,6 @@ export default class StoryForm extends React.Component{
             innerRef={this.contentEditable}
             html={this.props.blog.draft}
             disabled={false}
-            onBlur = {this.hideEditorBox}
             onMouseUp = {this.onTextSelection}
             onChange={this.props.handlePostChange}
             />

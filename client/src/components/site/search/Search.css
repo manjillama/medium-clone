@@ -24,7 +24,8 @@
 
 .p-search .s-content .s-adv {
   padding-left: 30px;
-  max-width: 300px;
+  width: 300px;
+  min-width: 300px;
 }
 
 /*
