@@ -52,12 +52,7 @@ app.use(config.imageResourceUrl, express.static(config.imageResourceDir()));
 
 app.use(fileUpload());
 
-const origins = [
-  "http://threadly.vortexnepal.com",
-  "https://threadly.vortexnepal.com",
-  "http://www.threadly.vortexnepal.com",
-  "https://www.threadly.vortexnepal.com"
-];
+const origins = ["http://localhost:3000"];
 app.use(cors({ origin: origins, credentials: true }));
 
 app.use(favicon(path.join(__dirname, "favicon.ico")));

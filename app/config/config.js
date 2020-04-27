@@ -7,10 +7,10 @@ var randomstring = require("randomstring");
 module.exports = {
   HOME_DIR: require("os").homedir(),
   imageResourceDir: function() {
-    return this.HOME_DIR + "/Documents/threadly/images/";
+    return this.HOME_DIR + process.env.IMAGE_RESOURCE_FOLDER;
   },
   imageResourceUrl: "/static/images/",
-  resourceHost: "http://localhost:5000",
+  resourceHost: process.env.RESOURCE_HOST,
   getUtcTimestamp: function() {
     const now = new Date();
     return now.getTime() + now.getTimezoneOffset() * 60000;
