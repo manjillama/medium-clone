@@ -1,0 +1,8 @@
+language: generic
+
+deploy:
+  app: threadly-manjiltamang
+  on: # Only deploy when changed are pushed to master branch
+    branch: master
+  api_key:
+    secure: $HEROKU_TOKEN

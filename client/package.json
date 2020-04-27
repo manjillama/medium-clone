@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "font-awesome": "^4.7.0",
     "moment": "^2.23.0",
     "prop-types": "^15.7.2",
@@ -16,15 +16,16 @@
     "react-image-crop": "^6.0.9",
     "react-redux": "^5.1.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1",
+    "react-scripts": "^3.4.1",
     "react-sticky": "^6.0.3",
     "redux": "^4.0.1",
     "redux-form": "^7.4.2",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
+    "dev": "REACT_APP_ENV=dev react-scripts start",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && mv build ../public",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -27,7 +27,3 @@ npm-debug.log
 *.env
 *.dev
 .DS_Store
-
-# Production server configs
-prodEnvs.js
-es-config.js
