@@ -1,8 +1,9 @@
-language: generic
-
+language: node_js
+node_js:
+  - 12
 deploy:
   app: threadly-manjiltamang
-  on: # Only deploy when changed are pushed to master branch
+  on:
     branch: master
   api_key:
-    secure: $HEROKU_TOKEN
+    secure: $HEROKU_API_KEY

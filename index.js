@@ -54,7 +54,9 @@ app.use(fileUpload());
 
 const origins = [
   "http://threadly.vortexnepal.com",
-  "https://threadly.vortexnepal.com"
+  "https://threadly.vortexnepal.com",
+  "http://www.threadly.vortexnepal.com",
+  "https://www.threadly.vortexnepal.com"
 ];
 app.use(cors({ origin: origins, credentials: true }));
 
