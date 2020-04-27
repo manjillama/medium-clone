@@ -3,9 +3,7 @@
   <br/>
   
   > A simple online story sharing medium like platform built using React and Node.js
-  
-  # Threadly
-  
+    
 </div>
 
 
