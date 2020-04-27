@@ -46,7 +46,7 @@
 
 ## Set environment variables
 
-You can set a .env file in your root project folder and add theses configurations. Be sure to modify the values beforehand.
+You can create a .env file in your root project folder and add theses configurations. Be sure to modify the values beforehand.
 
 ```python
 # If elastic search server is set up
