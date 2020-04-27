@@ -15,7 +15,12 @@ const fileUpload = require("express-fileupload");
 
 const config = require("./app/config/config");
 
-// Elasticsearch version ^6.0.0
+/**
+ * @Desc Elasticsearch version ^6.0.0
+ * Elastic search is disabled due to production server cost issue.
+  But you can still see all the written codes
+ */
+
 // esConfig.client.ping(
 //   {
 //     requestTimeout: 30000
