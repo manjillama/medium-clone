@@ -57,7 +57,7 @@ app.use(config.imageResourceUrl, express.static(config.imageResourceDir()));
 
 app.use(fileUpload());
 
-const origins = ["http://localhost:3000"];
+const origins = [];
 app.use(cors({ origin: origins, credentials: true }));
 
 app.use(favicon(path.join(__dirname, "favicon.ico")));

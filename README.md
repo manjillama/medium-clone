@@ -71,6 +71,18 @@ RESOURCE_HOST = "http://localhost:5000"
 
 ```
 
+## Cors support for client-side development
+
+```javascript
+/*
+Add cors support for local development
+In index.js file, replace
+*/
+const origins = [];
+// with
+const origins = ["http://localhost:3000"];
+```
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
