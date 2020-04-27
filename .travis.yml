@@ -7,7 +7,7 @@ script:
 
 deploy:
   provider: heroku
-  app: $HEROKU_APP_NAME
+  app: threadly-manjiltamang
   on:
     branch: master
   api_key:
