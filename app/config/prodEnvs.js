@@ -6,9 +6,9 @@ const AWS = require("aws-sdk");
 
 //configuring the AWS environment
 AWS.config.update({
-  secretAccessKey: process.env.awsSecretKey,
-  accessKeyId: process.env.awsAccessKey,
-  region: process.env.awsRegion
+  secretAccessKey: process.env.AWS_SECRET_KEY,
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  region: process.env.AWS_REGION
 });
 
 s3 = new AWS.S3();
@@ -23,7 +23,7 @@ exports.AWS = AWS;
  */
 exports.fileUpload = (imageBuffer, imageName) => {
   return new Promise((resolve, reject) => {
-    var uploadParams = { Bucket: process.env.awsBucket, Key: "", Body: "" };
+    var uploadParams = { Bucket: process.env.AWS_BUCKET, Key: "", Body: "" };
 
     uploadParams.Body = imageBuffer;
     uploadParams.Key = imageName;
@@ -47,7 +47,7 @@ exports.fileUpload = (imageBuffer, imageName) => {
 */
 exports.fileDelete = _objects => {
   var params = {
-    Bucket: process.env.awsBucket,
+    Bucket: process.env.AWS_BUCKET,
     Delete: {
       Objects: _objects,
       Quiet: false

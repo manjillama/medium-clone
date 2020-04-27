@@ -16,10 +16,10 @@ if (process.env.MODE === "dev") {
    * For production
    */
   let options = {
-    hosts: [process.env.elasticSearchHost], // array of amazon es hosts (required)
+    hosts: [process.env.ELASTIC_SEARCH_HOST], // array of amazon es hosts (required)
     connectionClass: require("http-aws-es"), // use this connector (required)
     awsConfig: AWS.config.update({
-      region: process.env.awsRegion
+      region: process.env.AWS_REGION
     })
   };
   client = new elasticsearch.Client(options);
