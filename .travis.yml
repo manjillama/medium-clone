@@ -4,7 +4,7 @@ node_js:
 script:
   - echo "skipping tests"
 deploy:
-  script: npm run react:build
+  before_deploy: "npm run react:build"
   provider: heroku
   app: threadly-manjiltamang
   on:
