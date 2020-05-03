@@ -11,6 +11,7 @@
 - NodeJS >= 8.x 
 - YARN or NPM
 - PostgreSQL >= 10
+- Elasticsearch = 6.x (Optional)
 
 ## Setup
 
