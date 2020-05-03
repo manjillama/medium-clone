@@ -173,7 +173,7 @@ export default class Search extends React.Component {
                         </span>
                         <div>
                           <a
-                            href="https://www.visitnepal.travel"
+                            href="https://himalayanhike.com/"
                             rel="noopener noreferrer"
                             target="_blank"
                           >

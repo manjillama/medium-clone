@@ -2,9 +2,19 @@
   <img width="128px" src="https://github.com/manjillama/threadly/blob/master/public/static/images/threadly-logo.png"/>
   <br/>
 
-> A simple online story sharing medium like platform built using React and Node.js
+> A simple online story sharing medium.com like platform built using React and Node.js
+
+[![Build Status](https://img.shields.io/travis/manjillama/story-sharing-app/master)](https://travis-ci.org/github/manjillama/story-sharing-app)
+[![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
 </div>
+
+## Requirements
+
+- NodeJS >= 8.x 
+- YARN or NPM
+- PostgreSQL >= 10
+- Elasticsearch = 6.x (Optional)
 
 ## Setup
 

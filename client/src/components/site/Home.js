@@ -1,40 +1,40 @@
-import React from 'react';
-import CategoryNav from 'components/site/includes/CategoryNav';
-import { connect } from 'react-redux';
-import StoryList from './topic/StoryList';
-import axios from 'axios';
-import config from 'config';
+import React from "react";
+import CategoryNav from "components/site/includes/CategoryNav";
+import { connect } from "react-redux";
+import StoryList from "./topic/StoryList";
+import axios from "axios";
+import config from "config";
 /*
-* Testing phase on going...
-*/
-class Home extends React.Component{
-  constructor(){
+ * Testing phase on going...
+ */
+class Home extends React.Component {
+  constructor() {
     super();
     this.state = {
-      stories: null
-    }
+      stories: null,
+    };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     /*
-    * Test
-    */
-    axios.get(`${config.SERVER_URL}test-stories`).then(res => {
-      this.setState({stories: res.data});
+     * Test
+     */
+    axios.get(`${config.SERVER_URL}test-stories`).then((res) => {
+      this.setState({ stories: res.data });
     });
   }
 
-  render(){
+  render() {
     return (
       <div>
-        <CategoryNav/>
+        <CategoryNav />
         <StoryList stories={this.state.stories} />
       </div>
     );
   }
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return { state };
 }
 

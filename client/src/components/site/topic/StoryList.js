@@ -118,7 +118,7 @@ function StoryAd() {
       </span>
       <div>
         <a
-          href="https://visitnepal.travel"
+          href="https://himalayanhike.com"
           rel="noopener noreferrer"
           target="_blank"
         >

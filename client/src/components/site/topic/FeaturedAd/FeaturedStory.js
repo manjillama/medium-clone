@@ -45,10 +45,11 @@ export default class FeaturedStory extends React.Component {
         <div className="t-featured">
           <article>
             <h4>FEATURED</h4>
-            {/*
-              <a className="f-img" style={backgroundImgStyle} href={`/@${story.blogger.username}/${story.id}`}>
-              </a>
-              */}
+            <a
+              className="f-img"
+              style={backgroundImgStyle}
+              href={`/@${story.blogger.username}/${story.id}`}
+            ></a>
             <h1>
               <a href={`/@${story.blogger.username}/${story.id}`}>
                 {story.title}
