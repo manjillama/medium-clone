@@ -6,6 +6,12 @@
 
 </div>
 
+## Requirements
+
+- NodeJS >= 8.x 
+- YARN or NPM
+- PostgreSQL >= 10
+
 ## Setup
 
 - Clone the repository.
