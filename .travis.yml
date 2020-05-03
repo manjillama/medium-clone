@@ -4,6 +4,7 @@ node_js:
 script:
   - echo "skipping tests"
 deploy:
+  skip_cleanup: true
   provider: heroku
   app: threadly-manjiltamang
   on:
