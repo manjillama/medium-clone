@@ -1,12 +1,12 @@
 {
-  "name": "blog-app-server",
+  "name": "story-sharing-app",
   "version": "1.0.0",
-  "description": "A simple blog app server",
+  "description": "A simple story sharing app",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "build:react": "npm run build --prefix client",
-    "server": "nodemon index.js",
+    "server": "MODE=dev nodemon index.js",
     "client": "npm run dev --prefix client",
     "dev": "concurrently \"npm run client\" \"npm run server\""
   },

@@ -14,7 +14,6 @@ var cors = require("cors");
 const fileUpload = require("express-fileupload");
 
 const config = require("./app/config/config");
-
 /**
  * @Desc Elasticsearch version ^6.0.0
  * Elastic search is disabled due to production server cost issue.
@@ -57,7 +56,12 @@ app.use(config.imageResourceUrl, express.static(config.imageResourceDir()));
 
 app.use(fileUpload());
 
-const origins = [];
+/*
+ * CORS
+ * SET client server in cors if running in development mode
+ * In production both client and server runs on save server hence no cors required
+ */
+const origins = process.env.MODE === "dev" ? ["http://localhost:3000"] : [];
 app.use(cors({ origin: origins, credentials: true }));
 
 app.use(favicon(path.join(__dirname, "favicon.ico")));

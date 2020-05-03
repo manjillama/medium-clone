@@ -6,7 +6,7 @@
 
 </div>
 
-## Installation
+## Setup
 
 - Clone the repository.
 
@@ -46,9 +46,9 @@
 
 ## Set environment variables
 
-You can create a .env file in your root project folder and add theses configurations. Be sure to modify the values beforehand.
+You can create a .env file in your root project folder and add theses configurations. Be sure to modify the values beforehand. **_Never commit .env file to github._**.
 
-```python
+```bash
 # If elastic search server is set up
 ## By default I've disabled all elastic search functions
 ELASTIC_SEARCH_HOST = "localhost:9200" # Optional
@@ -56,32 +56,19 @@ ELASTIC_SEARCH_HOST = "localhost:9200" # Optional
 # Postgres database connection string
 DATABASE_URL = "postgres://localhost:5432/sample_db"
 
-# Run the project in development mode, no environment variable needed for production
-MODE = "dev"
-
-# Used for encoding jwt token
-SECRET = "ksykd784ndg3399jjnm-338djddkdmdsd91hds-4hdk"
+# Used for encoding/decoding jwt token
+SECRET = ksykd784ndg3399jjnm-338djddkdmdsd91hds-4hdk
 
 # Path to the folder from your local OS root directory for saving images in your local machine
 # Make sure to create the folders first
 IMAGE_RESOURCE_FOLDER = "/Documents/threadly/images/"
 
-# Resource host
+# Resource host | (your local server address)
 RESOURCE_HOST = "http://localhost:5000"
 
 ```
 
-## Cors support for client-side development
-
-```javascript
-/*
-Add cors support for local development
-In index.js file, replace
-*/
-const origins = [];
-// with
-const origins = ["http://localhost:3000"];
-```
+Live demo [here](https://bit.ly/2zAtaBo)
 
 ## Contributing
 
