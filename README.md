@@ -2,7 +2,7 @@
   <img width="128px" src="https://github.com/manjillama/threadly/blob/master/public/static/images/threadly-logo.png"/>
   <br/>
 
-> A simple online story sharing medium like platform built using React and Node.js
+> A simple online story sharing medium.com like platform built using React and Node.js
 
 </div>
 
